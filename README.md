@@ -10,7 +10,7 @@ Aqui, todos tem voz e participam das decisões. Mas não é só isso que nos faz
 
 Faça parte dessa história. Aqui, seu trabalho é reconhecido e faz a diferença para a vida de milhares de Associados.
 
-### Conheça os nossos pilares
+## Conheça os nossos pilares
 
 #### DESIGN
 
@@ -24,7 +24,7 @@ Construímos experiências surpreendentes e relevantes para a vida das pessoas. 
 
 Criamos rápido. Lançamos rápido. Aprendemos e resolvemos rápido. Melhoramos sempre.
 
-### Atitudes que valorizamos!
+## Atitudes que valorizamos!
 
 #### SIMPLICIDADE
 
@@ -53,5 +53,5 @@ Fazemos juntos para fazer a diferença.
 Não sabemos tudo.
 Mas tudo o que sabemos é compartilhado.
 
-### Vagas
+## Vagas
 https://jobs.kenoby.com/sicredi
