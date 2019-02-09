@@ -15,7 +15,6 @@ import br.com.sicred.voting.repository.VoteRepository;
 import br.com.sicred.voting.service.VotingSectionService;
 import br.com.sicred.voting.service.VotingSectionServiceImpl;
 import com.github.javafaker.Faker;
-import com.google.common.collect.ImmutableList;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -148,7 +147,7 @@ public class VotingSectionServiceTest {
                 .participantId(participantId)
                 .build();
         when(votingSectionRepository.findById(anyLong())).thenReturn(Optional.of(section));
-        when(voteRepository.findBySecaoAndParticipante(any(), any())).thenReturn(Optional.of(vote));
+        when(voteRepository.findByVotingSectionAndParticipantIds(any(), any())).thenReturn(Optional.of(vote));
         //Act
         this.votingSectionService.voteForSection(section.getId(), random.nextLong(), random.nextBoolean());
         //Assert is not needed here cause we expect an exception to be thrown
@@ -167,7 +166,7 @@ public class VotingSectionServiceTest {
                 .id(random.nextLong())
                 .build();
         when(votingSectionRepository.findById(anyLong())).thenReturn(Optional.of(section));
-        when(voteRepository.findBySecaoAndParticipante(any(), any())).thenReturn(Optional.empty());
+        when(voteRepository.findByVotingSectionAndParticipantIds(any(), any())).thenReturn(Optional.empty());
         //Act
         this.votingSectionService.voteForSection(section.getId(), random.nextLong(), random.nextBoolean());
         //Assert
@@ -214,7 +213,7 @@ public class VotingSectionServiceTest {
                 .id(random.nextLong())
                 .build();
         when(votingSectionRepository.findById(anyLong())).thenReturn(Optional.of(section));
-        when(voteRepository.findBySecao(anyLong())).thenReturn(new ArrayList<>());
+        when(voteRepository.findByVotingSectionId(anyLong())).thenReturn(new ArrayList<>());
         //Act
         VotingSectionResultDto resultDto = this.votingSectionService.getVotingSectionResult(section.getId());
         //Assert
@@ -243,7 +242,7 @@ public class VotingSectionServiceTest {
                         .votingSection(section)
                         .build()).collect(Collectors.toList());
         when(votingSectionRepository.findById(anyLong())).thenReturn(Optional.of(section));
-        when(voteRepository.findBySecao(anyLong())).thenReturn(votes);
+        when(voteRepository.findByVotingSectionId(anyLong())).thenReturn(votes);
         //Act
         VotingSectionResultDto resultDto = this.votingSectionService.getVotingSectionResult(section.getId());
         //Assert

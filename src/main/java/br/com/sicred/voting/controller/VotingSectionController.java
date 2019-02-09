@@ -23,9 +23,9 @@ public class VotingSectionController {
     }
 
     @PutMapping("/{sessionId}/{participantId}/{voto}")
-    public void voteForSecao(@PathVariable("sessionId") Long sessionId,
-                             @PathVariable("participantId") Long participantId,
-                             @PathVariable("voto") Boolean vote) {
+    public void voteForSection(@PathVariable("sessionId") Long sessionId,
+                               @PathVariable("participantId") Long participantId,
+                               @PathVariable("voto") Boolean vote) {
         votingSectionService.voteForSection(sessionId, participantId, vote);
 
     }

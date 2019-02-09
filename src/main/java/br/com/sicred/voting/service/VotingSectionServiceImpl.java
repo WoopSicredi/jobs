@@ -50,7 +50,7 @@ public class VotingSectionServiceImpl implements VotingSectionService {
         if(secao.get().getClosingDate() != null && secao.get().getClosingDate().isBefore(LocalDateTime.now())) {
             throw new ClosedSectionVotingException();
         }
-        Optional<Vote> votoExistente = this.voteRepository.findBySecaoAndParticipante(votingSectionId, participantId);
+        Optional<Vote> votoExistente = this.voteRepository.findByVotingSectionAndParticipantIds(votingSectionId, participantId);
         votoExistente.ifPresent(s -> {throw new ParticipantAlreadyVotedException();});
         this.voteRepository.save(
                 Vote.builder()
@@ -68,7 +68,7 @@ public class VotingSectionServiceImpl implements VotingSectionService {
         if(secao.get().getClosingDate().isAfter(LocalDateTime.now())) {
             throw new VotingSectionStillOpenException();
         }
-        List<Vote> votes = this.voteRepository.findBySecao(sectionId);
+        List<Vote> votes = this.voteRepository.findByVotingSectionId(sectionId);
         if(votes.isEmpty()) {
             return VotingSectionResultDto
                     .builder()
