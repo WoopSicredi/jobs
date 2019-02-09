@@ -1,4 +1,4 @@
-package br.com.sicred.votacao_pauta;
+package br.com.sicred.voting;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,10 +8,10 @@ import org.springframework.boot.autoconfigure.data.rest.RepositoryRestMvcAutoCon
  * @author valverde.thiago
  */
 @SpringBootApplication(exclude = RepositoryRestMvcAutoConfiguration.class)
-public class VotacaoApplication {
+public class VotingApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(VotacaoApplication.class, args);
+        SpringApplication.run(VotingApplication.class, args);
     }
 
 }

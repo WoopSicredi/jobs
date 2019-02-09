@@ -1,4 +1,4 @@
-package br.com.sicred.votacao_pauta.dto;
+package br.com.sicred.voting.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SecaoVotacaoDto {
-    private Long idPauta;
-    private LocalDateTime dataAbertura;
-    private LocalDateTime dataEncerramento;
+public class VotingSectionDto {
+    private Long topicId;
+    private LocalDateTime openingDate;
+    private LocalDateTime closingDate;
 }

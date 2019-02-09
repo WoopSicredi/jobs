@@ -1,4 +1,4 @@
-package br.com.sicred.votacao_pauta.dto;
+package br.com.sicred.voting.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PautaDto {
-    private String descricao;
+public class TopicDto {
+    private String description;
 }

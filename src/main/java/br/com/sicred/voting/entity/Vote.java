@@ -1,4 +1,4 @@
-package br.com.sicred.votacao_pauta.entity;
+package br.com.sicred.voting.entity;
 
 import lombok.*;
 
@@ -12,18 +12,18 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of={"id"})
-public class Voto {
+public class Vote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name="valor")
-    private Boolean valor;
+    private Boolean value;
     @Column(name="data")
-    private LocalDateTime data;
+    private LocalDateTime date;
     @Column(name="id_participante")
-    private Long idParticipante;
+    private Long participantId;
     @ManyToOne
     @JoinColumn(columnDefinition = "pauta_id", referencedColumnName = "id")
-    private SecaoVotacao secaoVotacao;
+    private VotingSection votingSection;
 
 }
