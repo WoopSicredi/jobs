@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface VotingSectionRepository extends JpaRepository<VotingSession, Long> {
+public interface VotingSessionRepository extends JpaRepository<VotingSession, Long> {
 }

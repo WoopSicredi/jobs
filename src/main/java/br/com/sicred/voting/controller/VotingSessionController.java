@@ -1,9 +1,9 @@
 package br.com.sicred.voting.controller;
 
-import br.com.sicred.voting.dto.VotingSectionDto;
-import br.com.sicred.voting.dto.VotingSectionResultDto;
+import br.com.sicred.voting.dto.VotingSessionDto;
+import br.com.sicred.voting.dto.VotingSessionResultDto;
 import br.com.sicred.voting.entity.VotingSession;
-import br.com.sicred.voting.service.VotingSectionService;
+import br.com.sicred.voting.service.VotingSessionService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,32 +14,32 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @RequestMapping("/sessao")
-@Api(description = "REST API para manipulação de seções de votação das pautas ",
+@Api(description = "REST API para manipulação de sessões de votação das pautas ",
         basePath = "/sessao",
         consumes = "application/json",
         produces = "application/json")
-public class VotingSectionController {
+public class VotingSessionController {
 
-    private final VotingSectionService votingSectionService;
+    private final VotingSessionService votingSessionService;
 
     @PostMapping
-    public ResponseEntity<VotingSession> createVotingSection(@RequestBody VotingSectionDto dto) {
+    public ResponseEntity<VotingSession> createVotingSession(@RequestBody VotingSessionDto dto) {
         return ResponseEntity.ok(
-                votingSectionService.createVotingSection(dto)
+                votingSessionService.createVotingSession(dto)
         );
     }
 
     @PutMapping("/{sessionId}/{participantId}/{vote}")
     @ResponseStatus(HttpStatus.OK)
-    public void voteForSection(@PathVariable("sessionId") Long sessionId,
+    public void voteForSession(@PathVariable("sessionId") Long sessionId,
                                @PathVariable("participantId") Long participantId,
                                @PathVariable("vote") Boolean vote) {
-        votingSectionService.voteForSection(sessionId, participantId, vote);
+        votingSessionService.voteForSession(sessionId, participantId, vote);
     }
 
     @GetMapping("/{sessionId}/results")
-    public ResponseEntity<VotingSectionResultDto> sectionResults(
+    public ResponseEntity<VotingSessionResultDto> getSessionResults(
             @PathVariable("sessionId") Long sessionId) {
-        return ResponseEntity.ok(votingSectionService.getVotingSectionResult(sessionId));
+        return ResponseEntity.ok(votingSessionService.getVotingSessionResult(sessionId));
     }
 }

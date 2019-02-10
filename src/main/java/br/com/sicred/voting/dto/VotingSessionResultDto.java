@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class VotingSectionResultDto {
+public class VotingSessionResultDto {
 
-    private VotingSession votingSection;
+    private VotingSession votingSession;
     private Double yesPercentage;
     private Double noPercentage;
 }

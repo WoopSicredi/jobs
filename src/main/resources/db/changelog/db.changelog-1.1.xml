@@ -7,4 +7,10 @@
             </column>
         </addColumn>
     </changeSet>
+    <changeSet id="typo-sessao" author="valverde.thiago">
+        <renameColumn newColumnName="id_sessao_votacao"
+                      oldColumnName="id_secao_votacao"
+                      columnDataType="BIGINT"
+                      tableName="voto"/>
+    </changeSet>
 </databaseChangeLog>

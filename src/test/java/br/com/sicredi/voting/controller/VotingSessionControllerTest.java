@@ -1,15 +1,15 @@
 package br.com.sicredi.voting.controller;
 
 import br.com.sicred.voting.GlobalExceptionHandler;
-import br.com.sicred.voting.controller.VotingSectionController;
-import br.com.sicred.voting.dto.VotingSectionDto;
-import br.com.sicred.voting.dto.VotingSectionResultDto;
+import br.com.sicred.voting.controller.VotingSessionController;
+import br.com.sicred.voting.dto.VotingSessionDto;
+import br.com.sicred.voting.dto.VotingSessionResultDto;
 import br.com.sicred.voting.entity.Topic;
 import br.com.sicred.voting.entity.VotingSession;
-import br.com.sicred.voting.exception.ClosedSectionVotingException;
+import br.com.sicred.voting.exception.ClosedSessionVotingException;
 import br.com.sicred.voting.exception.ParticipantAlreadyVotedException;
-import br.com.sicred.voting.exception.VotingSectionStillOpenException;
-import br.com.sicred.voting.service.VotingSectionService;
+import br.com.sicred.voting.exception.VotingSessionStillOpenException;
+import br.com.sicred.voting.service.VotingSessionService;
 import br.com.sicredi.voting.TestUtil;
 import com.github.javafaker.Faker;
 import org.junit.Before;
@@ -35,12 +35,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-public class VotingSectionControllerTest {
+public class VotingSessionControllerTest {
     @InjectMocks
-    private VotingSectionController votingSectionController;
+    private VotingSessionController votingSessionController;
     private MockMvc mockMvc;
     @Mock
-    private VotingSectionService votingSectionService;
+    private VotingSessionService votingSessionService;
     private Faker faker;
     private Random random;
 
@@ -48,7 +48,7 @@ public class VotingSectionControllerTest {
     public void setup() {
         this.faker = new Faker();
         this.random = new Random();
-        this.mockMvc = MockMvcBuilders.standaloneSetup(votingSectionController)
+        this.mockMvc = MockMvcBuilders.standaloneSetup(votingSessionController)
                 .setControllerAdvice(new GlobalExceptionHandler())
                 .build();
     }
@@ -56,11 +56,11 @@ public class VotingSectionControllerTest {
     @Test
     public void givenInvalidInputShouldReturnErrorCode() throws Exception {
         //Arrange
-        when(votingSectionService.createVotingSection(any())).thenThrow(new IllegalArgumentException());
+        when(votingSessionService.createVotingSession(any())).thenThrow(new IllegalArgumentException());
         //Act
         mockMvc.perform(post(String.format("/sessao/%d", random.nextLong()))
                 .content(TestUtil.convertObjectToJsonBytes(
-                        VotingSectionDto
+                        VotingSessionDto
                                 .builder()
                                 .openingDate(LocalDateTime.now())
                                 .build()))
@@ -70,7 +70,7 @@ public class VotingSectionControllerTest {
     }
 
     @Test
-    public void givenValidInputShouldReturnEntityWhenCreatingSection() throws Exception {
+    public void givenValidInputShouldReturnEntityWhenCreatingSession() throws Exception {
         //Arrange
         LocalDateTime openingDate = LocalDateTime.now().minusMinutes(10);
         LocalDateTime closingDate = openingDate.plusMinutes(2);
@@ -78,18 +78,18 @@ public class VotingSectionControllerTest {
                 .id(random.nextLong())
                 .description(faker.ancient().titan())
                 .build();
-        VotingSession expectedVotingSection = VotingSession
+        VotingSession expectedVotingSession = VotingSession
                 .builder()
                 .openingDate(openingDate)
                 .closingDate(closingDate)
                 .id(random.nextLong())
                 .topic(expectedTopic)
                 .build();
-        when(votingSectionService.createVotingSection(any())).thenReturn(expectedVotingSection);
+        when(votingSessionService.createVotingSession(any())).thenReturn(expectedVotingSession);
         //Act
         mockMvc.perform(post(String.format("/sessao", random.nextLong()))
                 .content(TestUtil.convertObjectToJsonBytes(
-                        VotingSectionDto
+                        VotingSessionDto
                                 .builder()
                                 .openingDate(LocalDateTime.now())
                                 .build()))
@@ -97,14 +97,14 @@ public class VotingSectionControllerTest {
                 //Assert
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", is(not(empty()))))
-                .andExpect(jsonPath("$.id", is(expectedVotingSection.getId())));
+                .andExpect(jsonPath("$.id", is(expectedVotingSession.getId())));
     }
 
     @Test
-    public void givenInvalidVotingSectionIdShouldReturnError() throws Exception {
+    public void givenInvalidVotingSessionIdShouldReturnError() throws Exception {
         //Arrange
-        doThrow(new IllegalArgumentException()).when(votingSectionService)
-                .voteForSection(anyLong(), anyLong(), anyBoolean());
+        doThrow(new IllegalArgumentException()).when(votingSessionService)
+                .voteForSession(anyLong(), anyLong(), anyBoolean());
         //Act
         String url = String.format("/sessao/%d/%d/%s", random.nextLong(), random.nextLong(), random.nextBoolean());
         mockMvc.perform(put(url))
@@ -113,10 +113,10 @@ public class VotingSectionControllerTest {
     }
 
     @Test
-    public void givenVotingSectionStillOpenShouldReturnError() throws Exception {
+    public void givenVotingSessionStillOpenShouldReturnError() throws Exception {
         //Arrange
-        doThrow(new ClosedSectionVotingException()).when(votingSectionService)
-                .voteForSection(anyLong(), anyLong(), anyBoolean());
+        doThrow(new ClosedSessionVotingException()).when(votingSessionService)
+                .voteForSession(anyLong(), anyLong(), anyBoolean());
         //Act
         String url = String.format("/sessao/%d/%d/%s", random.nextLong(), random.nextLong(), random.nextBoolean());
         mockMvc.perform(put(url))
@@ -127,8 +127,8 @@ public class VotingSectionControllerTest {
     @Test
     public void givenParticipantAlreadyVotedShouldReturnError() throws Exception {
         //Arrange
-        doThrow(new ParticipantAlreadyVotedException()).when(votingSectionService)
-                .voteForSection(anyLong(), anyLong(), anyBoolean());
+        doThrow(new ParticipantAlreadyVotedException()).when(votingSessionService)
+                .voteForSession(anyLong(), anyLong(), anyBoolean());
         //Act
         String url = String.format("/sessao/%d/%d/%s", random.nextLong(), random.nextLong(), random.nextBoolean());
         mockMvc.perform(put(url))
@@ -139,8 +139,8 @@ public class VotingSectionControllerTest {
     @Test
     public void givenValidDataVotedShouldReturnOk() throws Exception {
         //Arrange
-        doNothing().when(votingSectionService)
-                .voteForSection(anyLong(), anyLong(), anyBoolean());
+        doNothing().when(votingSessionService)
+                .voteForSession(anyLong(), anyLong(), anyBoolean());
         //Act
         String url = String.format("/sessao/%d/%d/%s", random.nextLong(), random.nextLong(), random.nextBoolean());
         mockMvc.perform(put(url))
@@ -149,10 +149,10 @@ public class VotingSectionControllerTest {
     }
 
     @Test
-    public void givenInvalidSectionIdShouldReturnError() throws Exception {
+    public void givenInvalidSessionIdShouldReturnError() throws Exception {
         //Arrange
-        doThrow(new IllegalArgumentException()).when(votingSectionService)
-                .voteForSection(anyLong(), anyLong(), anyBoolean());
+        doThrow(new IllegalArgumentException()).when(votingSessionService)
+                .voteForSession(anyLong(), anyLong(), anyBoolean());
         //Act
         String url = String.format("/sessao/%d/results", random.nextLong());
         mockMvc.perform(put(url))
@@ -161,10 +161,10 @@ public class VotingSectionControllerTest {
     }
 
     @Test
-    public void givenVotingSectionStillOpenShouldReturnErrorOnGettingResults() throws Exception {
+    public void givenVotingSessionStillOpenShouldReturnErrorOnGettingResults() throws Exception {
         //Arrange
-        doThrow(new VotingSectionStillOpenException()).when(votingSectionService)
-                .voteForSection(anyLong(), anyLong(), anyBoolean());
+        doThrow(new VotingSessionStillOpenException()).when(votingSessionService)
+                .voteForSession(anyLong(), anyLong(), anyBoolean());
         //Act
         String url = String.format("/sessao/%d/results", random.nextLong());
         mockMvc.perform(put(url))
@@ -175,13 +175,13 @@ public class VotingSectionControllerTest {
     @Test
     public void givenEmptyVotesShouldReturnOkWhenGettingResults() throws Exception {
         //Arrange
-        doReturn(VotingSectionResultDto
+        doReturn(VotingSessionResultDto
                 .builder()
                 .noPercentage(0d)
                 .yesPercentage(0d)
                 .build())
-                .when(votingSectionService)
-                .getVotingSectionResult(anyLong());
+                .when(votingSessionService)
+                .getVotingSessionResult(anyLong());
         //Act
         String url = String.format("/sessao/%d/results", random.nextLong());
         mockMvc.perform(get(url))
@@ -194,14 +194,14 @@ public class VotingSectionControllerTest {
     @Test
     public void givenValidVotesShouldReturnOkWhenGettingResults() throws Exception {
         //Arrange
-        VotingSectionResultDto expectedResult = VotingSectionResultDto
+        VotingSessionResultDto expectedResult = VotingSessionResultDto
                 .builder()
                 .noPercentage(50d)
                 .yesPercentage(50d)
                 .build();
         doReturn(expectedResult)
-                .when(votingSectionService)
-                .getVotingSectionResult(anyLong());
+                .when(votingSessionService)
+                .getVotingSessionResult(anyLong());
         //Act
         String url = String.format("/sessao/%d/results", random.nextLong());
         mockMvc.perform(get(url))

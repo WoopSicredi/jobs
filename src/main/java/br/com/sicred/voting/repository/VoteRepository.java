@@ -13,12 +13,12 @@ import java.util.Optional;
 public interface VoteRepository extends JpaRepository<Vote, Long> {
 
     @Query(" select e from Vote e" +
-            " where e.votingSection.id = :votingSectionId" +
+            " where e.votingSession.id = :votingSessionId" +
             "   and e.participantId = :participantId")
-    Optional<Vote> findByVotingSectionAndParticipantIds(@Param("votingSectionId") Long votingSectionId,
+    Optional<Vote> findByVotingSessionAndParticipantIds(@Param("votingSessionId") Long votingSessionId,
                                                         @Param("participantId") Long participantId);
 
     @Query(" select e from Vote e" +
-            " where e.votingSection.id = :votingSectionId ")
-    List<Vote> findByVotingSectionId(@Param("votingSectionId") Long votingSectionId);
+            " where e.votingSession.id = :votingSessionId ")
+    List<Vote> findByVotingSessionId(@Param("votingSessionId") Long votingSessionId);
 }

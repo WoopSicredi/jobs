@@ -1,19 +1,19 @@
 package br.com.sicredi.voting.service;
 
 
-import br.com.sicred.voting.dto.VotingSectionDto;
-import br.com.sicred.voting.dto.VotingSectionResultDto;
+import br.com.sicred.voting.dto.VotingSessionDto;
+import br.com.sicred.voting.dto.VotingSessionResultDto;
 import br.com.sicred.voting.entity.Topic;
 import br.com.sicred.voting.entity.Vote;
 import br.com.sicred.voting.entity.VotingSession;
-import br.com.sicred.voting.exception.ClosedSectionVotingException;
+import br.com.sicred.voting.exception.ClosedSessionVotingException;
 import br.com.sicred.voting.exception.ParticipantAlreadyVotedException;
-import br.com.sicred.voting.exception.VotingSectionStillOpenException;
+import br.com.sicred.voting.exception.VotingSessionStillOpenException;
 import br.com.sicred.voting.repository.TopicRepository;
-import br.com.sicred.voting.repository.VotingSectionRepository;
+import br.com.sicred.voting.repository.VotingSessionRepository;
 import br.com.sicred.voting.repository.VoteRepository;
-import br.com.sicred.voting.service.VotingSectionService;
-import br.com.sicred.voting.service.VotingSectionServiceImpl;
+import br.com.sicred.voting.service.VotingSessionService;
+import br.com.sicred.voting.service.VotingSessionServiceImpl;
 import com.github.javafaker.Faker;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,11 +36,11 @@ import static org.hamcrest.Matchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-public class VotingSectionServiceTest {
+public class VotingSessionServiceTest {
 
-    private VotingSectionService votingSectionService;
+    private VotingSessionService votingSessionService;
     @Mock
-    private VotingSectionRepository votingSectionRepository;
+    private VotingSessionRepository votingSessionRepository;
     @Mock
     private TopicRepository topicRepository;
     @Mock
@@ -50,20 +50,20 @@ public class VotingSectionServiceTest {
 
     @Before
     public void setup() {
-        this.votingSectionService = new VotingSectionServiceImpl(
-                topicRepository, votingSectionRepository, voteRepository);
+        this.votingSessionService = new VotingSessionServiceImpl(
+                topicRepository, votingSessionRepository, voteRepository);
         this.faker = new Faker();
         this.random = new Random();
     }
 
 
     @Test(expected = IllegalArgumentException.class)
-    public void givenInvalidIdPautaThenShouldThrowExceptionWhenCreatingSection() {
+    public void givenInvalidIdPautaThenShouldThrowExceptionWhenCreatingSession() {
         //Arrange
         when(topicRepository.findById(anyLong())).thenReturn(Optional.empty());
         //Act
-        this.votingSectionService.createVotingSection(
-                VotingSectionDto.builder()
+        this.votingSessionService.createVotingSession(
+                VotingSessionDto.builder()
                         .openingDate(LocalDateTime.now())
                         .topicId(new Random().nextLong())
                         .build());
@@ -71,40 +71,40 @@ public class VotingSectionServiceTest {
     }
 
     @Test
-    public void givenValidDataThenShouldReturnEntityWhenCreatingSection() {
+    public void givenValidDataThenShouldReturnEntityWhenCreatingSession() {
         //Arrange
-        LocalDateTime dataAbertura = LocalDateTime.now();
-        LocalDateTime expectedDataEncerramento = dataAbertura.plusMinutes(1);
+        LocalDateTime openingDate = LocalDateTime.now();
+        LocalDateTime closingDate = openingDate.plusMinutes(1);
         Topic expectedTopic = Topic.builder().description(faker.esports().event()).build();
-        VotingSession expectedSecao = VotingSession.builder()
+        VotingSession expectedSession = VotingSession.builder()
                 .id(random.nextLong())
-                .openingDate(dataAbertura)
-                .closingDate(expectedDataEncerramento)
+                .openingDate(openingDate)
+                .closingDate(closingDate)
                 .topic(expectedTopic)
                 .build();
         when(topicRepository.findById(anyLong())).thenReturn(
                 Optional.of(expectedTopic));
-        when(votingSectionRepository.save(any())).thenReturn(expectedSecao);
+        when(votingSessionRepository.save(any())).thenReturn(expectedSession);
         //Act
-        VotingSession votingSection = this.votingSectionService.createVotingSection(
-                VotingSectionDto.builder()
+        VotingSession votingSession = this.votingSessionService.createVotingSession(
+                VotingSessionDto.builder()
                         .topicId(new Random().nextLong())
-                        .openingDate(dataAbertura)
+                        .openingDate(openingDate)
                         .build());
-        assertThat(expectedSecao, equalTo(votingSection));
+        assertThat(expectedSession, equalTo(votingSession));
     }
 
 
     @Test(expected = IllegalArgumentException.class)
-    public void givenInvalidSectionIdThenShouldThrowExceptionWhenVoting() {
+    public void givenInvalidSessionIdThenShouldThrowExceptionWhenVoting() {
         //Arrange
         Topic expectedTopic = Topic.builder().description(faker.esports().event()).build();
         when(topicRepository.findById(anyLong())).thenReturn(
                 Optional.of(expectedTopic));
-        when(votingSectionRepository.findById(anyLong())).thenReturn(Optional.empty());
+        when(votingSessionRepository.findById(anyLong())).thenReturn(Optional.empty());
         //Act
-        this.votingSectionService.createVotingSection(
-                VotingSectionDto.builder()
+        this.votingSessionService.createVotingSession(
+                VotingSessionDto.builder()
                         .topicId(new Random().nextLong())
                         .openingDate(LocalDateTime.now())
                         .closingDate(LocalDateTime.now().minusHours(2))
@@ -116,10 +116,10 @@ public class VotingSectionServiceTest {
     @Test(expected = IllegalArgumentException.class)
     public void givenClosingDataBeforeOpeningThenShouldThrowExceptionWhenVoting() {
         //Arrange
-        when(votingSectionRepository.findById(anyLong())).thenReturn(Optional.empty());
+        when(votingSessionRepository.findById(anyLong())).thenReturn(Optional.empty());
         //Act
-        this.votingSectionService.createVotingSection(
-                VotingSectionDto.builder()
+        this.votingSessionService.createVotingSession(
+                VotingSessionDto.builder()
                         .topicId(new Random().nextLong())
                         .openingDate(LocalDateTime.now())
                         .build());
@@ -127,10 +127,10 @@ public class VotingSectionServiceTest {
     }
 
 
-    @Test(expected = ClosedSectionVotingException.class)
-    public void givenValidSectionIdAlreadyFinishedThenShouldThrowExceptionWhenVoting() {
+    @Test(expected = ClosedSessionVotingException.class)
+    public void givenValidSessionIdAlreadyFinishedThenShouldThrowExceptionWhenVoting() {
         //Arrange
-        VotingSession secao = VotingSession.builder()
+        VotingSession session = VotingSession.builder()
                 .openingDate(LocalDateTime.now().minusDays(10))
                 .closingDate(LocalDateTime.now().minusDays(9))
                 .topic(Topic.builder()
@@ -139,9 +139,9 @@ public class VotingSectionServiceTest {
                         .build())
                 .id(random.nextLong())
                 .build();
-        when(votingSectionRepository.findById(anyLong())).thenReturn(Optional.of(secao));
+        when(votingSessionRepository.findById(anyLong())).thenReturn(Optional.of(session));
         //Act
-        this.votingSectionService.voteForSection(secao.getId(), random.nextLong(), random.nextBoolean());
+        this.votingSessionService.voteForSession(session.getId(), random.nextLong(), random.nextBoolean());
         //Assert is not needed here cause we expect an exception to be thrown
     }
 
@@ -149,7 +149,7 @@ public class VotingSectionServiceTest {
     public void givenParticipantThatAlreadyVotedShouldThrowExceptionWhenVoting() {
         //Arrange
         Long participantId = random.nextLong();
-        VotingSession section = VotingSession.builder()
+        VotingSession session = VotingSession.builder()
                 .openingDate(LocalDateTime.now().minusDays(10))
                 .closingDate(LocalDateTime.now().plusDays(1))
                 .topic(Topic.builder()
@@ -164,17 +164,17 @@ public class VotingSectionServiceTest {
                 .id(random.nextLong())
                 .participantId(participantId)
                 .build();
-        when(votingSectionRepository.findById(anyLong())).thenReturn(Optional.of(section));
-        when(voteRepository.findByVotingSectionAndParticipantIds(any(), any())).thenReturn(Optional.of(vote));
+        when(votingSessionRepository.findById(anyLong())).thenReturn(Optional.of(session));
+        when(voteRepository.findByVotingSessionAndParticipantIds(any(), any())).thenReturn(Optional.of(vote));
         //Act
-        this.votingSectionService.voteForSection(section.getId(), random.nextLong(), random.nextBoolean());
+        this.votingSessionService.voteForSession(session.getId(), random.nextLong(), random.nextBoolean());
         //Assert is not needed here cause we expect an exception to be thrown
     }
 
     @Test
     public void givenValidDataVotedShouldBeSuccessfulWhenVoting() {
         //Arrange
-        VotingSession section = VotingSession.builder()
+        VotingSession session = VotingSession.builder()
                 .openingDate(LocalDateTime.now().minusDays(10))
                 .closingDate(LocalDateTime.now().plusDays(1))
                 .topic(Topic.builder()
@@ -183,27 +183,27 @@ public class VotingSectionServiceTest {
                         .build())
                 .id(random.nextLong())
                 .build();
-        when(votingSectionRepository.findById(anyLong())).thenReturn(Optional.of(section));
-        when(voteRepository.findByVotingSectionAndParticipantIds(any(), any())).thenReturn(Optional.empty());
+        when(votingSessionRepository.findById(anyLong())).thenReturn(Optional.of(session));
+        when(voteRepository.findByVotingSessionAndParticipantIds(any(), any())).thenReturn(Optional.empty());
         //Act
-        this.votingSectionService.voteForSection(section.getId(), random.nextLong(), random.nextBoolean());
+        this.votingSessionService.voteForSession(session.getId(), random.nextLong(), random.nextBoolean());
         //Assert
         verify(voteRepository, times(1)).save(any());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void givenInvalidVotingSectionIdThrowException() {
+    public void givenInvalidVotingSessionIdThrowException() {
         //Arrange
-        when(votingSectionRepository.findById(anyLong())).thenReturn(Optional.empty());
+        when(votingSessionRepository.findById(anyLong())).thenReturn(Optional.empty());
         //Act
-        this.votingSectionService.getVotingSectionResult(random.nextLong());
+        this.votingSessionService.getVotingSessionResult(random.nextLong());
         //Assert is not needed here cause we expect an exception to be thrown
     }
 
-    @Test(expected = VotingSectionStillOpenException.class)
-    public void givenVotingSectionStillOpenShouldThrowException() {
+    @Test(expected = VotingSessionStillOpenException.class)
+    public void givenVotingSessionStillOpenShouldThrowException() {
         //Arrange
-        VotingSession section = VotingSession.builder()
+        VotingSession session = VotingSession.builder()
                 .openingDate(LocalDateTime.now().minusDays(10))
                 .closingDate(LocalDateTime.now().plusDays(1))
                 .topic(Topic.builder()
@@ -212,16 +212,16 @@ public class VotingSectionServiceTest {
                         .build())
                 .id(random.nextLong())
                 .build();
-        when(votingSectionRepository.findById(anyLong())).thenReturn(Optional.of(section));
+        when(votingSessionRepository.findById(anyLong())).thenReturn(Optional.of(session));
         //Act
-        this.votingSectionService.getVotingSectionResult(section.getId());
+        this.votingSessionService.getVotingSessionResult(session.getId());
         //Assert is not needed here cause we expect an exception to be thrown
     }
 
     @Test
-    public void givenEmptyVotingSectionShouldReturnZeroResults() {
+    public void givenEmptyVotingSessionShouldReturnZeroResults() {
         //Arrange
-        VotingSession section = VotingSession.builder()
+        VotingSession session = VotingSession.builder()
                 .openingDate(LocalDateTime.now().minusDays(10))
                 .closingDate(LocalDateTime.now().minusDays(9))
                 .topic(Topic.builder()
@@ -230,20 +230,20 @@ public class VotingSectionServiceTest {
                         .build())
                 .id(random.nextLong())
                 .build();
-        when(votingSectionRepository.findById(anyLong())).thenReturn(Optional.of(section));
-        when(voteRepository.findByVotingSectionId(anyLong())).thenReturn(new ArrayList<>());
+        when(votingSessionRepository.findById(anyLong())).thenReturn(Optional.of(session));
+        when(voteRepository.findByVotingSessionId(anyLong())).thenReturn(new ArrayList<>());
         //Act
-        VotingSectionResultDto resultDto = this.votingSectionService.getVotingSectionResult(section.getId());
+        VotingSessionResultDto resultDto = this.votingSessionService.getVotingSessionResult(session.getId());
         //Assert
-        assertThat(resultDto.getVotingSection(), equalTo(section));
+        assertThat(resultDto.getVotingSession(), equalTo(session));
         assertThat(resultDto.getNoPercentage(), is(0d));
         assertThat(resultDto.getYesPercentage(), is(0d));
     }
 
     @Test
-    public void givenVotingSectionWithTenVotesShouldReturnExpectedResults() {
+    public void givenVotingSessionWithTenVotesShouldReturnExpectedResults() {
         //Arrange
-        VotingSession section = VotingSession.builder()
+        VotingSession session = VotingSession.builder()
                 .openingDate(LocalDateTime.now().minusDays(10))
                 .closingDate(LocalDateTime.now().minusDays(9))
                 .topic(Topic.builder()
@@ -257,14 +257,14 @@ public class VotingSectionServiceTest {
                         .date(LocalDateTime.now())
                         .participantId(random.nextLong())
                         .value(value%2==0)
-                        .votingSection(section)
+                        .votingSession(session)
                         .build()).collect(Collectors.toList());
-        when(votingSectionRepository.findById(anyLong())).thenReturn(Optional.of(section));
-        when(voteRepository.findByVotingSectionId(anyLong())).thenReturn(votes);
+        when(votingSessionRepository.findById(anyLong())).thenReturn(Optional.of(session));
+        when(voteRepository.findByVotingSessionId(anyLong())).thenReturn(votes);
         //Act
-        VotingSectionResultDto resultDto = this.votingSectionService.getVotingSectionResult(section.getId());
+        VotingSessionResultDto resultDto = this.votingSessionService.getVotingSessionResult(session.getId());
         //Assert
-        assertThat(resultDto.getVotingSection(), equalTo(section));
+        assertThat(resultDto.getVotingSession(), equalTo(session));
         assertThat(resultDto.getNoPercentage(), is(50d));
         assertThat(resultDto.getYesPercentage(), is(50d));
     }
