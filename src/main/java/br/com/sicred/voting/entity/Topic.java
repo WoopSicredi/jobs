@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "topic")
+@Table(name = "pauta")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,6 +16,6 @@ public class Topic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
+    @Column(name="descricao")
     private String description;
 }

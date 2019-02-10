@@ -65,7 +65,7 @@ public class VotingSectionServiceTest {
         this.votingSectionService.createVotingSection(
                 VotingSectionDto.builder()
                         .openingDate(LocalDateTime.now())
-                        .topicId(random.nextLong())
+                        .topicId(new Random().nextLong())
                         .build());
         //Assert não é necessário aqui pois esperamos que uma exception seja lançada
     }
@@ -88,8 +88,8 @@ public class VotingSectionServiceTest {
         //Act
         VotingSection votingSection = this.votingSectionService.createVotingSection(
                 VotingSectionDto.builder()
-                        .openingDate(dataAbertura)
                         .topicId(new Random().nextLong())
+                        .openingDate(dataAbertura)
                         .build());
         assertThat(expectedSecao, equalTo(votingSection));
     }
@@ -102,8 +102,8 @@ public class VotingSectionServiceTest {
         //Act
         this.votingSectionService.createVotingSection(
                 VotingSectionDto.builder()
-                        .openingDate(LocalDateTime.now())
                         .topicId(new Random().nextLong())
+                        .openingDate(LocalDateTime.now())
                         .build());
         //Assert is not needed here cause we expect an exception to be thrown
     }

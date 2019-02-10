@@ -1,16 +1,16 @@
 package br.com.sicred.voting.service;
 
-import br.com.sicred.voting.dto.VotingSectionResultDto;
 import br.com.sicred.voting.dto.VotingSectionDto;
+import br.com.sicred.voting.dto.VotingSectionResultDto;
 import br.com.sicred.voting.entity.Topic;
 import br.com.sicred.voting.entity.Vote;
 import br.com.sicred.voting.entity.VotingSection;
-import br.com.sicred.voting.exception.VotingSectionStillOpenException;
 import br.com.sicred.voting.exception.ClosedSectionVotingException;
 import br.com.sicred.voting.exception.ParticipantAlreadyVotedException;
+import br.com.sicred.voting.exception.VotingSectionStillOpenException;
 import br.com.sicred.voting.repository.TopicRepository;
-import br.com.sicred.voting.repository.VotingSectionRepository;
 import br.com.sicred.voting.repository.VoteRepository;
+import br.com.sicred.voting.repository.VotingSectionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static java.time.temporal.ChronoUnit.MINUTES;
 

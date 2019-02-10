@@ -4,6 +4,7 @@ import br.com.sicred.voting.dto.VotingSectionDto;
 import br.com.sicred.voting.dto.VotingSectionResultDto;
 import br.com.sicred.voting.entity.VotingSection;
 import br.com.sicred.voting.service.VotingSectionService;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +13,11 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-@RequestMapping("/secao")
+@RequestMapping("/sessao")
+@Api(description = "REST API para manipulação de seções de votação das pautas ",
+        basePath = "/sessao",
+        consumes = "application/json",
+        produces = "application/json")
 public class VotingSectionController {
 
     private final VotingSectionService votingSectionService;
