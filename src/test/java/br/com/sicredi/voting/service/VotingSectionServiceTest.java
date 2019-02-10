@@ -1,4 +1,4 @@
-package br.com.sicredi.votacao_pauta.service;
+package br.com.sicredi.voting.service;
 
 
 import br.com.sicred.voting.dto.VotingSectionDto;
