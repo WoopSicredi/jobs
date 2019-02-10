@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/pauta")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -19,7 +21,7 @@ public class TopicController {
     private final TopicRepository topicRepository;
 
     @PostMapping
-    public ResponseEntity<Topic> createTopic(@RequestBody TopicDto dto) {
+    public ResponseEntity<Topic> createTopic(@RequestBody @Valid TopicDto dto) {
         return ResponseEntity.ok(
                 topicRepository.save(Topic.builder().description(dto.getDescription()).build())
         );

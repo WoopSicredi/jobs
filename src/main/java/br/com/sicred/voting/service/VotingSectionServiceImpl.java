@@ -45,41 +45,41 @@ public class VotingSectionServiceImpl implements VotingSectionService {
 
     @Override
     public void voteForSection(Long votingSectionId, Long participantId, Boolean vote) {
-        Optional<VotingSection> secao = this.votingSectionRepository.findById(votingSectionId);
-        secao.orElseThrow(() -> new IllegalArgumentException("Id de seção inválido"));
-        if(secao.get().getClosingDate() != null && secao.get().getClosingDate().isBefore(LocalDateTime.now())) {
+        Optional<VotingSection> section = this.votingSectionRepository.findById(votingSectionId);
+        section.orElseThrow(() -> new IllegalArgumentException("Id de seção inválido"));
+        if(section.get().getClosingDate() != null && section.get().getClosingDate().isBefore(LocalDateTime.now())) {
             throw new ClosedSectionVotingException();
         }
-        Optional<Vote> votoExistente = this.voteRepository.findByVotingSectionAndParticipantIds(votingSectionId, participantId);
-        votoExistente.ifPresent(s -> {throw new ParticipantAlreadyVotedException();});
+        Optional<Vote> preExistentVote = this.voteRepository.findByVotingSectionAndParticipantIds(votingSectionId, participantId);
+        preExistentVote.ifPresent(s -> {throw new ParticipantAlreadyVotedException();});
         this.voteRepository.save(
                 Vote.builder()
                         .date(LocalDateTime.now())
                         .participantId(participantId)
-                        .votingSection(secao.get())
+                        .votingSection(section.get())
                         .value(vote)
                         .build());
     }
 
     @Override
     public VotingSectionResultDto getVotingSectionResult(Long sectionId) {
-        Optional<VotingSection> secao = this.votingSectionRepository.findById(sectionId);
-        secao.orElseThrow(() -> new IllegalArgumentException("Id de seção inválido"));
-        if(secao.get().getClosingDate().isAfter(LocalDateTime.now())) {
+        Optional<VotingSection> section = this.votingSectionRepository.findById(sectionId);
+        section.orElseThrow(() -> new IllegalArgumentException("Id de seção inválido"));
+        if(section.get().getClosingDate().isAfter(LocalDateTime.now())) {
             throw new VotingSectionStillOpenException();
         }
         List<Vote> votes = this.voteRepository.findByVotingSectionId(sectionId);
         if(votes.isEmpty()) {
             return VotingSectionResultDto
                     .builder()
-                    .votingSection(secao.get())
+                    .votingSection(section.get())
                     .noPercentage(0d)
                     .yesPercentage(0d).build();
         }
-        List<Vote> yesVotes = votes.stream().filter(vote -> vote.getValue()).collect(Collectors.toList());
-        double yesPercentage = new Double(yesVotes.size()) / votes.size() * 100;
+        long countYes = votes.stream().filter(vote -> vote.getValue()).count();
+        double yesPercentage = new Double(countYes) / votes.size() * 100;
         return VotingSectionResultDto.builder()
-                .votingSection(secao.get())
+                .votingSection(section.get())
                 .yesPercentage(yesPercentage)
                 .noPercentage(100-yesPercentage)
                 .build();

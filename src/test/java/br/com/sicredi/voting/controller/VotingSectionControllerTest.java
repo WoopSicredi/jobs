@@ -3,6 +3,12 @@ package br.com.sicredi.voting.controller;
 import br.com.sicred.voting.GlobalExceptionHandler;
 import br.com.sicred.voting.controller.VotingSectionController;
 import br.com.sicred.voting.dto.VotingSectionDto;
+import br.com.sicred.voting.dto.VotingSectionResultDto;
+import br.com.sicred.voting.entity.Topic;
+import br.com.sicred.voting.entity.VotingSection;
+import br.com.sicred.voting.exception.ClosedSectionVotingException;
+import br.com.sicred.voting.exception.ParticipantAlreadyVotedException;
+import br.com.sicred.voting.exception.VotingSectionStillOpenException;
 import br.com.sicred.voting.service.VotingSectionService;
 import br.com.sicredi.voting.TestUtil;
 import com.github.javafaker.Faker;
@@ -21,10 +27,11 @@ import org.springframework.web.context.WebApplicationContext;
 import java.time.LocalDateTime;
 import java.util.Random;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+import static org.hamcrest.Matchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
@@ -68,24 +75,149 @@ public class VotingSectionControllerTest {
                 //Assert
                 .andExpect(status().is4xxClientError());
     }
-//
-//    @Test
-//    public void givenValidInputShouldReturnEntity() throws Exception {
-//        //Arrange
-//        Topic topic = Topic.builder()
-//                .description(faker.beer().style())
-//                .id(random.nextLong()).build();
-//        when(topicRepository.save(any())).thenReturn(topic);
-//        //Act
-//        mockMvc.perform(post("/pauta")
-//                .content(TestUtil.convertObjectToJsonBytes(
-//                        TopicDto.builder()
-//                                .description(faker.artist().name())
-//                                .build()))
-//                .contentType(TestUtil.APPLICATION_JSON_UTF8))
-//                //Assert
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$", is(not(empty()))))
-//                .andExpect(jsonPath("$.id", is(topic.getId())));
-//    }
+
+    @Test
+    public void givenValidInputShouldReturnEntity() throws Exception {
+        //Arrange
+        LocalDateTime openingDate = LocalDateTime.now().minusMinutes(10);
+        LocalDateTime closingDate = openingDate.plusMinutes(2);
+        Topic expectedTopic = Topic.builder()
+                .id(random.nextLong())
+                .description(faker.ancient().titan())
+                .build();
+        VotingSection expectedVotingSection = VotingSection
+                .builder()
+                .openingDate(openingDate)
+                .closingDate(closingDate)
+                .id(random.nextLong())
+                .topic(expectedTopic)
+                .build();
+        when(votingSectionService.createVotingSection(any())).thenReturn(expectedVotingSection);
+        //Act
+        mockMvc.perform(post("/secao")
+                .content(TestUtil.convertObjectToJsonBytes(
+                        VotingSectionDto
+                                .builder()
+                                .topicId(random.nextLong())
+                                .openingDate(LocalDateTime.now())
+                                .build()))
+                .contentType(TestUtil.APPLICATION_JSON_UTF8))
+                //Assert
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", is(not(empty()))))
+                .andExpect(jsonPath("$.id", is(expectedVotingSection.getId())));
+    }
+
+    @Test
+    public void givenInvalidVotingSectionIdShouldReturnError() throws Exception {
+        //Arrange
+        doThrow(new IllegalArgumentException()).when(votingSectionService)
+                .voteForSection(anyLong(), anyLong(), anyBoolean());
+        //Act
+        String url = String.format("/secao/%d/%d/%s", random.nextLong(), random.nextLong(), random.nextBoolean());
+        mockMvc.perform(put(url))
+                //Assert
+                .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    public void givenVotingSectionStillOpenShouldReturnError() throws Exception {
+        //Arrange
+        doThrow(new ClosedSectionVotingException()).when(votingSectionService)
+                .voteForSection(anyLong(), anyLong(), anyBoolean());
+        //Act
+        String url = String.format("/secao/%d/%d/%s", random.nextLong(), random.nextLong(), random.nextBoolean());
+        mockMvc.perform(put(url))
+                //Assert
+                .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    public void givenParticipantAlreadyVotedShouldReturnError() throws Exception {
+        //Arrange
+        doThrow(new ParticipantAlreadyVotedException()).when(votingSectionService)
+                .voteForSection(anyLong(), anyLong(), anyBoolean());
+        //Act
+        String url = String.format("/secao/%d/%d/%s", random.nextLong(), random.nextLong(), random.nextBoolean());
+        mockMvc.perform(put(url))
+                //Assert
+                .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    public void givenValidDataVotedShouldReturnOk() throws Exception {
+        //Arrange
+        doNothing().when(votingSectionService)
+                .voteForSection(anyLong(), anyLong(), anyBoolean());
+        //Act
+        String url = String.format("/secao/%d/%d/%s", random.nextLong(), random.nextLong(), random.nextBoolean());
+        mockMvc.perform(put(url))
+                //Assert
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void givenInvalidSectionIdShouldReturnError() throws Exception {
+        //Arrange
+        doThrow(new IllegalArgumentException()).when(votingSectionService)
+                .voteForSection(anyLong(), anyLong(), anyBoolean());
+        //Act
+        String url = String.format("/secao/%d/results", random.nextLong());
+        mockMvc.perform(put(url))
+                //Assert
+                .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    public void givenVotingSectionStillOpenShouldReturnErrorOnGettingResults() throws Exception {
+        //Arrange
+        doThrow(new VotingSectionStillOpenException()).when(votingSectionService)
+                .voteForSection(anyLong(), anyLong(), anyBoolean());
+        //Act
+        String url = String.format("/secao/%d/results", random.nextLong());
+        mockMvc.perform(put(url))
+                //Assert
+                .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    public void givenEmptyVotesShouldReturnOk() throws Exception {
+        //Arrange
+        doReturn(VotingSectionResultDto
+                .builder()
+                .noPercentage(0d)
+                .yesPercentage(0d)
+                .build())
+                .when(votingSectionService)
+                .getVotingSectionResult(anyLong());
+        //Act
+        String url = String.format("/secao/%d/results", random.nextLong());
+        mockMvc.perform(get(url))
+                //Assert
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.yesPercentage", equalTo(0d)))
+                .andExpect(jsonPath("$.noPercentage", equalTo(0d)));
+    }
+
+    @Test
+    public void givenValidVotesShouldReturnOk() throws Exception {
+        //Arrange
+        VotingSectionResultDto expectedResult = VotingSectionResultDto
+                .builder()
+                .noPercentage(50d)
+                .yesPercentage(50d)
+                .build();
+        doReturn(expectedResult)
+                .when(votingSectionService)
+                .getVotingSectionResult(anyLong());
+        //Act
+        String url = String.format("/secao/%d/results", random.nextLong());
+        mockMvc.perform(get(url))
+                //Assert
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.yesPercentage", equalTo(expectedResult.getYesPercentage())))
+                .andExpect(jsonPath("$.noPercentage", equalTo(expectedResult.getNoPercentage())));
+    }
+
+
 }
