@@ -23,7 +23,7 @@ public class Vote {
     @Column(name="id_participante")
     private Long participantId;
     @ManyToOne
-    @JoinColumn(columnDefinition = "id_secao_votacao", referencedColumnName = "id")
-    private VotingSection votingSection;
+    @JoinColumn(name = "id_secao_votacao", referencedColumnName = "id")
+    private VotingSession votingSection;
 
 }

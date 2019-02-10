@@ -2,7 +2,7 @@ package br.com.sicred.voting.controller;
 
 import br.com.sicred.voting.dto.VotingSectionDto;
 import br.com.sicred.voting.dto.VotingSectionResultDto;
-import br.com.sicred.voting.entity.VotingSection;
+import br.com.sicred.voting.entity.VotingSession;
 import br.com.sicred.voting.service.VotingSectionService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ public class VotingSectionController {
     private final VotingSectionService votingSectionService;
 
     @PostMapping
-    public ResponseEntity<VotingSection> createVotingSection(@RequestBody VotingSectionDto dto) {
+    public ResponseEntity<VotingSession> createVotingSection(@RequestBody VotingSectionDto dto) {
         return ResponseEntity.ok(
                 votingSectionService.createVotingSection(dto)
         );

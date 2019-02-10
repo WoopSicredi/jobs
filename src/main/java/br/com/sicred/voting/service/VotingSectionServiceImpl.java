@@ -4,7 +4,7 @@ import br.com.sicred.voting.dto.VotingSectionDto;
 import br.com.sicred.voting.dto.VotingSectionResultDto;
 import br.com.sicred.voting.entity.Topic;
 import br.com.sicred.voting.entity.Vote;
-import br.com.sicred.voting.entity.VotingSection;
+import br.com.sicred.voting.entity.VotingSession;
 import br.com.sicred.voting.exception.ClosedSectionVotingException;
 import br.com.sicred.voting.exception.ParticipantAlreadyVotedException;
 import br.com.sicred.voting.exception.VotingSectionStillOpenException;
@@ -30,21 +30,24 @@ public class VotingSectionServiceImpl implements VotingSectionService {
     private final VoteRepository voteRepository;
 
     @Override
-    public VotingSection createVotingSection(VotingSectionDto dto) {
-        Optional<Topic> pauta = this.topicRepository.findById(dto.getTopicId());
-        pauta.orElseThrow(() -> new IllegalArgumentException("Id de topic inválido"));
-        VotingSection secao = VotingSection.builder()
-                .topic(pauta.get())
+    public VotingSession createVotingSection(VotingSectionDto dto) {
+        Optional<Topic> topic = this.topicRepository.findById(dto.getTopicId());
+        topic.orElseThrow(() -> new IllegalArgumentException("Id de topic inválido"));
+        if(dto.getClosingDate() != null && dto.getClosingDate().isBefore(dto.getOpeningDate())) {
+            throw new IllegalArgumentException("Data de encerramento da votação não pode ser menor que a data de abertura");
+        }
+        VotingSession session = VotingSession.builder()
+                .topic(topic.get())
                 .openingDate(dto.getOpeningDate())
                 .closingDate(
                         dto.getClosingDate() == null ?
                                 dto.getOpeningDate().plus(1, MINUTES) : dto.getClosingDate()).build();
-        return votingSectionRepository.save(secao);
+        return votingSectionRepository.save(session);
     }
 
     @Override
     public void voteForSection(Long votingSectionId, Long participantId, Boolean vote) {
-        Optional<VotingSection> section = this.votingSectionRepository.findById(votingSectionId);
+        Optional<VotingSession> section = this.votingSectionRepository.findById(votingSectionId);
         section.orElseThrow(() -> new IllegalArgumentException("Id de seção inválido"));
         if(section.get().getClosingDate() != null && section.get().getClosingDate().isBefore(LocalDateTime.now())) {
             throw new ClosedSectionVotingException();
@@ -62,7 +65,7 @@ public class VotingSectionServiceImpl implements VotingSectionService {
 
     @Override
     public VotingSectionResultDto getVotingSectionResult(Long sectionId) {
-        Optional<VotingSection> section = this.votingSectionRepository.findById(sectionId);
+        Optional<VotingSession> section = this.votingSectionRepository.findById(sectionId);
         section.orElseThrow(() -> new IllegalArgumentException("Id de seção inválido"));
         if(section.get().getClosingDate().isAfter(LocalDateTime.now())) {
             throw new VotingSectionStillOpenException();

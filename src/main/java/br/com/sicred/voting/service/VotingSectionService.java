@@ -2,11 +2,11 @@ package br.com.sicred.voting.service;
 
 import br.com.sicred.voting.dto.VotingSectionResultDto;
 import br.com.sicred.voting.dto.VotingSectionDto;
-import br.com.sicred.voting.entity.VotingSection;
+import br.com.sicred.voting.entity.VotingSession;
 
 public interface VotingSectionService {
 
-    VotingSection createVotingSection(VotingSectionDto dto);
+    VotingSession createVotingSection(VotingSectionDto dto);
 
     void voteForSection(Long votingSectionId, Long participantId, Boolean vote);
 

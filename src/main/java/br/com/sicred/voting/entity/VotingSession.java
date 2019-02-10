@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of={"id"})
-public class VotingSection {
+public class VotingSession {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,6 +21,6 @@ public class VotingSection {
     @Column(name="data_fechamento")
     private LocalDateTime closingDate;
     @ManyToOne
-    @JoinColumn(columnDefinition = "id_pauta", referencedColumnName = "id")
+    @JoinColumn(name = "id_pauta", referencedColumnName = "id")
     private Topic topic;
 }

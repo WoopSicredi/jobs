@@ -5,7 +5,7 @@ import br.com.sicred.voting.controller.VotingSectionController;
 import br.com.sicred.voting.dto.VotingSectionDto;
 import br.com.sicred.voting.dto.VotingSectionResultDto;
 import br.com.sicred.voting.entity.Topic;
-import br.com.sicred.voting.entity.VotingSection;
+import br.com.sicred.voting.entity.VotingSession;
 import br.com.sicred.voting.exception.ClosedSectionVotingException;
 import br.com.sicred.voting.exception.ParticipantAlreadyVotedException;
 import br.com.sicred.voting.exception.VotingSectionStillOpenException;
@@ -78,7 +78,7 @@ public class VotingSectionControllerTest {
                 .id(random.nextLong())
                 .description(faker.ancient().titan())
                 .build();
-        VotingSection expectedVotingSection = VotingSection
+        VotingSession expectedVotingSection = VotingSession
                 .builder()
                 .openingDate(openingDate)
                 .closingDate(closingDate)

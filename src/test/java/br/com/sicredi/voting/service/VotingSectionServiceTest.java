@@ -5,7 +5,7 @@ import br.com.sicred.voting.dto.VotingSectionDto;
 import br.com.sicred.voting.dto.VotingSectionResultDto;
 import br.com.sicred.voting.entity.Topic;
 import br.com.sicred.voting.entity.Vote;
-import br.com.sicred.voting.entity.VotingSection;
+import br.com.sicred.voting.entity.VotingSession;
 import br.com.sicred.voting.exception.ClosedSectionVotingException;
 import br.com.sicred.voting.exception.ParticipantAlreadyVotedException;
 import br.com.sicred.voting.exception.VotingSectionStillOpenException;
@@ -76,7 +76,7 @@ public class VotingSectionServiceTest {
         LocalDateTime dataAbertura = LocalDateTime.now();
         LocalDateTime expectedDataEncerramento = dataAbertura.plusMinutes(1);
         Topic expectedTopic = Topic.builder().description(faker.esports().event()).build();
-        VotingSection expectedSecao = VotingSection.builder()
+        VotingSession expectedSecao = VotingSession.builder()
                 .id(random.nextLong())
                 .openingDate(dataAbertura)
                 .closingDate(expectedDataEncerramento)
@@ -86,7 +86,7 @@ public class VotingSectionServiceTest {
                 Optional.of(expectedTopic));
         when(votingSectionRepository.save(any())).thenReturn(expectedSecao);
         //Act
-        VotingSection votingSection = this.votingSectionService.createVotingSection(
+        VotingSession votingSection = this.votingSectionService.createVotingSection(
                 VotingSectionDto.builder()
                         .topicId(new Random().nextLong())
                         .openingDate(dataAbertura)
@@ -97,6 +97,24 @@ public class VotingSectionServiceTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void givenInvalidSectionIdThenShouldThrowExceptionWhenVoting() {
+        //Arrange
+        Topic expectedTopic = Topic.builder().description(faker.esports().event()).build();
+        when(topicRepository.findById(anyLong())).thenReturn(
+                Optional.of(expectedTopic));
+        when(votingSectionRepository.findById(anyLong())).thenReturn(Optional.empty());
+        //Act
+        this.votingSectionService.createVotingSection(
+                VotingSectionDto.builder()
+                        .topicId(new Random().nextLong())
+                        .openingDate(LocalDateTime.now())
+                        .closingDate(LocalDateTime.now().minusHours(2))
+                        .build());
+        //Assert is not needed here cause we expect an exception to be thrown
+    }
+
+
+    @Test(expected = IllegalArgumentException.class)
+    public void givenClosingDataBeforeOpeningThenShouldThrowExceptionWhenVoting() {
         //Arrange
         when(votingSectionRepository.findById(anyLong())).thenReturn(Optional.empty());
         //Act
@@ -112,7 +130,7 @@ public class VotingSectionServiceTest {
     @Test(expected = ClosedSectionVotingException.class)
     public void givenValidSectionIdAlreadyFinishedThenShouldThrowExceptionWhenVoting() {
         //Arrange
-        VotingSection secao = VotingSection.builder()
+        VotingSession secao = VotingSession.builder()
                 .openingDate(LocalDateTime.now().minusDays(10))
                 .closingDate(LocalDateTime.now().minusDays(9))
                 .topic(Topic.builder()
@@ -131,7 +149,7 @@ public class VotingSectionServiceTest {
     public void givenParticipantThatAlreadyVotedShouldThrowExceptionWhenVoting() {
         //Arrange
         Long participantId = random.nextLong();
-        VotingSection section = VotingSection.builder()
+        VotingSession section = VotingSession.builder()
                 .openingDate(LocalDateTime.now().minusDays(10))
                 .closingDate(LocalDateTime.now().plusDays(1))
                 .topic(Topic.builder()
@@ -156,7 +174,7 @@ public class VotingSectionServiceTest {
     @Test
     public void givenValidDataVotedShouldBeSuccessfulWhenVoting() {
         //Arrange
-        VotingSection section = VotingSection.builder()
+        VotingSession section = VotingSession.builder()
                 .openingDate(LocalDateTime.now().minusDays(10))
                 .closingDate(LocalDateTime.now().plusDays(1))
                 .topic(Topic.builder()
@@ -185,7 +203,7 @@ public class VotingSectionServiceTest {
     @Test(expected = VotingSectionStillOpenException.class)
     public void givenVotingSectionStillOpenShouldThrowException() {
         //Arrange
-        VotingSection section = VotingSection.builder()
+        VotingSession section = VotingSession.builder()
                 .openingDate(LocalDateTime.now().minusDays(10))
                 .closingDate(LocalDateTime.now().plusDays(1))
                 .topic(Topic.builder()
@@ -203,7 +221,7 @@ public class VotingSectionServiceTest {
     @Test
     public void givenEmptyVotingSectionShouldReturnZeroResults() {
         //Arrange
-        VotingSection section = VotingSection.builder()
+        VotingSession section = VotingSession.builder()
                 .openingDate(LocalDateTime.now().minusDays(10))
                 .closingDate(LocalDateTime.now().minusDays(9))
                 .topic(Topic.builder()
@@ -225,7 +243,7 @@ public class VotingSectionServiceTest {
     @Test
     public void givenVotingSectionWithTenVotesShouldReturnExpectedResults() {
         //Arrange
-        VotingSection section = VotingSection.builder()
+        VotingSession section = VotingSession.builder()
                 .openingDate(LocalDateTime.now().minusDays(10))
                 .closingDate(LocalDateTime.now().minusDays(9))
                 .topic(Topic.builder()
