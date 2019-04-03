@@ -54,4 +54,4 @@ Não sabemos tudo.
 Mas tudo o que sabemos é compartilhado.
 
 ## Vagas
-https://jobs.kenoby.com/sicredi
+https://sicredi.gupy.io
