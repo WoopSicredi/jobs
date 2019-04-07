@@ -17,11 +17,11 @@ public class AssociadoSaveDTO implements Serializable {
 
 	private static final long serialVersionUID = 6935801269552050957L;
 	
-	@NotNull(message = "{validacao.associado.nomeObrigatorio}")
-	@Size(min = 3, max = 100, message = "{validacao.associado.nomeInvalido}")
+	@NotNull(message = "{validation.associado.requiredName}")
+	@Size(min = 3, max = 100, message = "{validation.associado.invalidName}")
 	private String nome;
 	
-	@CPF(message = "{validacao.associado.cpfInvalido}")
+	@CPF(message = "{validation.associado.invalidCpf}")
 	private String cpf;
 
 	public Associado toModel() {

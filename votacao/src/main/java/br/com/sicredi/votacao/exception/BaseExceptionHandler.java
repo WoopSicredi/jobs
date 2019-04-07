@@ -31,7 +31,7 @@ public class BaseExceptionHandler extends ResponseEntityExceptionHandler {
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
-		String message = messageHandler.getMessage(MessageKey.PARAMETROS_INVALIDOS);
+		String message = messageHandler.getMessage(MessageKey.INVALID_PARAMETERS);
 		List<String> details = ex.getBindingResult().getAllErrors()
 				.stream()
 				.map(objectError -> messageHandler.getMessage(objectError))

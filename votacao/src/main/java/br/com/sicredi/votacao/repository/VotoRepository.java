@@ -5,11 +5,15 @@ import org.springframework.stereotype.Repository;
 
 import br.com.sicredi.votacao.model.Associado;
 import br.com.sicredi.votacao.model.Pauta;
+import br.com.sicredi.votacao.model.Sessao;
+import br.com.sicredi.votacao.model.ValorVoto;
 import br.com.sicredi.votacao.model.Voto;
 
 @Repository
 public interface VotoRepository extends JpaRepository<Voto, Long> {
 	
 	boolean existsBySessaoPautaAndAssociado(Pauta pauta, Associado associado);
+	
+	long countBySessaoAndValorVoto(Sessao sessao, ValorVoto valorVoto);
 
 }

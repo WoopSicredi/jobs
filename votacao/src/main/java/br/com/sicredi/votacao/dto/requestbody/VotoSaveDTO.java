@@ -17,13 +17,13 @@ public class VotoSaveDTO implements Serializable {
 
 	private static final long serialVersionUID = -8740027801916155561L;
 
-	@NotNull(message = "{validacao.voto.idSessaoObrigatorio}")
+	@NotNull(message = "{validation.voto.requiredIdSessao}")
 	private Long idSessao;
 
-	@NotNull(message = "{validacao.voto.idAssociadoObrigatorio}")
+	@NotNull(message = "{validation.voto.requiredIdAssociado}")
 	private Long idAssociado;
 
-	@NotNull(message = "{validacao.voto.valorObrigatorio}")
+	@NotNull(message = "{validation.voto.requiredValue}")
 	private ValorVoto valorVoto;
 
 	public Voto toModel() {

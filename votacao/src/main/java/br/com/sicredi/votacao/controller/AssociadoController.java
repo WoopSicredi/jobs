@@ -47,7 +47,7 @@ public class AssociadoController {
 	public ResponseEntity<AssociadoDTO> findById(@PathVariable("id") Long id) {
 		Optional<Associado> associado = associadoService.findById(id);
 		if (!associado.isPresent()) {
-			throw new ResourceNotFoundException(MessageKey.ASSOCIADO_NAO_ENCONTRADO, id);
+			throw new ResourceNotFoundException(MessageKey.ASSOCIADO_NOT_FOUND, id);
 		}
 		return ResponseEntity
 				.ok(AssociadoDTO.parseDTO(associado.get()));

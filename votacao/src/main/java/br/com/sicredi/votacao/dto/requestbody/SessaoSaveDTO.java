@@ -23,10 +23,10 @@ public class SessaoSaveDTO implements Serializable {
 
 	private static final Long DURACAO_PADRAO = 1L;
 	
-	@NotNull(message = "{validacao.sessao.idPautaObrigatorio}")
+	@NotNull(message = "{validation.sessao.requiredIdPauta}")
 	private Long idPauta;
 	
-	@Positive(message = "{validacao.sessao.minutosInvalidos}")
+	@Positive(message = "{validation.sessao.invalidPeriod}")
 	private Long minutos;
 
 	public Sessao toModel() {

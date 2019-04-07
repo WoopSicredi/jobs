@@ -15,12 +15,12 @@ public class PautaSaveDTO implements Serializable {
 
 	private static final long serialVersionUID = -1125758208743083240L;
 	
-	@NotNull(message = "{validacao.pauta.nomeObrigatorio}")
-	@Size(min = 3, max = 100, message = "{validacao.pauta.nomeInvalido}")
+	@NotNull(message = "{validation.pauta.requiredName}")
+	@Size(min = 3, max = 100, message = "{validation.pauta.invalidName}")
 	private String nome;
 
-	@NotNull(message = "{validacao.pauta.perguntaObrigatoria}")
-	@Size(min = 3, max = 1000, message = "{validacao.pauta.perguntaInvalida}")
+	@NotNull(message = "{validation.pauta.requiredQuestion}")
+	@Size(min = 3, max = 1000, message = "{validation.pauta.invalidQuestion}")
 	private String pergunta;
 	
 	public Pauta toModel() {

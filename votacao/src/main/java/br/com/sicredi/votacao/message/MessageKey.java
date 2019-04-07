@@ -5,14 +5,14 @@ import lombok.Getter;
 @Getter
 public enum MessageKey {
 	
-	ASSOCIADO_NAO_ENCONTRADO("erro.associadoNaoEncontradao"),
-	PAUTA_NAO_ENCONTRADA("erro.pautaNaoEncontrada"),
-	PARAMETROS_INVALIDOS("erro.parametrosInvalidos"),
-	SESSAO_PAUTA_INEXISTENTE("erro.erro.sessaoComPautaInexistente"),
-	VOTO_SESSAO_INEXISTENTE("erro.votoComSessaoInexistente"),
-	VOTO_ASSOCIADO_INEXISTENTE("erro.votoComAssociadoInexistente"),
-	VOTO_SESSAO_ENCERRADA("erro.sessaoEncerrada"), 
-	VOTO_ASSOCIADO_JA_REGISTRADO("erro.associadoJaVotou");
+	ASSOCIADO_NOT_FOUND("error.associadoNotFound"),
+	PAUTA_NOT_FOUND("error.pautaNotFound"),
+	INVALID_PARAMETERS("error.invalidParameters"),
+	SESSAO_PAUTA_NONEXISTENT("error.sessaoWithPautaNonexistent"),
+	VOTO_SESSAO_NONEXISTENT("erro.votoWithSessaoNonexistent"),
+	VOTO_ASSOCIADO_NONEXISTENT("error.votoWithAssociadoNonexistent"),
+	VOTO_SESSAO_CLOSED("error.sessaoClosed"), 
+	VOTO_ASSOCIADO_ALREADY_REGISTERED("error.associadoAlreadyRegistered");
 	
 	private final String key;
 	
