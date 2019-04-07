@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.sicredi.votacao.dto.AssociadoDTO;
 import br.com.sicredi.votacao.dto.requestbody.AssociadoSaveDTO;
+import br.com.sicredi.votacao.exception.ResourceNotFoundException;
+import br.com.sicredi.votacao.message.MessageKey;
 import br.com.sicredi.votacao.model.Associado;
 import br.com.sicredi.votacao.service.AssociadoService;
 
@@ -45,14 +47,14 @@ public class AssociadoController {
 	public ResponseEntity<AssociadoDTO> findById(@PathVariable("id") Long id) {
 		Optional<Associado> associado = associadoService.findById(id);
 		if (!associado.isPresent()) {
-			// TODO throws Exception
+			throw new ResourceNotFoundException(MessageKey.ASSOCIADO_NAO_ENCONTRADO, id);
 		}
 		return ResponseEntity
 				.ok(AssociadoDTO.parseDTO(associado.get()));
 	}
 	
 	@PostMapping
-	public ResponseEntity<AssociadoDTO> incluir(@Valid @RequestBody AssociadoSaveDTO associadoSaveDTO) {
+	public ResponseEntity<AssociadoDTO> insert(@Valid @RequestBody AssociadoSaveDTO associadoSaveDTO) {
 		Associado associadoCreated = associadoService.save(associadoSaveDTO.toModel());
 		return ResponseEntity
 				.status(HttpStatus.CREATED)

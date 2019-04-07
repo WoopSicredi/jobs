@@ -27,7 +27,7 @@ public class SessaoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<SessaoDTO> incluir(@Valid @RequestBody SessaoSaveDTO sessaoSaveDTO) {
+	public ResponseEntity<SessaoDTO> insert(@Valid @RequestBody SessaoSaveDTO sessaoSaveDTO) {
 		Sessao sessaoCreated = sessaoService.save(sessaoSaveDTO.toModel());
 		return ResponseEntity
 				.status(HttpStatus.CREATED)

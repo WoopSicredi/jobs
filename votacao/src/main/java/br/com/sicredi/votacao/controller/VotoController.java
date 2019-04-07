@@ -27,7 +27,7 @@ public class VotoController {
 	}
 
 	@PostMapping
-	public ResponseEntity<VotoDTO> incluir(@Valid @RequestBody VotoSaveDTO votoSaveDTO) {
+	public ResponseEntity<VotoDTO> insert(@Valid @RequestBody VotoSaveDTO votoSaveDTO) {
 		Voto votoCreated = votoService.save(votoSaveDTO.toModel());
 		return ResponseEntity
 				.status(HttpStatus.CREATED)

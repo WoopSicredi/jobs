@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.sicredi.votacao.dto.PautaDTO;
 import br.com.sicredi.votacao.dto.requestbody.PautaSaveDTO;
+import br.com.sicredi.votacao.exception.ResourceNotFoundException;
+import br.com.sicredi.votacao.message.MessageKey;
 import br.com.sicredi.votacao.model.Pauta;
 import br.com.sicredi.votacao.service.PautaService;
 
@@ -43,14 +45,14 @@ public class PautaController {
 	public ResponseEntity<PautaDTO> findById(@PathVariable("id") Long id) {
 		Optional<Pauta> pauta = pautaService.findById(id);
 		if (!pauta.isPresent()) {
-			// TODO throws Exception
+			throw new ResourceNotFoundException(MessageKey.PAUTA_NAO_ENCONTRADA, id);
 		}
 		return ResponseEntity
 				.ok(PautaDTO.parseDTO(pauta.get()));
 	}
 	
 	@PostMapping
-	public ResponseEntity<PautaDTO> incluir(@Valid @RequestBody PautaSaveDTO pautaSaveDTO) {
+	public ResponseEntity<PautaDTO> insert(@Valid @RequestBody PautaSaveDTO pautaSaveDTO) {
 		Pauta pautaCreated = pautaService.save(pautaSaveDTO.toModel());
 		return ResponseEntity
 				.status(HttpStatus.CREATED)

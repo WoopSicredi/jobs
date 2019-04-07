@@ -5,6 +5,7 @@ import lombok.Getter;
 @Getter
 public enum MessageKey {
 	
+	ASSOCIADO_NAO_ENCONTRADO("erro.associadoNaoEncontradao"),
 	PAUTA_NAO_ENCONTRADA("erro.pautaNaoEncontrada"),
 	PARAMETROS_INVALIDOS("erro.parametrosInvalidos"),
 	PAUTA_INVALIDA("erro.pautaInvalida"),
