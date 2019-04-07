@@ -2,6 +2,7 @@ package br.com.sicredi.votacao.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.sicredi.votacao.exception.BusinessException;
 import br.com.sicredi.votacao.message.MessageKey;
@@ -28,6 +29,7 @@ public class SessaoServiceImpl extends BaseServiceImpl<Sessao, Long> implements 
 	}
 	
 	@Override
+	@Transactional
 	public Sessao save(Sessao sessao) {
 		validate(sessao);
 		return super.save(sessao);

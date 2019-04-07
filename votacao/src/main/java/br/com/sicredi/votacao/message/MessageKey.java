@@ -11,8 +11,8 @@ public enum MessageKey {
 	SESSAO_PAUTA_INEXISTENTE("erro.erro.sessaoComPautaInexistente"),
 	VOTO_SESSAO_INEXISTENTE("erro.votoComSessaoInexistente"),
 	VOTO_ASSOCIADO_INEXISTENTE("erro.votoComAssociadoInexistente"),
-	SESSAO_ENCERRADA("erro.sessaoEncerrada"), 
-	ASSOCIADO_JA_VOTOU("erro.associadoJaVotou");
+	VOTO_SESSAO_ENCERRADA("erro.sessaoEncerrada"), 
+	VOTO_ASSOCIADO_JA_REGISTRADO("erro.associadoJaVotou");
 	
 	private final String key;
 	
