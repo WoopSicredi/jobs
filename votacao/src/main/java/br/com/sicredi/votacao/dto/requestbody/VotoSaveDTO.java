@@ -13,7 +13,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class SaveVotoDTO implements Serializable {
+public class VotoSaveDTO implements Serializable {
 
 	private static final long serialVersionUID = -8740027801916155561L;
 
