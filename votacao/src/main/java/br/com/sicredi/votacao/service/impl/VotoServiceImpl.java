@@ -18,15 +18,15 @@ import br.com.sicredi.votacao.service.VotoService;
 @Service
 public class VotoServiceImpl implements VotoService {
 	
-	private final VotoRepository repository;
+	private final VotoRepository votoRepository;
 	private final SessaoRepository sessaoRepository;
 	private final AssociadoRepository associadoRepository;
 
 	@Autowired
-	public VotoServiceImpl(VotoRepository repository, 
+	public VotoServiceImpl(VotoRepository votoRepository, 
 			SessaoRepository sessaoRepository, 
 			AssociadoRepository associadoRepository) {
-		this.repository = repository;
+		this.votoRepository = votoRepository;
 		this.sessaoRepository = sessaoRepository;
 		this.associadoRepository = associadoRepository;
 	}
@@ -35,7 +35,7 @@ public class VotoServiceImpl implements VotoService {
 	@Transactional
 	public Voto save(Voto voto) {
 		validate(voto);
-		return repository.save(voto);
+		return votoRepository.save(voto);
 	}
 
 	private void validate(Voto voto) {
@@ -50,7 +50,7 @@ public class VotoServiceImpl implements VotoService {
 		if (sessao.get().isClosed()) {
 			throw new BusinessException(MessageKey.VOTO_SESSAO_CLOSED);
 		}
-		if (repository.existsBySessaoPautaAndAssociado(sessao.get().getPauta(), voto.getAssociado())) {
+		if (votoRepository.existsBySessaoPautaAndAssociado(sessao.get().getPauta(), voto.getAssociado())) {
 			throw new BusinessException(MessageKey.VOTO_ASSOCIADO_ALREADY_REGISTERED);
 		}
 	}
