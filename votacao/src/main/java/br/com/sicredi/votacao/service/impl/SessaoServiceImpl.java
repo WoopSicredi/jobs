@@ -43,8 +43,7 @@ public class SessaoServiceImpl implements SessaoService {
 
 	private void validate(Sessao sessao) {
 		if (!pautaRepository.existsById(sessao.getPauta().getId())) {
-			throw new BusinessException(MessageKey.SESSAO_PAUTA_NONEXISTENT, 
-					sessao.getPauta().getId());
+			throw new BusinessException(MessageKey.SESSAO_PAUTA_NONEXISTENT, sessao.getPauta().getId());
 		}
 	}
 

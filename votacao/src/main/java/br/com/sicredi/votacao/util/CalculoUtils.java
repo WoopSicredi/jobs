@@ -14,7 +14,7 @@ public final class CalculoUtils {
 		if (total <= ZERO) {
 			return ZERO;
 		}
-		return valor * CEM / total;
+		return (double) valor * CEM / total;
 	}
 	
 }
