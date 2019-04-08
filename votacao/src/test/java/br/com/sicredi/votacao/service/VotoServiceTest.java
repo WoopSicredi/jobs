@@ -1,13 +1,14 @@
 package br.com.sicredi.votacao.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -25,8 +26,7 @@ import br.com.sicredi.votacao.service.impl.VotoServiceImpl;
 @RunWith(SpringRunner.class)
 public class VotoServiceTest {
 
-	@InjectMocks
-	private VotoServiceImpl votoService;
+	private VotoService votoService;
 	
 	@Mock
 	private VotoRepository votoRepository;
@@ -37,10 +37,15 @@ public class VotoServiceTest {
 	@Mock
 	private AssociadoRepository associadoRepository;
 	
+	@Before
+	public void setUp() {
+		votoService = new VotoServiceImpl(votoRepository, sessaoRepository, associadoRepository);
+	}
+	
 	@Test(expected = BusinessException.class)
 	public void givenVotoWhitNonExistentAssociado_whenSave_thenThrowsBusinessExcpetion() {
 		when(associadoRepository.existsById(AssociadoMocker.ID)).thenReturn(false);
-		when(sessaoRepository.findById(SessaoMocker.ID)).thenReturn(Optional.of(SessaoMocker.SESSAO));
+		when(sessaoRepository.findById(SessaoMocker.ID)).thenReturn(Optional.of(SessaoMocker.SESSAO_CREATED));
 		when(votoRepository.existsBySessaoPautaAndAssociado(PautaMocker.PAUTA, AssociadoMocker.ASSOCIADO))
 				.thenReturn(false);
 		
@@ -70,7 +75,7 @@ public class VotoServiceTest {
 	@Test(expected = BusinessException.class)
 	public void givenVotoAlreadyRegistered_whenSave_thenThrowsBusinessExcpetion() {
 		when(associadoRepository.existsById(AssociadoMocker.ID)).thenReturn(true);
-		when(sessaoRepository.findById(SessaoMocker.ID)).thenReturn(Optional.of(SessaoMocker.SESSAO));
+		when(sessaoRepository.findById(SessaoMocker.ID)).thenReturn(Optional.of(SessaoMocker.SESSAO_CREATED));
 		when(votoRepository.existsBySessaoPautaAndAssociado(PautaMocker.PAUTA, AssociadoMocker.ASSOCIADO))
 				.thenReturn(true);
 		
@@ -80,16 +85,14 @@ public class VotoServiceTest {
 	@Test
 	public void givenVoto_whenSave_thenSaveAndReturn() {
 		when(associadoRepository.existsById(AssociadoMocker.ID)).thenReturn(true);
-		when(sessaoRepository.findById(SessaoMocker.ID)).thenReturn(Optional.of(SessaoMocker.SESSAO));
+		when(sessaoRepository.findById(SessaoMocker.ID)).thenReturn(Optional.of(SessaoMocker.SESSAO_CREATED));
 		when(votoRepository.existsBySessaoPautaAndAssociado(PautaMocker.PAUTA, AssociadoMocker.ASSOCIADO))
 				.thenReturn(false);
 		when(votoRepository.save(VotoMocker.VOTO)).thenReturn(VotoMocker.VOTO_CREATED);
 		
 		Voto voto = votoService.save(VotoMocker.VOTO);
-		assertThat(voto).isEqualToComparingOnlyGivenFields(VotoMocker.VOTO_CREATED, 
-				"sessao",
-				"associado",
-				"valorVoto");
+		assertNotNull(voto.getId());
+		assertThat(voto).isEqualToComparingFieldByField(VotoMocker.VOTO_CREATED);
 	}
 	
 	

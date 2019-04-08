@@ -13,14 +13,14 @@ public final class VotoMocker {
 	
 	public static final Voto VOTO = Voto.builder()
 			.associado(AssociadoMocker.ASSOCIADO)
-			.sessao(SessaoMocker.SESSAO)
+			.sessao(SessaoMocker.SESSAO_CREATED)
 			.valorVoto(ValorVoto.SIM)
 			.build();
 	
 	public static final Voto VOTO_CREATED = Voto.builder()
 			.id(ID)
 			.associado(AssociadoMocker.ASSOCIADO)
-			.sessao(SessaoMocker.SESSAO)
+			.sessao(SessaoMocker.SESSAO_CREATED)
 			.valorVoto(ValorVoto.SIM)
 			.build();
 	

@@ -14,6 +14,12 @@ public final class SessaoMocker {
 	}
 	
 	public static final Sessao SESSAO = Sessao.builder()
+			.inicio(LocalDateTime.now())
+			.fim(LocalDateTime.now().plusMinutes(DURATION))
+			.pauta(PautaMocker.PAUTA)
+			.build();
+	
+	public static final Sessao SESSAO_CREATED = Sessao.builder()
 			.id(ID)
 			.inicio(LocalDateTime.now())
 			.fim(LocalDateTime.now().plusMinutes(DURATION))
