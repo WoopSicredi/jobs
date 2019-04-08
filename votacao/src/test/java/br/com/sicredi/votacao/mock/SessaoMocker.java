@@ -2,6 +2,7 @@ package br.com.sicredi.votacao.mock;
 
 import java.time.LocalDateTime;
 
+import br.com.sicredi.votacao.dto.requestbody.SessaoSaveDTO;
 import br.com.sicredi.votacao.model.Sessao;
 
 public final class SessaoMocker {
@@ -31,6 +32,11 @@ public final class SessaoMocker {
 			.inicio(LocalDateTime.now())
 			.fim(LocalDateTime.now().minusMinutes(DURATION))
 			.pauta(PautaMocker.PAUTA)
+			.build();
+	
+	public static final SessaoSaveDTO SESSAO_SAVE_DTO = SessaoSaveDTO.builder()
+			.idPauta(PautaMocker.ID)
+			.minutos(DURATION)
 			.build();
 	
 }
