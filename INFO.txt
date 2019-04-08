@@ -4,16 +4,18 @@
 # Spring Boot: Framework de código aberto que facilita o processo de configuração e desenvolvimento de projetos Java. Ideal para auxiliar no desenvolimento de APIs Rest. 
 # PostgreSQL: Banco de dados relacional de código aberto, amplamente utilizado no mercado de desenvolvimento de software.
 # Maven: Ferramenta para automação de builds e gerenciamento das dependências do projeto.
-# JUnit: Framework de código aberto para implementação de teste de unidade.
-# MockMVC: Implemntação do Spring Framework para suporte a testes de integração.
-# Lombok: Framework que provê implementções como getters e setters, construtores, toString, equals e hashCode. Tem como objetivo diminuir a verbosidade do código.
-# Swagger: Framewor para auxiliar na modelagem e documentação de APIs Rest, bem como nos testes dos endpoints das APIs.
+# JUnit: Framework de código aberto para implementação de testes de unidade.
+# MockMVC: Implementação do Spring Framework para suporte à testes de integração.
+# Lombok: Framework que provê implementações como getters e setters, construtores, toString, equals e hashCode. Tem como objetivo diminuir a verbosidade do código.
+# Swagger: Framework para auxiliar na modelagem e documentação de APIs Rest, bem como nos testes dos endpoints das APIs.
 
 
 #----------------------------------------------#
 # Observações
 #----------------------------------------------#
 # 1. Para o tratamento de erros da API, foi implementada uma classe genérica utilizando a anotação @ControllerAdvice do Spring, com o objetivo de interceptar todos os tipos de erro, de modo a modelar uma resposta intuitiva, em caso de erros nas requisições à API.
-# 2. Foi implementada uma padronização de mensagens com suporte a internacionalização utilizando a classe utilitário MessageSource do Spring. As exceções lançadas utilizam-se dessa padronização para compor as mensagens de retorno.
+# 2. Foi implementada uma padronização de mensagens com suporte a internacionalização utilizando a classe utilitária MessageSource do Spring. As exceções lançadas utilizam-se dessa padronização para compor as mensagens de retorno.
 # 3. Foram utilizados os recursos de validação da API javax.validation para validar os parâmetros de request. A padronização de mensagens foi adapatada para lançar mensagens de retorno também sobre parâmetros inválidos.
 # 4. Como sugestão de melhoria, poderia ter sido usada a API de programação orientada a aspectos (AOP) do Spring, para disparar regras de validação na camada de negócio, reduzindo o acoplamento das classes de negócio (Services).
+# 5. Como sugestão de infraestrutra para API, sugiro utilização de imagens Docker, em ambiente orientado a containers.
+# 6. Os scripts SQL para criação da estrutura de banco de dados estão versionados no classpath do projeto.
