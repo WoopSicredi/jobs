@@ -39,4 +39,9 @@ public final class SessaoMocker {
 			.minutos(DURATION)
 			.build();
 	
+	public static final SessaoSaveDTO SESSAO_SAVE_DTO_WITH_INVALID_PAUTA = SessaoSaveDTO.builder()
+			.idPauta(PautaMocker.ID_NOT_FOUND)
+			.minutos(DURATION)
+			.build();
+	
 }

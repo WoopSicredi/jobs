@@ -9,7 +9,6 @@ public final class CalculoUtils {
 		throw new UnsupportedOperationException();
 	}
 	
-	// TODO implementar testes
 	public static final double percentual(long valor, long total) {
 		if (total <= ZERO) {
 			return ZERO;

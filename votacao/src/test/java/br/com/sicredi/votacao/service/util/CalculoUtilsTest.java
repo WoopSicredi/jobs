@@ -20,5 +20,10 @@ public class CalculoUtilsTest {
 	public void givenValueAndTotal_whenCalculatePercentual_thenReturnPercentual() {
 		assertEquals(RESULT, CalculoUtils.percentual(VALUE, TOTAL), DELTA);
 	}
+	
+	@Test
+	public void givenTotalZero_whenCalculatePercentual_thenReturnPercentualZero() {
+		assertEquals(CalculoUtils.ZERO, CalculoUtils.percentual(VALUE, CalculoUtils.ZERO), DELTA);
+	}
 
 }

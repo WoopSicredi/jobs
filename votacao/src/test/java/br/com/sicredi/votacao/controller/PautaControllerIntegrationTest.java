@@ -70,8 +70,24 @@ public class PautaControllerIntegrationTest {
 	}
 	
 	@Test
-	public void test4_whenGetNotFoundPauta_thenStatus404() throws Exception {
-		mockMvc.perform(get(URI + "{id}", PautaMocker.ID_NOT_FOUND))
+	public void test4_whenGetPautaNonexistent_thenStatus404() throws Exception {
+		mockMvc.perform(get(URI + "/{id}", PautaMocker.ID_NOT_FOUND))
+			.andDo(print())
+			.andExpect(status().isNotFound());
+	}
+	
+	@Test
+	public void test5_givenResultadoPauta_WhenGet_thenStatus200() throws Exception {
+		mockMvc.perform(get(URI + "/{id}/resultados", PautaMocker.ID))
+			.andDo(print())
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$.nomePauta").value(PautaMocker.NOME))
+			.andExpect(jsonPath("$.pergunta").value(PautaMocker.PERGUNTA));
+	}
+	
+	@Test
+	public void test5_givenResultadoPautaNonexistent_WhenGet_thenStatus404() throws Exception {
+		mockMvc.perform(get(URI + "/{id}/resultados", PautaMocker.ID_NOT_FOUND))
 			.andDo(print())
 			.andExpect(status().isNotFound());
 	}

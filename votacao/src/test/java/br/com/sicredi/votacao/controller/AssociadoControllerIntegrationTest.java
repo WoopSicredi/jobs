@@ -57,13 +57,23 @@ public class AssociadoControllerIntegrationTest {
 	}
 	
 	@Test
-	public void test2_givenAssociado_whenGet_thenStatus200() throws Exception {
+	public void test2_givenAssociadoWhitInvalidParameters_whenPost_thenStatus400() throws Exception {
+		mockMvc.perform(post(URI)
+				.content(mapper.writeValueAsString(AssociadoMocker.ASSOCIADO_SAVE_DTO_WITH_INVALID_PARAMETERS))
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
+			.andDo(print())
+			.andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	public void test3_givenAssociado_whenGet_thenStatus200() throws Exception {
 		mockMvc.perform(get(URI))
 			.andExpect(status().isOk());
 	}
 	
 	@Test
-	public void test3_givenAssociado_WhenGet_thenStatus200() throws Exception {
+	public void test4_givenAssociado_WhenGet_thenStatus200() throws Exception {
 		mockMvc.perform(get(URI + "/{id}", AssociadoMocker.ID))
 			.andDo(print())
 			.andExpect(status().isOk())
@@ -71,8 +81,8 @@ public class AssociadoControllerIntegrationTest {
 	}
 	
 	@Test
-	public void test4_whenGetNotFoundAssociado_thenStatus404() throws Exception {
-		mockMvc.perform(get(URI + "{id}", AssociadoMocker.ID_NOT_FOUND))
+	public void test5_whenGetNotFoundAssociado_thenStatus404() throws Exception {
+		mockMvc.perform(get(URI + "/{id}", AssociadoMocker.ID_NOT_FOUND))
 			.andDo(print())
 			.andExpect(status().isNotFound());
 	}

@@ -57,5 +57,15 @@ public class SessaoControllerIntegrationTest {
 			.andDo(print())
 			.andExpect(status().isCreated());
 	}
+	
+	@Test
+	public void test2_givenSessao_whenPost_thenStatus422() throws Exception {
+		mockMvc.perform(post(URI)
+				.content(mapper.writeValueAsString(SessaoMocker.SESSAO_SAVE_DTO_WITH_INVALID_PAUTA))
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
+			.andDo(print())
+			.andExpect(status().isUnprocessableEntity());
+	}
 
 }
