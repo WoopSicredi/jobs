@@ -34,7 +34,7 @@ public class BaseExceptionHandler extends ResponseEntityExceptionHandler {
 		String message = messageHandler.getMessage(MessageKey.INVALID_PARAMETERS);
 		List<String> details = ex.getBindingResult().getAllErrors()
 				.stream()
-				.map(objectError -> messageHandler.getMessage(objectError))
+				.map(messageHandler::getMessage)
 				.collect(Collectors.toList());
 		return new ResponseEntity<>(new ErrorDetails(message, details), HttpStatus.BAD_REQUEST);
 	}
