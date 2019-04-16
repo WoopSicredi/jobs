@@ -1,0 +1,9 @@
+zonki:
+  test:
+    database:
+      postgres:
+        docker:
+          image: postgres:11.2-alpine
+          tmpfs:
+            enabled: false
+            options: rw,noexec,nosuid
