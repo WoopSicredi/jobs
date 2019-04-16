@@ -1,5 +1,6 @@
 package com.vollino.poll.service;
 
+import io.restassured.http.ContentType;
 import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
 import org.flywaydb.test.annotation.FlywayTest;
 import org.junit.Test;
@@ -30,6 +31,7 @@ public class ApplicationIT {
     public void shouldCreateTopic() {
         given()
             .port(port)
+            .contentType(ContentType.JSON)
             .body("{\"description\": \"Topic description\"}")
         .when()
             .post("/topic")

@@ -1,9 +1,19 @@
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false
+        jdbc:
+          lob:
+            non_contextual_creation: true
 zonki:
   test:
     database:
       postgres:
         docker:
-          image: postgres:11.2-alpine
+          image: postgres:11.2alpine
           tmpfs:
             enabled: false
             options: rw,noexec,nosuid

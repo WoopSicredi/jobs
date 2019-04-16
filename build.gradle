@@ -27,6 +27,7 @@ apply from: './java.gradle'
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtime 'org.postgresql:postgresql:42.2.5'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.zonky.test:embedded-database-spring-test:1.4.1'
