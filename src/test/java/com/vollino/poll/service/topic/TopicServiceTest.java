@@ -40,12 +40,13 @@ public class TopicServiceTest {
     }
 
     @Test
-    public void shouldNotCreateTopicWithAnEmptyDescription() {
+    public void shouldRejectTopicWithAnEmptyDescription() {
         //given
         Topic topic = new Topic(null, "");
 
         //when
-        ConstraintViolationException thrown = catchThrowableOfType(() -> topicService.create(topic), ConstraintViolationException.class);
+        ConstraintViolationException thrown = catchThrowableOfType(() ->
+                topicService.create(topic), ConstraintViolationException.class);
 
         //then
         assertThat(thrown).isNotNull();

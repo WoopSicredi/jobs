@@ -1,9 +1,10 @@
 package com.vollino.poll.service.poll;
 
 import com.google.common.base.MoreObjects;
-import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
@@ -12,14 +13,18 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "poll")
-@Validated
 public class Poll {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull(message = "Topic ID is mandatory")
     private Long topicId;
+
+    @NotBlank(message = "Poll description is mandatory")
     private String description;
+
     private ZonedDateTime endDate;
 
     public Poll() {

@@ -60,20 +60,4 @@ public class PollRestControllerTest {
                 "\"endDate\": \"2019-04-16T18:19:00-03:00[Brazil/East]\"" +
             "}"));
     }
-
-    //TODO test corner cases
-    /*
-    @Test
-    public void shouldNotAcceptTopicWithoutDescription() throws Exception {
-        //when
-        ResultActions response = mockMvc.perform(MockMvcRequestBuilders.post("/topic")
-                .content("{\"description\": \"\"}")
-                .contentType(MediaType.APPLICATION_JSON));
-
-        //then
-        response.andExpect(status().isBadRequest())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(content().json("{\"description\": \"Description is mandatory\"}"));
-    }
-    */
 }
