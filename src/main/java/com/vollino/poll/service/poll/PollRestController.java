@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-
 /**
  * @author Bruno Vollino
  */
@@ -18,17 +16,19 @@ import javax.validation.Valid;
 @RequestMapping("/poll")
 public class PollRestController {
 
-    private final PollRepository pollRepository;
+    private final PollService pollService;
 
     @Autowired
-    public PollRestController(PollRepository pollRepository) {
-        this.pollRepository = pollRepository;
+    public PollRestController(PollService pollService) {
+        this.pollService = pollService;
     }
 
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Poll> create(@Valid @RequestBody CreatePollRequest createRequest) {
-        Poll persisted = pollRepository.save(
-                new Poll(null, createRequest.getTopicId(), createRequest.getDescription(),
+    public ResponseEntity<Poll> create(@RequestBody CreatePollRequest createRequest) {
+        Poll persisted = pollService.create(
+                new Poll(null,
+                        createRequest.getTopicId(),
+                        createRequest.getDescription(),
                         createRequest.getEndDate()));
 
         return ResponseEntity.status(HttpStatus.CREATED)

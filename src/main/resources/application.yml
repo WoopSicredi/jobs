@@ -3,5 +3,8 @@ spring:
     deserialization:
       adjust_dates_to_context_time_zone: false
     serialization:
-      WRITE_DATES_AS_TIMESTAMPS: false
-      WRITE_DATES_WITH_ZONE_ID: true
+      write_dates_as_timestamps: false
+      write_dates_with_zone_id: true
+
+flyway:
+  enabled: false

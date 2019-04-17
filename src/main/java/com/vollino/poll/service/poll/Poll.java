@@ -1,6 +1,7 @@
 package com.vollino.poll.service.poll;
 
 import com.google.common.base.MoreObjects;
+import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
@@ -11,6 +12,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "poll")
+@Validated
 public class Poll {
 
     @Id

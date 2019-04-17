@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-
 /**
  * @author Bruno Vollino
  */
@@ -18,19 +16,19 @@ import javax.validation.Valid;
 @RequestMapping("/topic")
 public class TopicRestController {
 
-    private final TopicRepository topicRepository;
+    private TopicService topicService;
 
     @Autowired
-    public TopicRestController(TopicRepository topicRepository) {
-        this.topicRepository = topicRepository;
+    public TopicRestController(TopicService topicService) {
+        this.topicService = topicService;
     }
 
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Topic> create(@Valid @RequestBody CreateTopicRequest createRequest) {
-        Topic persisted = topicRepository.save(new Topic(null, createRequest.getDescription()));
+    public ResponseEntity<Topic> create(@RequestBody CreateTopicRequest createRequest) {
+        Topic created = topicService.create(new Topic(null, createRequest.getDescription()));
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(persisted);
+                .body(created);
     }
 }

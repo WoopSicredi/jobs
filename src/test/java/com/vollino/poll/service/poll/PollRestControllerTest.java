@@ -1,14 +1,11 @@
 package com.vollino.poll.service.poll;
 
-import com.vollino.poll.service.topic.TopicRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -25,19 +22,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Bruno Vollino
  */
 @RunWith(SpringRunner.class)
-@WebMvcTest
-@ActiveProfiles("test")
-@AutoConfigureMockMvc
+@WebMvcTest(PollRestController.class)
 public class PollRestControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private PollRepository pollRepository;
-
-    @MockBean
-    private TopicRepository topicRepository;
+    private PollService pollService;
 
     @Test
     public void shouldCreatePoll() throws Exception {
@@ -46,7 +38,7 @@ public class PollRestControllerTest {
                 ZonedDateTime.parse("2019-04-16T18:19:00-03:00[Brazil/East]"));
         Poll persisted = new Poll(1L, 2L, "Poll description",
                 ZonedDateTime.parse("2019-04-16T18:19:00-03:00[Brazil/East]"));
-        given(pollRepository.save(received)).willReturn(persisted);
+        given(pollService.create(received)).willReturn(persisted);
 
         //when
         ResultActions response = mockMvc.perform(MockMvcRequestBuilders.post("/poll")
@@ -58,7 +50,7 @@ public class PollRestControllerTest {
             .contentType(MediaType.APPLICATION_JSON_UTF8));
 
         //then
-        verify(pollRepository).save(received);
+        verify(pollService).create(received);
         response.andExpect(status().isCreated())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(content().json("{" +
@@ -69,7 +61,7 @@ public class PollRestControllerTest {
             "}"));
     }
 
-    //TODO create corner case tests
+    //TODO test corner cases
     /*
     @Test
     public void shouldNotAcceptTopicWithoutDescription() throws Exception {

@@ -15,15 +15,14 @@ import javax.sql.DataSource;
 
 import static io.restassured.RestAssured.given;
 import static io.zonky.test.db.AutoConfigureEmbeddedDatabase.DatabaseProvider.DOCKER;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.*;
 
 /**
  * @author Bruno Vollino
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("test")
+@ActiveProfiles("integration-test")
 @FlywayTest
 @AutoConfigureEmbeddedDatabase(provider = DOCKER)
 public class ApplicationIT {
@@ -45,6 +44,18 @@ public class ApplicationIT {
             .assertThat().statusCode(201)
             .and().body("id", notNullValue())
             .and().body("description", equalTo("Topic description"));
+    }
+
+    @Test
+    public void shouldNotAcceptTopicWithoutDescription() {
+        given().port(port)
+            .contentType(ContentType.JSON)
+            .body("{\"description\": \"\"}")
+        .when()
+            .post("/topic")
+        .then()
+            .assertThat().statusCode(400)
+            .and().body("errors", containsInAnyOrder("Topic description is mandatory"));
     }
 
     @Test

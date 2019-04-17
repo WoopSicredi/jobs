@@ -9,7 +9,6 @@ public class CreatePollRequest {
 
     private Long topicId;
     private String description;
-
     private ZonedDateTime endDate;
 
     public Long getTopicId() {

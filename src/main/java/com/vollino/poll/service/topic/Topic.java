@@ -3,6 +3,7 @@ package com.vollino.poll.service.topic;
 import com.google.common.base.MoreObjects;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 /**
@@ -15,6 +16,7 @@ public class Topic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "Topic description is mandatory")
     private String description;
 
     public Topic() {
