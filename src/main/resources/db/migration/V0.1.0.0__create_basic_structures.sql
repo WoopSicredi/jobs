@@ -8,7 +8,7 @@ CREATE TABLE poll (
  id BIGSERIAL PRIMARY KEY,
  topic_id BIGINT NOT NULL,
  description VARCHAR(500) NOT NULL,
- end_date TIMESTAMP NOT NULL,
+ end_date TIMESTAMPTZ NOT NULL, -- TIMESTAMP with Time Zone
  FOREIGN KEY(topic_id) REFERENCES topic(id)
 );
 

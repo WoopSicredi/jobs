@@ -1,0 +1,7 @@
+spring:
+  jackson:
+    deserialization:
+      adjust_dates_to_context_time_zone: false
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+      WRITE_DATES_WITH_ZONE_ID: true

@@ -8,6 +8,7 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
+
 zonki:
   test:
     database:
