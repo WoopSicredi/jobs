@@ -1,19 +1,14 @@
-package com.vollino.poll.service.poll;
+package com.vollino.poll.service.poll.rest;
 
 import java.time.ZonedDateTime;
 
 /**
  * @author Bruno Vollino
  */
-public class CreatePollRequest {
+public class CreatePollRequestBody {
 
-    private Long topicId;
     private String description;
     private ZonedDateTime endDate;
-
-    public Long getTopicId() {
-        return topicId;
-    }
 
     public String getDescription() {
         return description;

@@ -16,7 +16,8 @@ public class Topic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank(message = "Topic description is mandatory")
+
+    @NotBlank(message = "description is mandatory")
     private String description;
 
     public Topic() {

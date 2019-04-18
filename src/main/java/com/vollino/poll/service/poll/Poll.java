@@ -19,10 +19,10 @@ public class Poll {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "Topic ID is mandatory")
+    @NotNull(message = "topicId is mandatory")
     private Long topicId;
 
-    @NotBlank(message = "Poll description is mandatory")
+    @NotBlank(message = "description is mandatory")
     private String description;
 
     private ZonedDateTime endDate;

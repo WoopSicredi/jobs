@@ -1,5 +1,6 @@
 package com.vollino.poll.service.topic;
 
+import com.vollino.poll.service.topic.rest.TopicRestController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ public class TopicRestControllerTest {
         given(topicService.create(received)).willReturn(created);
 
         //when
-        ResultActions response = mockMvc.perform(MockMvcRequestBuilders.post("/topic")
+        ResultActions response = mockMvc.perform(MockMvcRequestBuilders.post("/topics")
             .content("{\"description\": \"Topic description\"}")
             .contentType(MediaType.APPLICATION_JSON));
 

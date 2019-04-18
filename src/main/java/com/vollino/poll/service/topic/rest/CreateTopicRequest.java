@@ -1,4 +1,4 @@
-package com.vollino.poll.service.topic;
+package com.vollino.poll.service.topic.rest;
 
 /**
  * @author Bruno Vollino

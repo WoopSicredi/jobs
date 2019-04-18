@@ -1,19 +1,17 @@
-package com.vollino.poll.service.poll;
+package com.vollino.poll.service.poll.rest;
 
+import com.vollino.poll.service.poll.Poll;
+import com.vollino.poll.service.poll.PollService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Bruno Vollino
  */
 @RestController
-@RequestMapping("/poll")
 public class PollRestController {
 
     private final PollService pollService;
@@ -23,11 +21,13 @@ public class PollRestController {
         this.pollService = pollService;
     }
 
-    @PostMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Poll> create(@RequestBody CreatePollRequest createRequest) {
+    @PostMapping(path = "/topics/{topicId}/polls", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Poll> create(
+            @PathVariable Long topicId,
+            @RequestBody CreatePollRequestBody createRequest) {
         Poll persisted = pollService.create(
                 new Poll(null,
-                        createRequest.getTopicId(),
+                        topicId,
                         createRequest.getDescription(),
                         createRequest.getEndDate()));
 

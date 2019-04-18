@@ -39,7 +39,7 @@ public class ApplicationIT {
             .contentType(ContentType.JSON)
             .body("{\"description\": \"Topic description\"}")
         .when()
-            .post("/topic")
+            .post("/topics")
         .then()
             .assertThat().statusCode(201)
             .and().body("id", notNullValue())
@@ -52,34 +52,72 @@ public class ApplicationIT {
             .contentType(ContentType.JSON)
             .body("{\"description\": \"\"}")
         .when()
-            .post("/topic")
+            .post("/topics")
         .then()
             .assertThat().statusCode(400)
-            .and().body("errors", containsInAnyOrder("Topic description is mandatory"));
+            .and().body("errors", containsInAnyOrder("description is mandatory"));
     }
 
     @Test
     public void shouldCreatePoll() {
-        Long topicId = given().port(port)
-            .contentType(ContentType.JSON)
-            .body("{\"description\": \"Topic description\"}")
-            .post("/topic")
-                .body().jsonPath().getLong("id");
+        //given
+        Long topicId = createTopicAndReturnId();
 
+        //when-then
         given().port(port)
             .contentType(ContentType.JSON)
             .body(String.format("{" +
-                "\"topicId\": 1," +
                 "\"description\": \"Poll description\"," +
                 "\"endDate\": \"2019-04-16T18:19:00-03:00[Brazil/East]\"" +
             "}", topicId))
         .when()
-            .post("/poll")
+            .post("/topics/{topicId}/polls", topicId)
         .then()
             .assertThat().statusCode(201)
-            .and().body("id", equalTo(1))
-            .and().body("topicId", equalTo(1))
+            .and().body("id", notNullValue())
+            .and().body("topicId", equalTo(topicId.intValue()))
             .and().body("description", equalTo("Poll description"))
             .and().body("endDate", equalTo("2019-04-16T18:19:00-03:00[Brazil/East]"));
+    }
+
+    @Test
+    public void shouldCastVote() {
+        //given
+        Long topicId = createTopicAndReturnId();
+        Long pollId = createPollAndReturnId(topicId);
+
+        //when-then
+        given().port(port)
+            .contentType(ContentType.JSON)
+            .body(String.format("{" +
+                    "\"voterId\": 1," +
+                    "\"pollOption\": \"Sim\"" +
+                "}", pollId))
+        .when()
+            .post("/polls/{pollId}/votes", pollId)
+        .then()
+            .assertThat().statusCode(201)
+            .and().body("id.pollId", equalTo(pollId.intValue()))
+            .and().body("id.voterId", equalTo(1))
+            .and().body("pollOption", equalTo("Sim"));
+    }
+
+    private Long createTopicAndReturnId() {
+        return given().port(port)
+            .contentType(ContentType.JSON)
+            .body("{\"description\": \"Topic description\"}")
+            .post("/topics")
+            .body().jsonPath().getLong("id");
+    }
+
+    private Long createPollAndReturnId(Long topicId) {
+        return given().port(port)
+            .contentType(ContentType.JSON)
+            .body(String.format("{" +
+                "\"description\": \"Poll description\"," +
+                "\"endDate\": \"2019-04-16T18:19:00-03:00[Brazil/East]\"" +
+            "}", topicId))
+            .post("/topics/{topicId}/polls", topicId)
+            .body().jsonPath().getLong("id");
     }
 }

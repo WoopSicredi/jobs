@@ -51,6 +51,6 @@ public class TopicServiceTest {
         //then
         assertThat(thrown).isNotNull();
         assertThat(thrown.getConstraintViolations().iterator().next().getMessage())
-                .isEqualTo("Topic description is mandatory");
+                .isEqualTo("description is mandatory");
     }
 }

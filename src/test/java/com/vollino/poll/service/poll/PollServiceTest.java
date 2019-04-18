@@ -1,5 +1,7 @@
 package com.vollino.poll.service.poll;
 
+import com.vollino.poll.service.exception.DataIntegrityException;
+import com.vollino.poll.service.topic.TopicRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import java.time.ZonedDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowableOfType;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -27,6 +31,9 @@ public class PollServiceTest {
     private PollRepository pollRepository;
 
     @MockBean
+    private TopicRepository topicRepository;
+
+    @MockBean
     private Clock clock;
 
     @Autowired
@@ -35,18 +42,22 @@ public class PollServiceTest {
     @Test
     public void shouldCreatePoll() {
         //given
+        Long topicId = 1L;
         ZonedDateTime end = ZonedDateTime.parse("2019-04-17T02:23:00-09:00[US/Alaska]");
-        Poll poll = new Poll(null, 1L, "description", end);
+        Poll poll = new Poll(null, topicId, "description", end);
+
+        given(topicRepository.existsById(any())).willReturn(true);
 
         //when
         pollService.create(poll);
 
         //then
+        verify(topicRepository).existsById(topicId);
         verify(pollRepository).save(poll);
     }
 
     @Test
-    public void shouldRejectTopicWithoutATopicId() {
+    public void shouldRejectPollWithoutATopicId() {
         //given
         ZonedDateTime end = ZonedDateTime.parse("2019-04-17T02:23:00-09:00[US/Alaska]");
         Poll poll = new Poll(null, null, "description", end);
@@ -58,11 +69,28 @@ public class PollServiceTest {
         //then
         assertThat(thrown).isNotNull();
         assertThat(thrown.getConstraintViolations().iterator().next().getMessage())
-                .isEqualTo("Topic ID is mandatory");
+                .isEqualTo("topicId is mandatory");
     }
 
     @Test
-    public void shouldRejectTopicWithAnEmptyDescription() {
+    public void shouldRejectPollWhenTopicDoesNotExist() {
+        //given
+        ZonedDateTime end = ZonedDateTime.parse("2019-04-17T02:23:00-09:00[US/Alaska]");
+        Poll poll = new Poll(null, 1L, "description", end);
+
+        given(topicRepository.existsById(any())).willReturn(false);
+
+        //when
+        DataIntegrityException thrown = catchThrowableOfType(() ->
+                pollService.create(poll), DataIntegrityException.class);
+
+        //then
+        assertThat(thrown).isNotNull();
+        assertThat(thrown.getMessage()).isEqualTo("Topic with id=1 not found");
+    }
+
+    @Test
+    public void shouldRejectPollWithAnEmptyDescription() {
         //given
         ZonedDateTime end = ZonedDateTime.parse("2019-04-17T02:23:00-09:00[US/Alaska]");
         Poll poll = new Poll(null, 1L, "", end);
@@ -74,7 +102,7 @@ public class PollServiceTest {
         //then
         assertThat(thrown).isNotNull();
         assertThat(thrown.getConstraintViolations().iterator().next().getMessage())
-                .isEqualTo("Poll description is mandatory");
+                .isEqualTo("description is mandatory");
     }
 
     @Test
@@ -83,6 +111,8 @@ public class PollServiceTest {
         Poll poll = new Poll(null, 1L, "description", null);
         ZonedDateTime now = ZonedDateTime.parse("2019-04-17T02:23:00-09:00[US/Alaska]");
         Poll pollWithGeneratedEnd = new Poll(null, 1L, "description", now);
+
+        given(topicRepository.existsById(any())).willReturn(true);
 
         when(clock.now()).thenReturn(now);
 
