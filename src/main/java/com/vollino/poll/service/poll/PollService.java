@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import java.time.Duration;
 
 /**
  * @author Bruno Vollino
@@ -31,7 +31,7 @@ public class PollService {
     public Poll create(@Valid Poll poll) {
         Preconditions.checkArgument(poll.getId() == null, "A new Poll must have no ID on creation");
         if (poll.getEndDate() == null) {
-            poll.setEndDate(clock.now());
+            poll.setEndDate(clock.now().plus(Duration.ofMinutes(1)));
         }
         if (!topicRepository.existsById(poll.getTopicId())) {
             throw new DataIntegrityException(String.format("Topic with id=%d not found", poll.getTopicId()));

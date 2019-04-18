@@ -11,6 +11,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.validation.ConstraintViolationException;
+import java.time.Duration;
 import java.time.ZonedDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -106,11 +107,11 @@ public class PollServiceTest {
     }
 
     @Test
-    public void shouldSetCurrentServerTimeAsEndDateIfItWasNotInformed() {
+    public void shouldSetPollDurationToOneMinuteIfEndDateWasNotInformed() {
         //given
         Poll poll = new Poll(null, 1L, "description", null);
         ZonedDateTime now = ZonedDateTime.parse("2019-04-17T02:23:00-09:00[US/Alaska]");
-        Poll pollWithGeneratedEnd = new Poll(null, 1L, "description", now);
+        Poll defaultEndingPoll = new Poll(null, 1L, "description", now.plus(Duration.ofMinutes(1)));
 
         given(topicRepository.existsById(any())).willReturn(true);
 
@@ -120,6 +121,6 @@ public class PollServiceTest {
         pollService.create(poll);
 
         //then
-        verify(pollRepository).save(pollWithGeneratedEnd);
+        verify(pollRepository).save(defaultEndingPoll);
     }
 }
