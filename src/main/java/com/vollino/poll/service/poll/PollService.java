@@ -9,6 +9,8 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 import java.time.Duration;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Bruno Vollino
@@ -22,7 +24,10 @@ public class PollService {
     private final Clock clock;
 
     @Autowired
-    public PollService(PollRepository pollRepository, TopicRepository topicRepository, Clock clock) {
+    public PollService(
+            PollRepository pollRepository,
+            TopicRepository topicRepository,
+            Clock clock) {
         this.pollRepository = pollRepository;
         this.topicRepository = topicRepository;
         this.clock = clock;
@@ -38,5 +43,22 @@ public class PollService {
         }
 
         return pollRepository.save(poll);
+    }
+
+    public Optional<Poll> getPoll(Long pollId) {
+        Preconditions.checkArgument(pollId != null, "pollId must not be null");
+
+        Optional<Poll> poll = pollRepository.findById(pollId);
+        if (poll.isPresent()) {
+            poll.get().setResults(getPollResults(pollId));
+        }
+
+        return poll;
+    }
+
+    private List<VoteCount> getPollResults(Long pollId) {
+        Preconditions.checkArgument(pollId != null, "pollId must not be null");
+
+        return pollRepository.findVoteCountByPollGroupByOption(pollId);
     }
 }

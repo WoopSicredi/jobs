@@ -40,12 +40,12 @@ public class TopicRestControllerTest {
         //when
         ResultActions response = mockMvc.perform(MockMvcRequestBuilders.post("/topics")
             .content("{\"description\": \"Topic description\"}")
-            .contentType(MediaType.APPLICATION_JSON));
+            .contentType(MediaType.APPLICATION_JSON_UTF8));
 
         //then
         verify(topicService).create(received);
         response.andExpect(status().isCreated())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
             .andExpect(content().json(
                     "{\"id\": 1, \"description\": \"Topic description\"}"));
     }

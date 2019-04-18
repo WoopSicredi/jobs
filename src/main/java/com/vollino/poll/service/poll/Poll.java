@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -26,6 +27,9 @@ public class Poll {
     private String description;
 
     private ZonedDateTime endDate;
+
+    @Transient
+    private List<VoteCount> results;
 
     public Poll() {
     }
@@ -69,6 +73,14 @@ public class Poll {
         this.endDate = endDate;
     }
 
+    public List<VoteCount> getResults() {
+        return results;
+    }
+
+    public void setResults(List<VoteCount> results) {
+        this.results = results;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -77,12 +89,13 @@ public class Poll {
         return Objects.equals(getId(), poll.getId()) &&
                 Objects.equals(getTopicId(), poll.getTopicId()) &&
                 Objects.equals(getDescription(), poll.getDescription()) &&
-                Objects.equals(getEndDate(), poll.getEndDate());
+                Objects.equals(getEndDate(), poll.getEndDate()) &&
+                Objects.equals(getResults(), poll.getResults());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getTopicId(), getDescription(), getEndDate());
+        return Objects.hash(getId(), getTopicId(), getDescription(), getEndDate(), getResults());
     }
 
     @Override
@@ -92,6 +105,7 @@ public class Poll {
                 .add("topicId", topicId)
                 .add("description", description)
                 .add("endDate", endDate)
+                .add("results", results)
                 .toString();
     }
 }

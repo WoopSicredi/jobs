@@ -2,6 +2,7 @@ package com.vollino.poll.service.poll;
 
 import com.vollino.poll.service.exception.DataIntegrityException;
 import com.vollino.poll.service.topic.TopicRepository;
+import com.vollino.poll.service.vote.VoteRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +14,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.validation.ConstraintViolationException;
 import java.time.Duration;
 import java.time.ZonedDateTime;
+import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowableOfType;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * @author Bruno Vollino
@@ -33,6 +35,9 @@ public class PollServiceTest {
 
     @MockBean
     private TopicRepository topicRepository;
+
+    @MockBean
+    private VoteRepository voteRepository;
 
     @MockBean
     private Clock clock;
@@ -122,5 +127,45 @@ public class PollServiceTest {
 
         //then
         verify(pollRepository).save(defaultEndingPoll);
+    }
+
+    @Test
+    public void shouldRetrievePollWithResults() {
+        //given
+        Long pollId = 1L;
+        Long topicId = 2L;
+        ZonedDateTime end = ZonedDateTime.parse("2019-04-17T02:23:00-09:00[US/Alaska]");
+        List<VoteCount> results = mock(List.class);
+
+        Optional<Poll> expected = Optional.of(new Poll(pollId, topicId, "description", end));
+        expected.get().setResults(results);
+
+        Poll persisted = new Poll(pollId, topicId, "description", end);
+
+        given(pollRepository.findById(any())).willReturn(Optional.of(persisted));
+        given(pollRepository.findVoteCountByPollGroupByOption(any())).willReturn(results);
+
+        //when
+        Optional<Poll> actual = pollService.getPoll(pollId);
+
+        //then
+        verify(pollRepository).findById(pollId);
+        verify(pollRepository).findVoteCountByPollGroupByOption(pollId);
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    public void shouldRetrieveOptionalEmptyWhenPollDoesNotExist() {
+        //given
+        Long pollId = 1L;
+
+        given(pollRepository.findById(any())).willReturn(Optional.empty());
+
+        //when
+        Optional<Poll> actual = pollService.getPoll(pollId);
+
+        //then
+        verify(pollRepository).findById(pollId);
+        assertThat(actual).isEqualTo(Optional.empty());
     }
 }

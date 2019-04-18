@@ -28,7 +28,7 @@ public class TopicRestController {
         Topic created = topicService.create(new Topic(null, createRequest.getDescription()));
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .contentType(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .body(created);
     }
 }

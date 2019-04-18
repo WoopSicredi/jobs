@@ -34,7 +34,7 @@ public class VoteRestController {
                 requestBody.getPollOption()));
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .contentType(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .body(created);
     }
 }

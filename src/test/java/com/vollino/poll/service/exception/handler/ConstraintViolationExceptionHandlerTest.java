@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -40,11 +41,6 @@ public class ConstraintViolationExceptionHandlerTest {
         ConstraintViolationException exception = new ConstraintViolationException(
                 "Exception thrown", ImmutableSet.of(violation1, violation2));
 
-        ResponseEntity<ErrorResponseBody> expected = ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .body(new ErrorResponseBody().withError(errorMessage1).withError(errorMessage2));
-
         given(violation1.getMessage()).willReturn(errorMessage1);
         given(violation2.getMessage()).willReturn(errorMessage2);
 
@@ -53,6 +49,8 @@ public class ConstraintViolationExceptionHandlerTest {
                 constraintViolationExceptionHandler.handleException(exception);
 
         //then
-        assertThat(actual, equalTo(expected));
+        assertThat(actual.getStatusCode(), equalTo(HttpStatus.BAD_REQUEST));
+        assertThat(actual.getHeaders().getContentType(), equalTo(MediaType.APPLICATION_JSON_UTF8));
+        assertThat(actual.getBody().getErrors(), containsInAnyOrder(errorMessage1, errorMessage2));
     }
 }
