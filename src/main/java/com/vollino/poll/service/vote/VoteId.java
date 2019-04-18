@@ -3,7 +3,7 @@ package com.vollino.poll.service.vote;
 import com.google.common.base.MoreObjects;
 
 import javax.persistence.Embeddable;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -15,16 +15,16 @@ public class VoteId implements Serializable {
 
     private static final long serialVersionUID = 4796082321282645728L;
 
-    @NotBlank(message = "voterId is mandatory")
+    @NotNull(message = "voterId is mandatory")
     private Long voterId;
 
-    @NotBlank(message = "pollId is mandatory")
+    @NotNull(message = "pollId is mandatory")
     private Long pollId;
 
     public VoteId() {
     }
 
-    public VoteId(@NotBlank(message = "voterId is mandatory") Long voterId, @NotBlank(message = "pollId is mandatory") Long pollId) {
+    public VoteId(Long voterId, Long pollId) {
         this.voterId = voterId;
         this.pollId = pollId;
     }

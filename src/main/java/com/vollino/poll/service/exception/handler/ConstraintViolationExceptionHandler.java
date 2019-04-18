@@ -15,11 +15,11 @@ import javax.validation.ConstraintViolationException;
 public class ConstraintViolationExceptionHandler {
 
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<ErrorResponseBody> handleValidationExceptions(ConstraintViolationException ex) {
+    public ResponseEntity<ErrorResponseBody> handleException(ConstraintViolationException ex) {
         ErrorResponseBody body = new ErrorResponseBody();
 
         ex.getConstraintViolations().stream()
-            .forEach(error -> body.withError(error.getMessage()));
+                .forEach(error -> body.withError(error.getMessage()));
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)

@@ -26,11 +26,11 @@ public class VoteService {
 
     public Vote create(@Valid Vote vote) {
         if (!pollRepository.existsById(vote.getId().getPollId())) {
-            throw new DataIntegrityException(String.format("Poll with id %d not found", vote.getId().getPollId()));
+            throw new DataIntegrityException(String.format("Poll with id=%d not found", vote.getId().getPollId()));
         }
         if (voteRepository.existsById(vote.getId())) {
             throw new DataIntegrityException(String.format(
-                    "Voter with id %d has already voted for Poll %d",
+                    "Voter with id=%d has already voted in Poll %d",
                     vote.getId().getPollId(), vote.getId().getVoterId()));
         }
 

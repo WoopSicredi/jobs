@@ -6,8 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import java.util.Optional;
 
 /**
  * @author Bruno Vollino
@@ -27,9 +25,5 @@ public class TopicService {
         Preconditions.checkArgument(topic.getId() == null, "A new Topic must have no ID on creation");
 
         return topicRepository.save(topic);
-    }
-
-    public Optional<Topic> get(@NotNull(message = "Inform the poll id") Long id) {
-        return topicRepository.findById(id);
     }
 }

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ClientErrorExceptionHandler {
 
     @ExceptionHandler(ClientErrorException.class)
-    public ResponseEntity<ErrorResponseBody> handleExceptionsWithUserMesssages(ClientErrorException ex) {
+    public ResponseEntity<ErrorResponseBody> handleException(ClientErrorException ex) {
         ErrorResponseBody body = new ErrorResponseBody().withError(ex.getMessage());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)

@@ -4,6 +4,7 @@ import com.google.common.base.MoreObjects;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -15,6 +16,7 @@ import java.util.Objects;
 @Entity
 public class Vote {
 
+    @Valid
     @NotNull
     @EmbeddedId
     private VoteId id;
