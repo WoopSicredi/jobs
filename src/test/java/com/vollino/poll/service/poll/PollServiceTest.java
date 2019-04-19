@@ -168,4 +168,20 @@ public class PollServiceTest {
         verify(pollRepository).findById(pollId);
         assertThat(actual).isEqualTo(Optional.empty());
     }
+
+    @Test
+    public void shouldRetrievePollsByTopic() {
+        //given
+        Long topicId = 1L;
+        List<Poll> polls = mock(List.class);
+
+        given(pollRepository.findByTopicId(any())).willReturn(polls);
+
+        //when
+        List<Poll> actual = pollService.getPollsByTopic(topicId);
+
+        //then
+        verify(pollRepository).findByTopicId(topicId);
+        assertThat(actual).isEqualTo(polls);
+    }
 }

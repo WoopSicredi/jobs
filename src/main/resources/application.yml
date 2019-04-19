@@ -1,3 +1,6 @@
+server:
+  port: 8501
+
 spring:
   jackson:
     deserialization:
@@ -5,6 +8,15 @@ spring:
     serialization:
       write_dates_as_timestamps: false
       write_dates_with_zone_id: true
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false
+        jdbc:
+          lob:
+            non_contextual_creation: true
 
 flyway:
-  enabled: false
+  enabled: true

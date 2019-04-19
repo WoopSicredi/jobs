@@ -5,7 +5,6 @@ import com.google.common.base.MoreObjects;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Objects;
@@ -21,8 +20,7 @@ public class Vote {
     @EmbeddedId
     private VoteId id;
 
-    @NotBlank(message = "pollOption is mandatory")
-    @Pattern(regexp = "(Sim|Não)", message = "pollOption accepts only values 'Sim' or 'Não'")
+    @Pattern(regexp = "(Sim|Não)", message = "pollOption is mandatory and accepts only values 'Sim' or 'Não'")
     private String pollOption;
 
     public Vote() {

@@ -96,7 +96,7 @@ public class VoteServiceTest {
         //then
         assertThat(thrown).isNotNull();
         assertThat(thrown.getConstraintViolations().iterator().next().getMessage())
-                .isEqualTo("pollOption accepts only values 'Sim' or 'Não'");
+                .isEqualTo("pollOption is mandatory and accepts only values 'Sim' or 'Não'");
     }
 
     @Test
@@ -141,7 +141,7 @@ public class VoteServiceTest {
         //then
         assertThat(thrown).isNotNull();
         assertThat(thrown.getConstraintViolations().iterator().next().getMessage())
-                .isEqualTo("pollOption is mandatory");
+                .isEqualTo("pollOption is mandatory and accepts only values 'Sim' or 'Não'");
     }
 
     @Test

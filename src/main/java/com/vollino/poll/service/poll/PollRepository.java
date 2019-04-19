@@ -19,4 +19,6 @@ public interface PollRepository extends CrudRepository<Poll, Long> {
             " GROUP BY v.pollOption" +
             " ORDER BY v.pollOption")
     List<VoteCount> findVoteCountByPollGroupByOption(@Param("pollId") Long pollId);
+
+    List<Poll> findByTopicId(Long topicId);
 }

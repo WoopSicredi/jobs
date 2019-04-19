@@ -2,6 +2,7 @@ package com.vollino.poll.service.poll.rest;
 
 import com.vollino.poll.service.poll.Poll;
 import com.vollino.poll.service.poll.PollService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,6 +14,7 @@ import java.util.Optional;
 /**
  * @author Bruno Vollino
  */
+@Api("polls")
 @RestController
 public class PollRestController {
 

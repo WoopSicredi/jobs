@@ -3,6 +3,7 @@ package com.vollino.poll.service.vote.rest;
 import com.vollino.poll.service.vote.Vote;
 import com.vollino.poll.service.vote.VoteId;
 import com.vollino.poll.service.vote.VoteService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @author Bruno Vollino
  */
+@Api("votes")
 @RestController
 public class VoteRestController {
 

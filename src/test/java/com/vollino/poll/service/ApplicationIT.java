@@ -132,8 +132,41 @@ public class ApplicationIT {
             .and().body("results[0].count", equalTo(2))
             .and().body("results[1].option", equalTo("Sim"))
             .and().body("results[1].count", equalTo(3));
+    }
 
-                //    "[{\"option\": \"count\": \"Não\": 3}, {\"option\": \"count\": \"Não\": 2}]"));
+    @Test
+    public void shouldGetPollsWithResultsByTopic() {
+        //given
+        Long topicId = createTopicAndReturnId();
+        String pollDescription = "Poll description";
+        String endDate = ZonedDateTime.now().plus(Duration.ofMinutes(5)).toString();
+
+        Long pollId1 = createPollAndReturnId(topicId, pollDescription, endDate);
+        castVote(pollId1, 1L, "Sim");
+        castVote(pollId1, 2L, "Não");
+
+        Long pollId2 = createPollAndReturnId(topicId, pollDescription, endDate);
+        castVote(pollId2, 1L, "Sim");
+
+        //when-then
+        given().port(port)
+            .contentType(ContentType.JSON)
+        .when()
+            .get("/topics/{topicId}/polls", topicId)
+        .then()
+            .assertThat().statusCode(200)
+            .and().body("[0].id", equalTo(pollId1.intValue()))
+            .and().body("[0].description", equalTo(pollDescription))
+            .and().body("[0].endDate", equalTo(endDate))
+            .and().body("[0].results[0].option", equalTo("Não"))
+            .and().body("[0].results[0].count", equalTo(1))
+            .and().body("[0].results[1].option", equalTo("Sim"))
+            .and().body("[0].results[1].count", equalTo(1))
+            .and().body("[1].id", equalTo(pollId2.intValue()))
+            .and().body("[1].description", equalTo(pollDescription))
+            .and().body("[1].endDate", equalTo(endDate))
+            .and().body("[1].results[0].option", equalTo("Sim"))
+            .and().body("[1].results[0].count", equalTo(1));
     }
 
     private Long createTopicAndReturnId() {
@@ -146,7 +179,7 @@ public class ApplicationIT {
 
     private Long createPollAndReturnId(Long topicId) {
         return createPollAndReturnId(topicId, "Poll description",
-                ZonedDateTime.now().plus(Duration.ofMinutes(5)).toString());
+                ZonedDateTime.now().plus(Duration.ofMinutes(10)).toString());
     }
 
     private Long createPollAndReturnId(Long topicId, String description, String endDate) {

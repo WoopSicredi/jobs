@@ -1,0 +1,15 @@
+version: '3.1'
+services:
+  db:
+    image: postgres:11.2-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: poll_service
+    ports:
+      - 5432:5432
+    networks:
+      - ewok
+
+networks:
+  ewok:

@@ -61,4 +61,11 @@ public class PollService {
 
         return pollRepository.findVoteCountByPollGroupByOption(pollId);
     }
+
+    public List<Poll> getPollsByTopic(Long topicId) {
+        List<Poll> polls = pollRepository.findByTopicId(topicId);
+        polls.forEach(poll -> poll.setResults(getPollResults(poll.getId())));
+
+        return polls;
+    }
 }
