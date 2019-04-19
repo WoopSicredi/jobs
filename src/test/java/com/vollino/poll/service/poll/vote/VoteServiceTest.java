@@ -178,7 +178,7 @@ public class VoteServiceTest {
 
         //then
         assertThat(thrown).isNotNull();
-        assertThat(thrown.getMessage()).isEqualTo("Voter with id=1 has already voted in Poll 2");
+        assertThat(thrown.getMessage()).isEqualTo("Voter with id=2 has already voted in Poll 1");
     }
 
     @Test

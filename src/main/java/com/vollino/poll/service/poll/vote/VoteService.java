@@ -42,7 +42,7 @@ public class VoteService {
         if (voteRepository.existsById(vote.getId())) {
             throw new DataIntegrityException(String.format(
                     "Voter with id=%d has already voted in Poll %d",
-                    vote.getId().getPollId(), vote.getId().getVoterId()));
+                    vote.getId().getVoterId(), vote.getId().getPollId()));
         }
 
         return voteRepository.save(vote);
