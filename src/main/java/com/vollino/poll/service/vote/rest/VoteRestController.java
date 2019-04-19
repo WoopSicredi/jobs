@@ -4,6 +4,7 @@ import com.vollino.poll.service.vote.Vote;
 import com.vollino.poll.service.vote.VoteId;
 import com.vollino.poll.service.vote.VoteService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,6 +28,7 @@ public class VoteRestController {
         this.voteService = voteService;
     }
 
+    @ApiOperation("Cast a Vote to a given Poll")
     @PostMapping(path = "/polls/{pollId}/votes", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Vote> create(
             @PathVariable Long pollId,

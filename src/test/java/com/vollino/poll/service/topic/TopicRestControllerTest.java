@@ -62,6 +62,29 @@ public class TopicRestControllerTest {
     }
 
     @Test
+    public void shouldAllTopics() throws Exception {
+        //given
+        Topic topic1 = new Topic(1L, "Topic 1 description");
+        Topic topic2 = new Topic(2L, "Topic 2 description");
+
+        given(topicService.getAll()).willReturn(Lists.newArrayList(topic1, topic2));
+
+        //when
+        ResultActions response = mockMvc
+                .perform(MockMvcRequestBuilders.get("/topics")
+                .contentType(MediaType.APPLICATION_JSON_UTF8));
+
+        //then
+        verify(topicService).getAll();
+        response.andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+            .andExpect(content().json("[" +
+                    "{\"id\": 1, \"description\": \"Topic 1 description\"}," +
+                    "{\"id\": 2, \"description\": \"Topic 2 description\"}" +
+                "]"));
+    }
+
+    @Test
     public void shouldGetPollsByTopic() throws Exception {
         //given
         List<Poll> polls = Lists.newArrayList(
