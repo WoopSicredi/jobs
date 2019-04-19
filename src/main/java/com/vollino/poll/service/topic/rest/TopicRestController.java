@@ -2,6 +2,7 @@ package com.vollino.poll.service.topic.rest;
 
 import com.vollino.poll.service.poll.Poll;
 import com.vollino.poll.service.poll.PollService;
+import com.vollino.poll.service.poll.rest.CreatePollRequestBody;
 import com.vollino.poll.service.topic.Topic;
 import com.vollino.poll.service.topic.TopicService;
 import io.swagger.annotations.Api;
@@ -48,6 +49,22 @@ public class TopicRestController {
         return ResponseEntity.status(HttpStatus.OK)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .body(topics);
+    }
+
+    @ApiOperation("Create a Poll under a Topic")
+    @PostMapping(path = "/topics/{topicId}/polls", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Poll> create(
+            @PathVariable Long topicId,
+            @RequestBody CreatePollRequestBody createRequest) {
+        Poll persisted = pollService.create(
+                new Poll(null,
+                        topicId,
+                        createRequest.getDescription(),
+                        createRequest.getEndDate()));
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .body(persisted);
     }
 
     @ApiOperation("Get all Polls under a given Topic")

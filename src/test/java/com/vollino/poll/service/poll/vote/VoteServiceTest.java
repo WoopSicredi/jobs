@@ -1,10 +1,10 @@
-package com.vollino.poll.service.vote;
+package com.vollino.poll.service.poll.vote;
 
 import com.vollino.poll.service.exception.DataIntegrityException;
 import com.vollino.poll.service.poll.Clock;
 import com.vollino.poll.service.poll.Poll;
 import com.vollino.poll.service.poll.PollRepository;
-import com.vollino.poll.service.vote.exception.ClosedPollException;
+import com.vollino.poll.service.poll.exception.ClosedPollException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +13,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.swing.text.html.Option;
 import javax.validation.ConstraintViolationException;
-
 import java.time.Duration;
 import java.time.ZonedDateTime;
-import java.time.temporal.TemporalUnit;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;

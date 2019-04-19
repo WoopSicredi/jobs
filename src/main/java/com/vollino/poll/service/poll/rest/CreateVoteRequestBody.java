@@ -1,4 +1,4 @@
-package com.vollino.poll.service.vote.rest;
+package com.vollino.poll.service.poll.rest;
 
 import io.swagger.annotations.ApiModelProperty;
 

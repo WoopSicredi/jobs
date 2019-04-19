@@ -1,4 +1,4 @@
-package com.vollino.poll.service.vote;
+package com.vollino.poll.service.poll.vote;
 
 import com.google.common.base.MoreObjects;
 

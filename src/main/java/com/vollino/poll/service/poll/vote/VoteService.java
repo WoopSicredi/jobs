@@ -1,16 +1,15 @@
-package com.vollino.poll.service.vote;
+package com.vollino.poll.service.poll.vote;
 
 import com.vollino.poll.service.exception.DataIntegrityException;
 import com.vollino.poll.service.poll.Clock;
 import com.vollino.poll.service.poll.Poll;
 import com.vollino.poll.service.poll.PollRepository;
-import com.vollino.poll.service.vote.exception.ClosedPollException;
+import com.vollino.poll.service.poll.exception.ClosedPollException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 /**

@@ -1,8 +1,8 @@
 package com.vollino.poll.service.poll;
 
 import com.vollino.poll.service.exception.DataIntegrityException;
+import com.vollino.poll.service.poll.vote.VoteRepository;
 import com.vollino.poll.service.topic.TopicRepository;
-import com.vollino.poll.service.vote.VoteRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

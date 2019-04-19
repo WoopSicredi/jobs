@@ -1,6 +1,9 @@
 package com.vollino.poll.service.poll;
 
 import com.vollino.poll.service.poll.rest.PollRestController;
+import com.vollino.poll.service.poll.vote.Vote;
+import com.vollino.poll.service.poll.vote.VoteId;
+import com.vollino.poll.service.poll.vote.VoteService;
 import org.assertj.core.util.Lists;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,35 +38,8 @@ public class PollRestControllerTest {
     @MockBean
     private PollService pollService;
 
-    @Test
-    public void shouldCreatePoll() throws Exception {
-        //given
-        Long topicId = 2L;
-        Poll received = new Poll(null, topicId, "Poll description",
-                ZonedDateTime.parse("2019-04-16T18:19:00-03:00[Brazil/East]"));
-        Poll persisted = new Poll(1L, topicId, "Poll description",
-                ZonedDateTime.parse("2019-04-16T18:19:00-03:00[Brazil/East]"));
-        given(pollService.create(received)).willReturn(persisted);
-
-        //when
-        ResultActions response = mockMvc.perform(post("/topics/{topicId}/polls", topicId)
-            .content("{" +
-                "\"description\": \"Poll description\"," +
-                "\"endDate\": \"2019-04-16T18:19:00-03:00[Brazil/East]\"" +
-            "}")
-            .contentType(MediaType.APPLICATION_JSON_UTF8));
-
-        //then
-        response.andExpect(status().isCreated())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-            .andExpect(content().json("{" +
-                "\"id\": 1," +
-                "\"topicId\": 2," +
-                "\"description\": \"Poll description\"," +
-                "\"endDate\": \"2019-04-16T18:19:00-03:00[Brazil/East]\"" +
-            "}"));
-        verify(pollService).create(received);
-    }
+    @MockBean
+    private VoteService voteService;
 
     @Test
     public void shouldGetPollWithResults() throws Exception {
@@ -111,5 +87,36 @@ public class PollRestControllerTest {
         //then
         response.andExpect(status().is(404));
         verify(pollService).getPoll(pollId);
+    }
+
+    @Test
+    public void shouldCreateVote() throws Exception {
+        //given
+        Long voterId = 1L;
+        Long pollId = 2L;
+        String option = "Sim";
+        Vote vote = new Vote(new VoteId(voterId, pollId), option);
+
+        given(voteService.create(vote)).willReturn(vote);
+
+        //when
+        ResultActions response = mockMvc.perform(post("/polls/{pollId}/votes", pollId)
+                .content("{" +
+                        "\"voterId\": 1," +
+                        "\"pollOption\": \"Sim\"" +
+                    "}")
+                .contentType(MediaType.APPLICATION_JSON_UTF8));
+
+        //then
+        response.andExpect(status().isCreated())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().json("{" +
+                        "\"id\": {" +
+                            "\"voterId\": 1," +
+                            "\"pollId\": 2" +
+                        "}," +
+                        "\"pollOption\": \"Sim\"" +
+                    "}"));
+        verify(voteService).create(vote);
     }
 }

@@ -2,6 +2,9 @@ package com.vollino.poll.service.poll.rest;
 
 import com.vollino.poll.service.poll.Poll;
 import com.vollino.poll.service.poll.PollService;
+import com.vollino.poll.service.poll.vote.Vote;
+import com.vollino.poll.service.poll.vote.VoteId;
+import com.vollino.poll.service.poll.vote.VoteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,26 +23,12 @@ import java.util.Optional;
 public class PollRestController {
 
     private final PollService pollService;
+    private final VoteService voteService;
 
     @Autowired
-    public PollRestController(PollService pollService) {
+    public PollRestController(PollService pollService, VoteService voteService) {
         this.pollService = pollService;
-    }
-
-    @ApiOperation("Create a Poll under a Topic")
-    @PostMapping(path = "/topics/{topicId}/polls", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Poll> create(
-            @PathVariable Long topicId,
-            @RequestBody CreatePollRequestBody createRequest) {
-        Poll persisted = pollService.create(
-                new Poll(null,
-                        topicId,
-                        createRequest.getDescription(),
-                        createRequest.getEndDate()));
-
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .body(persisted);
+        this.voteService = voteService;
     }
 
     @ApiOperation("Get a Poll by ID")
@@ -54,5 +43,19 @@ public class PollRestController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+    }
+
+    @ApiOperation("Cast a Vote to a given Poll")
+    @PostMapping(path = "/polls/{pollId}/votes", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Vote> create(
+            @PathVariable Long pollId,
+            @RequestBody CreateVoteRequestBody requestBody) {
+        Vote created = voteService.create(new Vote(
+                new VoteId(requestBody.getVoterId(), pollId),
+                requestBody.getPollOption()));
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .body(created);
     }
 }

@@ -1,4 +1,4 @@
-package com.vollino.poll.service.vote.exception;
+package com.vollino.poll.service.poll.exception;
 
 import com.vollino.poll.service.exception.ClientErrorException;
 import com.vollino.poll.service.poll.Poll;
