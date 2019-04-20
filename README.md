@@ -91,5 +91,6 @@ GET /topics/{topicId}/polls
 
  - Me incomodou um pouco a forma como ficou a validação dos campos, algumas validações ficaram em anotações nas classes de domínio outras no serviço.
    Numa próxima versão iria analisar como deixar isso de uma forma centralizada sem replicar muito código de validação que o Spring já provê.
+   Também tentaria usar o Spring Cloud Contract para ver se facilita o desenvolvimento.
 
 
