@@ -1,5 +1,5 @@
 server:
-  port: 8501
+  port: 8080
 
 spring:
   jackson:

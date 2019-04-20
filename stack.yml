@@ -10,6 +10,19 @@ services:
       - 5432:5432
     networks:
       - ewok
+  poll-service:
+    image: vollino/poll-service
+    environment:
+      DB_JDBC_URL: jdbc:postgresql://db:5432/poll_service
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      JAVA_OPTS: '-Dspring.datasource.url="$$DB_JDBC_URL" -Dspring.datasource.username="$$DB_USERNAME" -Dspring.datasource.password="$$DB_PASSWORD"'
+    ports:
+      - 8501:8080
+    deploy:
+      replicas: 2
+    networks:
+      - ewok
 
 networks:
   ewok:

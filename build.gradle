@@ -7,12 +7,25 @@ buildscript {
     }
 }
 
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
+plugins {
+    id 'com.palantir.docker' version '0.22.0'
+    id 'org.springframework.boot' version '2.1.4.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.7.RELEASE'
+    id 'application'
+}
 
 description = "A REST service for managing polls"
 group = 'com.vollino.poll'
 version = '0.1.0-SNAPSHOT'
+
+application {
+    mainClassName = 'com.vollino.poll.service.Application'
+}
+
+docker {
+    name 'vollino/poll-service:version'
+    dockerfile file('Dockerfile')
+}
 
 repositories {
     mavenCentral()
