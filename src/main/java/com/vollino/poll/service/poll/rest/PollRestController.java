@@ -1,10 +1,10 @@
 package com.vollino.poll.service.poll.rest;
 
-import com.vollino.poll.service.poll.Poll;
-import com.vollino.poll.service.poll.PollService;
-import com.vollino.poll.service.poll.vote.Vote;
-import com.vollino.poll.service.poll.vote.VoteId;
-import com.vollino.poll.service.poll.vote.VoteService;
+import com.vollino.poll.service.poll.business.PollService;
+import com.vollino.poll.service.poll.business.domain.Poll;
+import com.vollino.poll.service.vote.business.VoteService;
+import com.vollino.poll.service.vote.business.domain.Vote;
+import com.vollino.poll.service.vote.business.domain.VoteId;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

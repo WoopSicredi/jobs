@@ -1,10 +1,10 @@
 package com.vollino.poll.service.topic.rest;
 
-import com.vollino.poll.service.poll.Poll;
-import com.vollino.poll.service.poll.PollService;
+import com.vollino.poll.service.poll.business.PollService;
+import com.vollino.poll.service.poll.business.domain.Poll;
 import com.vollino.poll.service.poll.rest.CreatePollRequestBody;
-import com.vollino.poll.service.topic.Topic;
-import com.vollino.poll.service.topic.TopicService;
+import com.vollino.poll.service.topic.business.TopicService;
+import com.vollino.poll.service.topic.business.domain.Topic;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
