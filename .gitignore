@@ -1,0 +1,19 @@
+# ignore Eclipse files
+target
+.project
+.classpath
+.settings
+# ignore IDEA files
+*.iml
+*.ipr
+*.iws
+.idea
+# ignore NetBeans files
+nbactions.xml
+nb-configuration.xml
+catalog.xml
+# misc
+*.swp
+*~
+# ignore H2 files
+*.mv.db
