@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.sicredi.test.web.exception.ClosedTopicException;
 import com.sicredi.test.web.exception.MyResourceNotFoundException;
+import com.sicredi.test.web.exception.TopicApplicationException;
 
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
@@ -56,6 +57,11 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, bodyOfResponse, headers, HttpStatus.BAD_REQUEST, request);
     }
 
+    @ExceptionHandler(value = { TopicApplicationException.class })
+    protected ResponseEntity<Object> handleTopicException(final TopicApplicationException ex, final WebRequest request) {
+        final String bodyOfResponse = ex.getMessage();
+        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
 
     @ExceptionHandler(value = { EntityNotFoundException.class, MyResourceNotFoundException.class })
     protected ResponseEntity<Object> handleNotFound(final RuntimeException ex, final WebRequest request) {

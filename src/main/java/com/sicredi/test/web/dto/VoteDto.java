@@ -1,13 +1,15 @@
-package com.sicredi.test.persistence.model;
+package com.sicredi.test.web.dto;
 
-public class Vote {
+import com.sicredi.test.persistence.model.VoteOption;
+
+public class VoteDto {
 
 	private String username;
 	private VoteOption voteOption;
 
-	public Vote() {}
+	public VoteDto() {}
 
-	public Vote(long topicId, String username) {
+	public VoteDto(long topicId, String username) {
 		this.username = username;
 	}
 

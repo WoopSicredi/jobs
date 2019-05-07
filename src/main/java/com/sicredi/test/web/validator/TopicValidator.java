@@ -8,10 +8,12 @@ import org.springframework.stereotype.Component;
 
 import com.sicredi.test.persistence.model.Poll;
 import com.sicredi.test.persistence.model.Topic;
+import com.sicredi.test.persistence.model.VoteOption;
 import com.sicredi.test.persistence.service.ITopicService;
 import com.sicredi.test.persistence.service.IVoteService;
 import com.sicredi.test.web.exception.ClosedTopicException;
 import com.sicredi.test.web.exception.InvalidTopicException;
+import com.sicredi.test.web.exception.InvalidVoteOptionException;
 import com.sicredi.test.web.exception.OpenTopicException;
 import com.sicredi.test.web.exception.UserAlreadyVoteException;
 
@@ -37,17 +39,23 @@ public class TopicValidator {
         }
 	}
 
-	public void validateForVote(long topicId, String username) {
+	public void validateForVote(long topicId, String username, VoteOption voteOption) {
         Topic topic = topicService.findById(topicId);
-        Poll poll = topic.getPoll();
 
-		if (poll == null) {
-        	throw new InvalidTopicException();
-        } else if (isPollExpired(poll)) {
-        	throw new ClosedTopicException();
-        } else if (voteService.userAlreadyVote(username, topicId)) {
-        	throw new UserAlreadyVoteException();
-        }
+		if (topic == null) {
+			throw new InvalidTopicException();
+		}
+		Poll poll = topic.getPoll();
+
+		if (voteOption == null) {
+			throw new InvalidVoteOptionException();
+		} else if (poll == null) {
+			throw new InvalidTopicException();
+		} else if (isPollExpired(poll)) {
+			throw new ClosedTopicException();
+		} else if (voteService.userAlreadyVote(username, topicId)) {
+			throw new UserAlreadyVoteException();
+		}
 	}
 
 	private boolean isPollOpen(Poll poll) {

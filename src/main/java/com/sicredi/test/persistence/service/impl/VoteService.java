@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import com.sicredi.test.persistence.dao.IUserVoteDao;
 import com.sicredi.test.persistence.dao.IVoteCountDao;
 import com.sicredi.test.persistence.model.UserVote;
-import com.sicredi.test.persistence.model.Vote;
 import com.sicredi.test.persistence.model.VoteCount;
+import com.sicredi.test.persistence.model.VoteOption;
 import com.sicredi.test.persistence.service.IVoteService;
 
 @Service
@@ -29,12 +29,12 @@ public class VoteService implements IVoteService {
 	}
 	
 	@Override
-	public UserVote createVote(Vote vote, long topicId) {
-		UserVote userVote = new UserVote(topicId, vote.getUsername());
+	public UserVote createVote(long topicId, String username, VoteOption voteOption) {
+		UserVote userVote = new UserVote(topicId, username);
 		VoteCount findById = voteCountDao.findByTopicIdAnVoteOption(topicId,
-				vote.getVoteOption().toString());
+				voteOption.toString());
 
-		VoteCount voteCount = Optional.ofNullable(findById).orElse(new VoteCount(topicId, vote.getVoteOption().toString()));
+		VoteCount voteCount = Optional.ofNullable(findById).orElse(new VoteCount(topicId, voteOption.toString()));
 		voteCount.increment();
 		voteCountDao.save(voteCount);
 		return userVoteDao.save(userVote);

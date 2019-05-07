@@ -40,7 +40,11 @@ public class Poll implements Serializable {
     public Poll() {
     }
 
-    public int getDurationInMinutes() {
+    public Poll(int durationInMinutes) {
+		this.durationInMinutes = durationInMinutes;
+	}
+
+	public int getDurationInMinutes() {
 		return durationInMinutes;
 	}
 

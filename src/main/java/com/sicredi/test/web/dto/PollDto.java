@@ -7,6 +7,8 @@ public class PollDto {
 	private Date createdOn;
 	private int duration;
 
+	public PollDto() {}
+	
 	public PollDto(Date createdOn, int duration) {
 		this.createdOn = createdOn;
 		this.duration = duration;
@@ -20,7 +22,7 @@ public class PollDto {
 		this.createdOn = createdOn;
 	}
 	
-	public int getDuration() {
+	public int getDurationInMinutes() {
 		return duration;
 	}
 	
