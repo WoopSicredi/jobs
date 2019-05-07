@@ -60,8 +60,8 @@ public class TopicController {
     }
 
     @GetMapping(value = "/{id}")
-    public Topic findById(@PathVariable("id") long topicId) {
-    	return topicService.findById(topicId);
+    public TopicDto findById(@PathVariable("id") long topicId) {
+    	return topicToTopicDtoConverter.convert(topicService.findById(topicId));
     }
 
     @GetMapping
@@ -97,8 +97,9 @@ public class TopicController {
         List<VoteCount> votes = Optional.ofNullable(voteService.findByTopicId(topicId)).orElseGet(ArrayList::new);
 
         topicValidator.validatePollForGetResults(topicId);
+        Topic topic = topicService.findById(topicId);
 
-        return pollResultsConverter.convert(votes, topicId);
+        return pollResultsConverter.convert(votes, topic);
     }
 
     @PostMapping

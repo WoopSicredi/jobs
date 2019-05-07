@@ -8,6 +8,6 @@ public class ClosedTopicException extends TopicApplicationException {
 	private static final long serialVersionUID = -50663244808558806L;
 
 	public ClosedTopicException() {
-		super("This topic do not accept votes anymore");
+		super("This topic is not open yet");
 	}
 }

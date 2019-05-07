@@ -31,9 +31,9 @@ public class TopicValidator {
 
 	public void validatePollForGetResults(long topicId) {
 		Topic topic = topicService.findById(topicId);
-        Poll poll = topic.getPoll();
+		Poll poll = getPollIfValid(topic);
 
-        if (poll == null) {
+		if (poll == null) {
         	throw new ClosedTopicException();
         } else if (isPollOpen(poll)) {
         	throw new OpenTopicException();
@@ -42,11 +42,7 @@ public class TopicValidator {
 
 	public void validateForVote(long topicId, String username, VoteOption voteOption) {
         Topic topic = topicService.findById(topicId);
-
-		if (topic == null) {
-			throw new InvalidTopicException();
-		}
-		Poll poll = topic.getPoll();
+		Poll poll = getPollIfValid(topic);
 
 		if (voteOption == null) {
 			throw new InvalidVoteOptionException();
@@ -59,19 +55,31 @@ public class TopicValidator {
 		}
 	}
 
+	private Poll getPollIfValid(Topic topic) {
+		if (topic == null) {
+			throw new InvalidTopicException();
+		}
+		return topic.getPoll();
+	}
+
 	private boolean isPollOpen(Poll poll) {
 		Instant now = Instant.now();
-		Instant creation = poll.getCreatedOn().toInstant();
-		long pollDuration = TimeUnit.SECONDS.convert(poll.getDurationInMinutes(), TimeUnit.MINUTES);
+		Instant expiration = getExpirationInstant(poll);
 
-		return now.isBefore(creation.plusSeconds(pollDuration));
+		return now.isBefore(expiration);
 	}
 
 	private boolean isPollExpired(Poll poll) {
 		Instant now = Instant.now();
+		Instant expirationInstant = getExpirationInstant(poll);
+		
+		return now.isAfter(expirationInstant);
+	}
+
+	private Instant getExpirationInstant(Poll poll) {
 		Instant creation = poll.getCreatedOn().toInstant();
 		long pollDuration = TimeUnit.SECONDS.convert(poll.getDurationInMinutes(), TimeUnit.MINUTES);
 
-		return now.isAfter(creation.plusSeconds(pollDuration));
+		return creation.plusSeconds(pollDuration);
 	}
 }
