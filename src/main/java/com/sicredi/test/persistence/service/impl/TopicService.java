@@ -1,0 +1,76 @@
+package com.sicredi.test.persistence.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.google.common.collect.Lists;
+import com.sicredi.test.persistence.dao.IPollDao;
+import com.sicredi.test.persistence.dao.ITopicDao;
+import com.sicredi.test.persistence.model.Poll;
+import com.sicredi.test.persistence.model.Topic;
+import com.sicredi.test.persistence.model.UserVote;
+import com.sicredi.test.persistence.service.ITopicService;
+
+@Service
+@Transactional
+public class TopicService implements ITopicService {
+
+	@Autowired
+    private IPollDao pollDao;
+	
+    @Autowired
+    private ITopicDao topicDao;
+
+    public TopicService() {
+        super();
+    }
+
+    public IPollDao getPollDao() {
+		return pollDao;
+	}
+    
+    public ITopicDao getTopicDao() {
+		return topicDao;
+	}
+
+    @Override
+    @Transactional(readOnly = true)
+    public Topic findById(final long id) {
+        return getTopicDao().findById(id).orElse(null);
+    }
+
+    @Override
+    public Topic create(final Topic entity) {
+        return getTopicDao().save(entity);
+    }
+    
+    @Override
+    public Poll createPoll(final Poll poll, Topic topic) {
+    	poll.setTopic(topic);
+    	getTopicDao().save(topic);
+		return getPollDao().save(poll);
+    }
+
+    @Override
+    public void delete(final Topic entity) {
+        getTopicDao().delete(entity);
+    }
+
+    @Override
+    public void deleteById(final long entityId) {
+        getTopicDao().deleteById(entityId);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Topic> findAll() {
+        return Lists.newArrayList(getTopicDao().findAll());
+    }
+
+	@Override
+	public Poll createVote(UserVote resource, int topicId) {
+		return null;
+	}
+}

@@ -1,0 +1,53 @@
+package com.sicredi.test.persistence.model;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
+@XStreamAlias("user_vote")
+@Entity
+public class UserVote {
+
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
+	@Column(name = "topic_id")
+	private long topicId;
+
+	@Column(nullable = false)
+	private String username;
+
+	public UserVote(long topicId, String username) {
+		this.topicId = topicId;
+		this.username = username;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public long getTopicId() {
+		return topicId;
+	}
+
+	public void setTopicId(long topicId) {
+		this.topicId = topicId;
+	}
+
+	public String getUser() {
+		return username;
+	}
+	
+	public void setUser(String user) {
+		this.username = user;
+	}
+}
