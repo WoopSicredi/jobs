@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.sicredi.test.web.exception.ClosedTopicException;
 import com.sicredi.test.web.exception.MyResourceNotFoundException;
 import com.sicredi.test.web.exception.TopicApplicationException;
 
@@ -33,12 +32,6 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
-    @ExceptionHandler({ ClosedTopicException.class })
-    public ResponseEntity<Object> handleBadRequest(final ClosedTopicException ex, final WebRequest request) {
-        final String bodyOfResponse = "This poll is already closed for votes";
-        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
-    }
-
     @ExceptionHandler({ DataIntegrityViolationException.class })
     public ResponseEntity<Object> handleBadRequest(final DataIntegrityViolationException ex, final WebRequest request) {
         final String bodyOfResponse = "This should be application specific";
@@ -47,7 +40,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(final HttpMessageNotReadableException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
-        final String bodyOfResponse = "This should be application specific";
+        final String bodyOfResponse = ex.getMessage();
         return handleExceptionInternal(ex, bodyOfResponse, headers, HttpStatus.BAD_REQUEST, request);
     }
 
@@ -65,7 +58,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
     @ExceptionHandler(value = { EntityNotFoundException.class, MyResourceNotFoundException.class })
     protected ResponseEntity<Object> handleNotFound(final RuntimeException ex, final WebRequest request) {
-        final String bodyOfResponse = "This should be application specific";
+        final String bodyOfResponse = "Entity not found";
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 
@@ -77,7 +70,6 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
     @ExceptionHandler({ NullPointerException.class, IllegalArgumentException.class, IllegalStateException.class })
     public ResponseEntity<Object> handleInternal(final RuntimeException ex, final WebRequest request) {
-        logger.error("500 Status Code", ex);
         final String bodyOfResponse = "This should be application specific";
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }

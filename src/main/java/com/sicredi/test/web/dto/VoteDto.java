@@ -1,10 +1,16 @@
 package com.sicredi.test.web.dto;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import com.sicredi.test.persistence.model.VoteOption;
 
 public class VoteDto {
 
+	@NotBlank
 	private String username;
+
+	@NotNull
 	private VoteOption voteOption;
 
 	public VoteDto() {}

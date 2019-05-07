@@ -3,13 +3,13 @@ package com.sicredi.test.web.dto;
 public class TopicDto {
 
 	private long topicId;
-	private PollDto poll;
+	private String topicName;
 
 	public TopicDto() {}
 
-	public TopicDto(long id, PollDto poll) {
+	public TopicDto(long id, String topicName) {
 		this.topicId = id;
-		this.poll = poll;
+		this.topicName = topicName;
 	}
 
 	public long getTopicId() {
@@ -20,11 +20,11 @@ public class TopicDto {
 		this.topicId = topicId;
 	}
 
-	public PollDto getPoll() {
-		return poll;
+	public String getTopicName() {
+		return topicName;
 	}
-
-	public void setPoll(PollDto poll) {
-		this.poll = poll;
+	
+	public void setTopicName(String topicName) {
+		this.topicName = topicName;
 	}
 }

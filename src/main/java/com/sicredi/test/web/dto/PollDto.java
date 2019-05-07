@@ -1,32 +1,20 @@
 package com.sicredi.test.web.dto;
 
-import java.util.Date;
-
 public class PollDto {
 
-	private Date createdOn;
-	private int duration;
+	private int durationInMinutes;
 
 	public PollDto() {}
 	
-	public PollDto(Date createdOn, int duration) {
-		this.createdOn = createdOn;
-		this.duration = duration;
+	public PollDto(int durationInMinutes) {
+		this.durationInMinutes = durationInMinutes;
 	}
 
-	public Date getCreatedOn() {
-		return createdOn;
-	}
-	
-	public void setCreatedOn(Date createdOn) {
-		this.createdOn = createdOn;
-	}
-	
 	public int getDurationInMinutes() {
-		return duration;
+		return durationInMinutes;
 	}
 	
-	public void setDuration(int duration) {
-		this.duration = duration;
+	public void setDurationInMinutes(int durationInMinutes) {
+		this.durationInMinutes = durationInMinutes;
 	}
 }

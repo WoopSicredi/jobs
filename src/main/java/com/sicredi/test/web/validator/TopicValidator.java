@@ -12,6 +12,7 @@ import com.sicredi.test.persistence.model.VoteOption;
 import com.sicredi.test.persistence.service.ITopicService;
 import com.sicredi.test.persistence.service.IVoteService;
 import com.sicredi.test.web.exception.ClosedTopicException;
+import com.sicredi.test.web.exception.ExpiredTopicException;
 import com.sicredi.test.web.exception.InvalidTopicException;
 import com.sicredi.test.web.exception.InvalidVoteOptionException;
 import com.sicredi.test.web.exception.OpenTopicException;
@@ -33,7 +34,7 @@ public class TopicValidator {
         Poll poll = topic.getPoll();
 
         if (poll == null) {
-        	throw new InvalidTopicException();
+        	throw new ClosedTopicException();
         } else if (isPollOpen(poll)) {
         	throw new OpenTopicException();
         }
@@ -50,9 +51,9 @@ public class TopicValidator {
 		if (voteOption == null) {
 			throw new InvalidVoteOptionException();
 		} else if (poll == null) {
-			throw new InvalidTopicException();
-		} else if (isPollExpired(poll)) {
 			throw new ClosedTopicException();
+		} else if (isPollExpired(poll)) {
+			throw new ExpiredTopicException();
 		} else if (voteService.userAlreadyVote(username, topicId)) {
 			throw new UserAlreadyVoteException();
 		}

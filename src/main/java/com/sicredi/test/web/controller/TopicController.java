@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,9 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
-import com.google.common.base.Preconditions;
 import com.sicredi.test.persistence.model.Poll;
 import com.sicredi.test.persistence.model.Topic;
 import com.sicredi.test.persistence.model.UserVote;
@@ -26,13 +26,14 @@ import com.sicredi.test.persistence.service.ITopicService;
 import com.sicredi.test.persistence.service.IVoteService;
 import com.sicredi.test.web.converter.PollDtoToPollConverter;
 import com.sicredi.test.web.converter.PollResultsConverter;
+import com.sicredi.test.web.converter.TopicCreationDtoToTopicConverter;
+import com.sicredi.test.web.converter.TopicToTopicDtoConverter;
 import com.sicredi.test.web.dto.PollDto;
 import com.sicredi.test.web.dto.PollResultDto;
+import com.sicredi.test.web.dto.TopicCreationDto;
 import com.sicredi.test.web.dto.TopicDto;
 import com.sicredi.test.web.dto.VoteDto;
-import com.sicredi.test.web.exception.MyResourceNotFoundException;
 import com.sicredi.test.web.exception.PollAlreadyCreatedException;
-import com.sicredi.test.web.util.RestPreconditions;
 import com.sicredi.test.web.validator.TopicValidator;
 
 @RestController
@@ -49,6 +50,10 @@ public class TopicController {
     private PollResultsConverter pollResultsConverter;
     @Autowired
     private PollDtoToPollConverter pollDtoToPollConverter;
+    @Autowired
+    private TopicCreationDtoToTopicConverter topicCreationDtoToTopicConverter;
+    @Autowired
+    private TopicToTopicDtoConverter topicToTopicDtoConverter;
     
     public TopicController() {
         super();
@@ -56,23 +61,14 @@ public class TopicController {
 
     @GetMapping(value = "/{id}")
     public Topic findById(@PathVariable("id") long topicId) {
-        try {
-            return RestPreconditions.checkFound(topicService.findById(topicId));
-        }
-        catch (MyResourceNotFoundException exc) {
-            throw new ResponseStatusException(
-                HttpStatus.NOT_FOUND, "Foo Not Found", exc);
-        }
+    	return topicService.findById(topicId);
     }
 
     @GetMapping
     public List<TopicDto> findAll() {
-        List<TopicDto> topics = topicService.findAll().stream().map(topic -> {
-        	Poll poll = topic.getPoll();
-        	return new TopicDto(topic.getId(), (poll != null ?
-        			new PollDto(poll.getCreatedOn(), poll.getDurationInMinutes()) : null));
-        }).collect(Collectors.toList());
-		return topics;
+        return topicService.findAll().stream().map(
+        		topic -> topicToTopicDtoConverter.convert(topic))
+        		.collect(Collectors.toList());
     }
 
     @PostMapping(value = "/{id}/poll")
@@ -89,8 +85,7 @@ public class TopicController {
 
     @PostMapping(value = "/{id}/vote")
     @ResponseStatus(HttpStatus.OK)
-    public UserVote vote(@PathVariable("id") int topicId, @RequestBody final VoteDto vote) {
-        Preconditions.checkNotNull(vote);
+    public UserVote vote(@PathVariable("id") int topicId, @Valid @RequestBody final VoteDto vote) {
         topicValidator.validateForVote(topicId, vote.getUsername(), vote.getVoteOption());
 
         return voteService.createVote(topicId, vote.getUsername(), vote.getVoteOption());
@@ -108,9 +103,8 @@ public class TopicController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Topic create(@RequestBody final Topic resource) {
-        Preconditions.checkNotNull(resource);
-        return topicService.create(resource);
+    public Topic create(@Valid @RequestBody final TopicCreationDto topic) {
+        return topicService.create(topicCreationDtoToTopicConverter.convert(topic));
     }
 
     @DeleteMapping(value = "/{id}")

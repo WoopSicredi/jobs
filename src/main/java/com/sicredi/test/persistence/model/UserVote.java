@@ -22,6 +22,8 @@ public class UserVote {
 	@Column(nullable = false)
 	private String username;
 
+	public UserVote() {}
+
 	public UserVote(long topicId, String username) {
 		this.topicId = topicId;
 		this.username = username;
