@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -39,6 +41,8 @@ import com.sicredi.test.web.validator.TopicValidator;
 @RequestMapping(value = "/topics")
 public class TopicController {
 
+    private static Logger LOGGER = LoggerFactory.getLogger(TopicController.class);
+
     @Autowired
     private ITopicPersistenceService topicService;
     @Autowired
@@ -53,21 +57,22 @@ public class TopicController {
     private TopicCreationDtoToTopicConverter topicCreationDtoToTopicConverter;
     @Autowired
     private TopicToTopicDtoConverter topicToTopicDtoConverter;
-    
+
     public TopicController() {
         super();
     }
 
     @GetMapping(value = "/{topicId}")
     public TopicDto findById(@PathVariable("topicId") long topicId) {
-    	return topicToTopicDtoConverter.convert(topicService.findById(topicId));
+        LOGGER.info("Retrieving topic {}", topicId);
+        return topicToTopicDtoConverter.convert(topicService.findById(topicId));
     }
 
     @GetMapping
     public List<TopicDto> findAll() {
-        return topicService.findAll().stream().map(
-        		topic -> topicToTopicDtoConverter.convert(topic))
-        		.collect(Collectors.toList());
+        LOGGER.info("Retrieving all topics {}");
+        return topicService.findAll().stream().map(topic -> topicToTopicDtoConverter.convert(topic))
+                .collect(Collectors.toList());
     }
 
     @PostMapping(value = "/{topicId}/poll")

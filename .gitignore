@@ -18,3 +18,4 @@ catalog.xml
 # ignore H2 files
 *.mv.db
 *.trace.db
+logs

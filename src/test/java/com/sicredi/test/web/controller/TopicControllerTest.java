@@ -120,7 +120,6 @@ public class TopicControllerTest {
         Topic topic = mock(Topic.class);
         Poll poll = mock(Poll.class);
         given(topicService.findById(topicId)).willReturn(topic);
-        given(topic.getPoll()).willReturn(null);
         given(pollDtoToPollConverter.convert(pollDto)).willReturn(poll);
 
         // when
@@ -137,9 +136,8 @@ public class TopicControllerTest {
         long topicId = 1234L;
         PollCreationDto pollDto = mock(PollCreationDto.class);
         Topic topic = mock(Topic.class);
-        Poll poll = mock(Poll.class);
         given(topicService.findById(topicId)).willReturn(topic);
-        given(topic.getPoll()).willReturn(poll);
+        doThrow(PollAlreadyCreatedException.class).when(topicValidator).validatePollIsNotCreated(topic);
 
         // when
         catchException(topicController).openPoll(topicId, pollDto);
