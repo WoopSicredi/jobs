@@ -16,6 +16,7 @@ import com.sicredi.test.web.exception.ExpiredTopicException;
 import com.sicredi.test.web.exception.InvalidTopicException;
 import com.sicredi.test.web.exception.InvalidVoteOptionException;
 import com.sicredi.test.web.exception.OpenTopicException;
+import com.sicredi.test.web.exception.PollAlreadyCreatedException;
 import com.sicredi.test.web.exception.UserAlreadyVoteException;
 
 /**
@@ -55,7 +56,15 @@ public class TopicValidator {
         }
     }
 
-    private Poll getPollIfValid(Topic topic) {
+    public void validatePollIsNotCreated(Topic topic) {
+        Poll poll = getPollIfValid(topic);
+
+        if (poll != null) {
+            throw new PollAlreadyCreatedException();
+        }
+    }
+
+    public Poll getPollIfValid(Topic topic) {
         if (topic == null) {
             throw new InvalidTopicException();
         }
@@ -82,4 +91,5 @@ public class TopicValidator {
 
         return creation.plusSeconds(pollDuration);
     }
+
 }

@@ -33,7 +33,6 @@ import com.sicredi.test.web.dto.PollResultDto;
 import com.sicredi.test.web.dto.TopicCreationDto;
 import com.sicredi.test.web.dto.TopicDto;
 import com.sicredi.test.web.dto.VoteDto;
-import com.sicredi.test.web.exception.PollAlreadyCreatedException;
 import com.sicredi.test.web.validator.TopicValidator;
 
 @RestController
@@ -59,8 +58,8 @@ public class TopicController {
         super();
     }
 
-    @GetMapping(value = "/{id}")
-    public TopicDto findById(@PathVariable("id") long topicId) {
+    @GetMapping(value = "/{topicId}")
+    public TopicDto findById(@PathVariable("topicId") long topicId) {
     	return topicToTopicDtoConverter.convert(topicService.findById(topicId));
     }
 
@@ -71,29 +70,26 @@ public class TopicController {
         		.collect(Collectors.toList());
     }
 
-    @PostMapping(value = "/{id}/poll")
+    @PostMapping(value = "/{topicId}/poll")
     @ResponseStatus(HttpStatus.CREATED)
-    public Poll openPoll(@PathVariable("id") long topicId, @RequestBody PollCreationDto newPoll) {
+    public Poll openPoll(@PathVariable("topicId") long topicId, @RequestBody PollCreationDto newPoll) {
         Topic topic = topicService.findById(topicId);
-        Poll poll = topic.getPoll();
-        
-        if (poll != null) {
-        	throw new PollAlreadyCreatedException();
-        }
+
+        topicValidator.validatePollIsNotCreated(topic);
         return topicService.createPoll(pollDtoToPollConverter.convert(newPoll), topic);
     }
 
-    @PostMapping(value = "/{id}/vote")
+    @PostMapping(value = "/{topicId}/vote")
     @ResponseStatus(HttpStatus.OK)
-    public UserVote vote(@PathVariable("id") long topicId, @Valid @RequestBody VoteDto vote) {
+    public UserVote vote(@PathVariable("topicId") long topicId, @Valid @RequestBody VoteDto vote) {
         topicValidator.validateForVote(topicId, vote.getUsername(), vote.getVoteOption());
 
         return voteService.createVote(topicId, vote.getUsername(), vote.getVoteOption());
     }
 
-    @GetMapping(value = "/{id}/poll")
+    @GetMapping(value = "/{topicId}/poll")
     @ResponseStatus(HttpStatus.OK)
-    public PollResultDto result(@PathVariable("id") long topicId) {
+    public PollResultDto result(@PathVariable("topicId") long topicId) {
         List<VoteCount> votes = Optional.ofNullable(voteService.findByTopicId(topicId)).orElseGet(ArrayList::new);
 
         topicValidator.validatePollForGetResults(topicId);
@@ -104,13 +100,14 @@ public class TopicController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Topic create(@Valid @RequestBody TopicCreationDto topic) {
-        return topicService.create(topicCreationDtoToTopicConverter.convert(topic));
+    public TopicDto create(@Valid @RequestBody TopicCreationDto topicDto) {
+        Topic topic = topicService.create(topicCreationDtoToTopicConverter.convert(topicDto));
+        return topicToTopicDtoConverter.convert(topic);
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(value = "/{topicId}")
     @ResponseStatus(HttpStatus.OK)
-    public void delete(@PathVariable("id") long id) {
+    public void delete(@PathVariable("topicId") long id) {
         topicService.deleteById(id);
     }
 }
