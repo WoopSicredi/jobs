@@ -10,7 +10,7 @@ import com.sicredi.test.web.dto.PollCreationDto;
  * Conversor de {@link PollCreationDto} para {@link Poll}.
  */
 @Component
-public class PollDtoToPollConverter {
+public class PollCreationDtoToPollConverter {
 
     @Value("${poll.durationInMinutes.default:1}")
     private int defautlPollDurationInMinutes;

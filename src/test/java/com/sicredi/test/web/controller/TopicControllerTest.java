@@ -24,6 +24,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.sicredi.test.persistence.model.Poll;
 import com.sicredi.test.persistence.model.Topic;
@@ -31,8 +32,9 @@ import com.sicredi.test.persistence.model.VoteCount;
 import com.sicredi.test.persistence.model.VoteOption;
 import com.sicredi.test.persistence.service.ITopicPersistenceService;
 import com.sicredi.test.persistence.service.IVotePersistenceService;
-import com.sicredi.test.web.converter.PollDtoToPollConverter;
+import com.sicredi.test.web.converter.PollCreationDtoToPollConverter;
 import com.sicredi.test.web.converter.PollResultsConverter;
+import com.sicredi.test.web.converter.PollToPollDtoConverter;
 import com.sicredi.test.web.converter.TopicCreationDtoToTopicConverter;
 import com.sicredi.test.web.converter.TopicToTopicDtoConverter;
 import com.sicredi.test.web.dto.PollCreationDto;
@@ -54,13 +56,14 @@ public class TopicControllerTest {
     private TopicValidator topicValidator;
     @Mock
     private PollResultsConverter pollResultsConverter;
-
     @Mock
-    private PollDtoToPollConverter pollDtoToPollConverter;
+    private PollCreationDtoToPollConverter pollCreationDtoToPollConverter;
     @Mock
     private TopicCreationDtoToTopicConverter topicCreationDtoToTopicConverter;
     @Mock
     private TopicToTopicDtoConverter topicToTopicDtoConverter;
+    @Mock
+    private PollToPollDtoConverter pollToPollDtoConverter;
 
     @InjectMocks
     private TopicController topicController;
@@ -119,15 +122,18 @@ public class TopicControllerTest {
         PollCreationDto pollDto = mock(PollCreationDto.class);
         Topic topic = mock(Topic.class);
         Poll poll = mock(Poll.class);
+        Poll createdPoll = mock(Poll.class);
         given(topicService.findById(topicId)).willReturn(topic);
-        given(pollDtoToPollConverter.convert(pollDto)).willReturn(poll);
+        given(pollCreationDtoToPollConverter.convert(pollDto)).willReturn(poll);
+        given(topicService.createPoll(poll, topic)).willReturn(createdPoll);
 
         // when
         topicController.openPoll(topicId, pollDto);
 
         // then
         verify(topicService).createPoll(poll, topic);
-        verify(pollDtoToPollConverter).convert(pollDto);
+        verify(pollCreationDtoToPollConverter).convert(pollDto);
+        verify(pollToPollDtoConverter).convert(createdPoll);
     }
 
     @Test

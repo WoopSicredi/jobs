@@ -22,15 +22,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sicredi.test.persistence.model.Poll;
 import com.sicredi.test.persistence.model.Topic;
-import com.sicredi.test.persistence.model.UserVote;
 import com.sicredi.test.persistence.model.VoteCount;
 import com.sicredi.test.persistence.service.ITopicPersistenceService;
 import com.sicredi.test.persistence.service.IVotePersistenceService;
-import com.sicredi.test.web.converter.PollDtoToPollConverter;
+import com.sicredi.test.web.converter.PollCreationDtoToPollConverter;
 import com.sicredi.test.web.converter.PollResultsConverter;
+import com.sicredi.test.web.converter.PollToPollDtoConverter;
 import com.sicredi.test.web.converter.TopicCreationDtoToTopicConverter;
 import com.sicredi.test.web.converter.TopicToTopicDtoConverter;
 import com.sicredi.test.web.dto.PollCreationDto;
+import com.sicredi.test.web.dto.PollDto;
 import com.sicredi.test.web.dto.PollResultDto;
 import com.sicredi.test.web.dto.TopicCreationDto;
 import com.sicredi.test.web.dto.TopicDto;
@@ -52,11 +53,13 @@ public class TopicController {
     @Autowired
     private PollResultsConverter pollResultsConverter;
     @Autowired
-    private PollDtoToPollConverter pollDtoToPollConverter;
+    private PollCreationDtoToPollConverter pollDtoToPollConverter;
     @Autowired
     private TopicCreationDtoToTopicConverter topicCreationDtoToTopicConverter;
     @Autowired
     private TopicToTopicDtoConverter topicToTopicDtoConverter;
+    @Autowired
+    private PollToPollDtoConverter pollToPollDtoConverter;
 
     public TopicController() {
         super();
@@ -77,21 +80,24 @@ public class TopicController {
 
     @PostMapping(value = "/{topicId}/poll")
     @ResponseStatus(HttpStatus.CREATED)
-    public Poll openPoll(@PathVariable("topicId") long topicId, @RequestBody PollCreationDto newPoll) {
+    public PollDto openPoll(@PathVariable("topicId") long topicId, @RequestBody PollCreationDto newPoll) {
         LOGGER.info("About to open poll for topic {}", topicId);
         Topic topic = topicService.findById(topicId);
 
         topicValidator.validatePollIsNotCreated(topic);
         LOGGER.debug("About to create poll", topicId);
-        return topicService.createPoll(pollDtoToPollConverter.convert(newPoll), topic);
+        Poll poll = topicService.createPoll(pollDtoToPollConverter.convert(newPoll), topic);
+        LOGGER.info("Poll has been created. {}", poll);
+        return pollToPollDtoConverter.convert(poll);
     }
 
     @PostMapping(value = "/{topicId}/vote")
     @ResponseStatus(HttpStatus.OK)
-    public UserVote vote(@PathVariable("topicId") long topicId, @Valid @RequestBody VoteDto vote) {
+    public void vote(@PathVariable("topicId") long topicId, @Valid @RequestBody VoteDto vote) {
         topicValidator.validateForVote(topicId, vote.getUsername(), vote.getVoteOption());
 
-        return voteService.createVote(topicId, vote.getUsername(), vote.getVoteOption());
+        voteService.createVote(topicId, vote.getUsername(), vote.getVoteOption());
+        LOGGER.info("User {} has vote on topic {}", vote.getUsername(), topicId);
     }
 
     @GetMapping(value = "/{topicId}/poll")
