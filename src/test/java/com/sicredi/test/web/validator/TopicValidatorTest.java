@@ -5,6 +5,7 @@ import static com.googlecode.catchexception.CatchException.caughtException;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
@@ -27,6 +28,7 @@ import com.sicredi.test.web.exception.ClosedTopicException;
 import com.sicredi.test.web.exception.ExpiredTopicException;
 import com.sicredi.test.web.exception.InvalidTopicException;
 import com.sicredi.test.web.exception.InvalidVoteOptionException;
+import com.sicredi.test.web.exception.OpenTopicException;
 import com.sicredi.test.web.exception.PollAlreadyCreatedException;
 import com.sicredi.test.web.exception.UserAlreadyVoteException;
 
@@ -160,5 +162,57 @@ public class TopicValidatorTest {
         // then
 
         assertThat(caughtException(), instanceOf(InvalidTopicException.class));
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenTopicIsClosedAndValidatePollForGetResults() {
+        // given
+        Topic topic = mock(Topic.class);
+        given(topic.getPoll()).willReturn(null);
+        given(topicService.findById(anyLong())).willReturn(topic);
+
+        // when
+        catchException(validator).validatePollForGetResults(anyLong());
+        // then
+
+        assertThat(caughtException(), instanceOf(ClosedTopicException.class));
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenPollIsOpen() {
+        // given
+        long topicId = 1234L;
+        Topic topic = mock(Topic.class);
+        Poll poll = mock(Poll.class);
+        given(topic.getPoll()).willReturn(poll);
+        Date fiveMinutesBefore = Date.from(Instant.now().minus(5, ChronoUnit.MINUTES));
+        given(poll.getCreatedOn()).willReturn(fiveMinutesBefore);
+        given(poll.getDurationInMinutes()).willReturn(10);
+        given(topicService.findById(topicId)).willReturn(topic);
+
+        // when
+        catchException(validator).validatePollForGetResults(topicId);
+        // then
+
+        assertThat(caughtException(), instanceOf(OpenTopicException.class));
+    }
+
+    @Test
+    public void shouldValidateOk() {
+        // given
+        long topicId = 1234L;
+        Topic topic = mock(Topic.class);
+        Poll poll = mock(Poll.class);
+        given(topic.getPoll()).willReturn(poll);
+        Date fiveMinutesBefore = Date.from(Instant.now().minus(5, ChronoUnit.MINUTES));
+        given(poll.getCreatedOn()).willReturn(fiveMinutesBefore);
+        given(poll.getDurationInMinutes()).willReturn(4);
+        given(topicService.findById(topicId)).willReturn(topic);
+
+        // when
+        validator.validatePollForGetResults(topicId);
+
+        // then
+        assertTrue(true);
     }
 }
