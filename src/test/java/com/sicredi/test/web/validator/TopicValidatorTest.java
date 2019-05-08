@@ -2,6 +2,7 @@ package com.sicredi.test.web.validator;
 
 import static com.googlecode.catchexception.CatchException.catchException;
 import static com.googlecode.catchexception.CatchException.caughtException;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.junit.Assert.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -26,6 +27,7 @@ import com.sicredi.test.web.exception.ClosedTopicException;
 import com.sicredi.test.web.exception.ExpiredTopicException;
 import com.sicredi.test.web.exception.InvalidTopicException;
 import com.sicredi.test.web.exception.InvalidVoteOptionException;
+import com.sicredi.test.web.exception.PollAlreadyCreatedException;
 import com.sicredi.test.web.exception.UserAlreadyVoteException;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -39,21 +41,20 @@ public class TopicValidatorTest {
     private TopicValidator validator;
 
     @Test
-    public void shouldThrowExceptioWhenTipicIsInvalid() {
+    public void shouldThrowExceptionWhenTopicIsInvalid() {
         // given
-        long topicId = 1234L;
         String username = "user";
-        given(topicService.findById(topicId)).willReturn(null);
+        given(topicService.findById(anyLong())).willReturn(null);
 
         // when
-        catchException(validator).validateForVote(topicId, username, VoteOption.YES);
+        catchException(validator).validateForVote(anyLong(), username, VoteOption.YES);
         // then
 
         assertThat(caughtException(), instanceOf(InvalidTopicException.class));
     }
 
     @Test
-    public void shouldThrowExceptioWhenPollDoNotExist() {
+    public void shouldThrowExceptionWhenPollDoNotExist() {
         // given
         long topicId = 1234L;
         String username = "user";
@@ -69,7 +70,7 @@ public class TopicValidatorTest {
     }
 
     @Test
-    public void shouldThrowExceptioWhenUserAlreadyVote() {
+    public void shouldThrowExceptionWhenUserAlreadyVote() {
         // given
         long topicId = 1234L;
         String username = "user";
@@ -90,7 +91,7 @@ public class TopicValidatorTest {
     }
 
     @Test
-    public void shouldThrowExceptioWhenPollIsExpired() {
+    public void shouldThrowExceptionWhenPollIsExpired() {
         // given
         long topicId = 1234L;
         String username = "user";
@@ -110,7 +111,7 @@ public class TopicValidatorTest {
     }
 
     @Test
-    public void shouldThrowExceptioWhenVoteOptionIsNull() {
+    public void shouldThrowExceptionWhenVoteOptionIsNull() {
         // given
         long topicId = 1234L;
         String username = "user";
@@ -124,5 +125,40 @@ public class TopicValidatorTest {
         // then
 
         assertThat(caughtException(), instanceOf(InvalidVoteOptionException.class));
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenPollIsCreated() {
+        // given
+        Topic topic = mock(Topic.class);
+        Poll poll = mock(Poll.class);
+        given(topic.getPoll()).willReturn(poll);
+
+        // when
+        catchException(validator).validatePollIsNotCreated(topic);
+        // then
+
+        assertThat(caughtException(), instanceOf(PollAlreadyCreatedException.class));
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenTopicIsNull() {
+        // when
+        catchException(validator).validatePollIsNotCreated(null);
+        // then
+
+        assertThat(caughtException(), instanceOf(InvalidTopicException.class));
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenTopicIsNullAndValidatePollForGetResults() {
+        // given
+        given(topicService.findById(anyLong())).willReturn(null);
+
+        // when
+        catchException(validator).validatePollForGetResults(anyLong());
+        // then
+
+        assertThat(caughtException(), instanceOf(InvalidTopicException.class));
     }
 }
