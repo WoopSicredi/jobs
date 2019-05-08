@@ -1,7 +1,11 @@
 package com.sicredi.test.web.controller;
 
-import static org.mockito.ArgumentMatchers.any;
+import static com.googlecode.catchexception.CatchException.catchException;
+import static com.googlecode.catchexception.CatchException.caughtException;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
@@ -127,7 +131,7 @@ public class TopicControllerTest {
 		verify(pollDtoToPollConverter).convert(pollDto);
 	}
 	
-	@Test(expected = PollAlreadyCreatedException.class)
+	@Test
 	public void shouldThrownPollAlreadyCreatedExceptionWhenPollExist() {
 		//given
 		long topicId = 1234L;
@@ -138,10 +142,11 @@ public class TopicControllerTest {
 		given(topic.getPoll()).willReturn(poll);
 		
 		//when
-		topicController.openPoll(topicId, pollDto);
+		catchException(topicController).openPoll(topicId, pollDto);
 		
 		//then
 		verify(topicService, never()).createPoll(any(), any());
+		assertThat(caughtException(), instanceOf(PollAlreadyCreatedException.class));
 	}
 	
 	@Test
@@ -160,7 +165,7 @@ public class TopicControllerTest {
 		verify(voteService).createVote(topicId, "user", VoteOption.YES);
 	}
 	
-	@Test(expected = ExpiredTopicException.class)
+	@Test
 	public void shouldThrowExceptionWhenPollIsExpired() {
 		//given
 		long topicId = 1234L;
@@ -171,9 +176,10 @@ public class TopicControllerTest {
 		given(voteDto.getVoteOption()).willReturn(VoteOption.YES);
 		
 		//when
-		topicController.vote(topicId, voteDto);
+		catchException(topicController).vote(topicId, voteDto);
 		
 		//then
+		assertThat(caughtException(), instanceOf(ExpiredTopicException.class));
 		verify(voteService, never()).createVote(anyLong(), anyString(), any());
 	}
 
@@ -195,7 +201,7 @@ public class TopicControllerTest {
 		verify(pollResultsConverter).convert(votes, topic);
 	}
 
-	@Test(expected = OpenTopicException.class)
+	@Test
 	public void shouldThrowExceptionWhenTopicIsOpen() {
 		//given
 		long topicId = 1234L;
@@ -204,9 +210,10 @@ public class TopicControllerTest {
 		given(voteService.findByTopicId(topicId)).willReturn(null);
 		
 		//when
-		topicController.result(topicId);
+		catchException(topicController).result(topicId);
 		
 		//then
+		assertThat(caughtException(), instanceOf(OpenTopicException.class));
 		verify(topicService, never()).findById(anyLong());
 		verify(pollResultsConverter, never()).convert(anyList(), any());
 	}
