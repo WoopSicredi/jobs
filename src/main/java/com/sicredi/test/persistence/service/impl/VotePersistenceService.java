@@ -13,20 +13,20 @@ import com.sicredi.test.persistence.dao.IVoteCountDao;
 import com.sicredi.test.persistence.model.UserVote;
 import com.sicredi.test.persistence.model.VoteCount;
 import com.sicredi.test.persistence.model.VoteOption;
-import com.sicredi.test.persistence.service.IVoteService;
+import com.sicredi.test.persistence.service.IVotePersistenceService;
 
 /**
  * Implementa a persistência de dados relacionados a votos.
  */
 @Service
 @Transactional
-public class VoteService implements IVoteService {
+public class VotePersistenceService implements IVotePersistenceService {
 
     private final IUserVoteDao userVoteDao;
     private final IVoteCountDao voteCountDao;
 
     @Autowired
-    public VoteService(IUserVoteDao userVoteDao, IVoteCountDao voteCountDao) {
+    public VotePersistenceService(IUserVoteDao userVoteDao, IVoteCountDao voteCountDao) {
         this.userVoteDao = userVoteDao;
         this.voteCountDao = voteCountDao;
     }

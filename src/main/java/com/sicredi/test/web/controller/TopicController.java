@@ -25,7 +25,7 @@ import com.sicredi.test.persistence.model.Topic;
 import com.sicredi.test.persistence.model.UserVote;
 import com.sicredi.test.persistence.model.VoteCount;
 import com.sicredi.test.persistence.service.ITopicPersistenceService;
-import com.sicredi.test.persistence.service.IVoteService;
+import com.sicredi.test.persistence.service.IVotePersistenceService;
 import com.sicredi.test.web.converter.PollDtoToPollConverter;
 import com.sicredi.test.web.converter.PollResultsConverter;
 import com.sicredi.test.web.converter.TopicCreationDtoToTopicConverter;
@@ -46,7 +46,7 @@ public class TopicController {
     @Autowired
     private ITopicPersistenceService topicService;
     @Autowired
-    private IVoteService voteService;
+    private IVotePersistenceService voteService;
     @Autowired
     private TopicValidator topicValidator;
     @Autowired

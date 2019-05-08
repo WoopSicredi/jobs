@@ -21,7 +21,7 @@ import com.sicredi.test.persistence.model.Poll;
 import com.sicredi.test.persistence.model.Topic;
 import com.sicredi.test.persistence.model.VoteOption;
 import com.sicredi.test.persistence.service.ITopicPersistenceService;
-import com.sicredi.test.persistence.service.IVoteService;
+import com.sicredi.test.persistence.service.IVotePersistenceService;
 import com.sicredi.test.web.exception.ClosedTopicException;
 import com.sicredi.test.web.exception.ExpiredTopicException;
 import com.sicredi.test.web.exception.InvalidTopicException;
@@ -34,7 +34,7 @@ public class TopicValidatorTest {
     @Mock
     private ITopicPersistenceService topicService;
     @Mock
-    private IVoteService voteService;
+    private IVotePersistenceService voteService;
     @InjectMocks
     private TopicValidator validator;
 

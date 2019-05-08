@@ -9,7 +9,7 @@ import com.sicredi.test.persistence.model.VoteOption;
 /**
  * Interface de persistência de dados relacionados a votos.
  */
-public interface IVoteService {
+public interface IVotePersistenceService {
 
     List<VoteCount> findByTopicId(long topicId);
 
