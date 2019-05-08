@@ -1,13 +1,13 @@
 package com.sicredi.test.web.exception;
 
 /**
- * Exception when a topic no longer accept votes.
+ * Exception quando uma pauta ainda não foi aberta para votação.
  */
 public class ClosedTopicException extends TopicApplicationException {
 
-	private static final long serialVersionUID = -50663244808558806L;
+    private static final long serialVersionUID = -50663244808558806L;
 
-	public ClosedTopicException() {
-		super("This topic is not open yet");
-	}
+    public ClosedTopicException() {
+        super("This topic is not open yet");
+    }
 }

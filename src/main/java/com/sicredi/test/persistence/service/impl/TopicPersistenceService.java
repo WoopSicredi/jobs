@@ -13,30 +13,32 @@ import com.sicredi.test.persistence.dao.IPollDao;
 import com.sicredi.test.persistence.dao.ITopicDao;
 import com.sicredi.test.persistence.model.Poll;
 import com.sicredi.test.persistence.model.Topic;
-import com.sicredi.test.persistence.model.UserVote;
-import com.sicredi.test.persistence.service.ITopicService;
+import com.sicredi.test.persistence.service.ITopicPersistenceService;
 
+/**
+ * Implementa a persistência de dados de pautas.
+ */
 @Service
 @Transactional
-public class TopicService implements ITopicService {
+public class TopicPersistenceService implements ITopicPersistenceService {
 
-	@Autowired
+    @Autowired
     private IPollDao pollDao;
-	
+
     @Autowired
     private ITopicDao topicDao;
 
-    public TopicService() {
+    public TopicPersistenceService() {
         super();
     }
 
     public IPollDao getPollDao() {
-		return pollDao;
-	}
-    
+        return pollDao;
+    }
+
     public ITopicDao getTopicDao() {
-		return topicDao;
-	}
+        return topicDao;
+    }
 
     @Override
     @Transactional(readOnly = true)
@@ -48,12 +50,12 @@ public class TopicService implements ITopicService {
     public Topic create(final Topic entity) {
         return getTopicDao().save(entity);
     }
-    
+
     @Override
     public Poll createPoll(final Poll poll, Topic topic) {
-    	poll.setTopic(topic);
-    	getTopicDao().save(topic);
-		return getPollDao().save(poll);
+        poll.setTopic(topic);
+        getTopicDao().save(topic);
+        return getPollDao().save(poll);
     }
 
     @Override
@@ -70,9 +72,4 @@ public class TopicService implements ITopicService {
     public List<Topic> findAll() {
         return Lists.newArrayList(getTopicDao().findAll());
     }
-
-	@Override
-	public Poll createVote(UserVote resource, int topicId) {
-		return null;
-	}
 }

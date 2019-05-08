@@ -1,10 +1,14 @@
 package com.sicredi.test.web.exception;
 
+/**
+ * Exception quando se tenta abrir a votação de uma pauta que já foi aberta
+ * anteriormente.
+ */
 public class PollAlreadyCreatedException extends TopicApplicationException {
 
-	private static final long serialVersionUID = 6300963048356770465L;
+    private static final long serialVersionUID = 6300963048356770465L;
 
-	public PollAlreadyCreatedException() {
-		super("Poll is already created on this topic");
-	}
+    public PollAlreadyCreatedException() {
+        super("Poll is already created on this topic");
+    }
 }

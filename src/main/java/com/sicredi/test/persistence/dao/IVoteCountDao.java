@@ -8,12 +8,14 @@ import org.springframework.data.repository.query.Param;
 
 import com.sicredi.test.persistence.model.VoteCount;
 
+/**
+ * Repositório de contadores de votos para determinadas pautas.
+ */
 public interface IVoteCountDao extends JpaRepository<VoteCount, Long> {
 
-	@Query("select v from VoteCount v where v.topicId=:topicId and v.voteOption=:voteOption")
-	VoteCount findByTopicIdAnVoteOption(@Param("topicId") long topicId,
-			@Param("voteOption") String voteOption);
+    @Query("select v from VoteCount v where v.topicId=:topicId and v.voteOption=:voteOption")
+    VoteCount findByTopicIdAnVoteOption(@Param("topicId") long topicId, @Param("voteOption") String voteOption);
 
-	List<VoteCount> findByTopicId(long topicId);
-    
+    List<VoteCount> findByTopicId(long topicId);
+
 }

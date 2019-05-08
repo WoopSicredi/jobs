@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import com.sicredi.test.persistence.model.Poll;
 import com.sicredi.test.persistence.model.Topic;
 import com.sicredi.test.persistence.model.VoteOption;
-import com.sicredi.test.persistence.service.ITopicService;
+import com.sicredi.test.persistence.service.ITopicPersistenceService;
 import com.sicredi.test.persistence.service.IVoteService;
 import com.sicredi.test.web.exception.ClosedTopicException;
 import com.sicredi.test.web.exception.ExpiredTopicException;
@@ -19,67 +19,67 @@ import com.sicredi.test.web.exception.OpenTopicException;
 import com.sicredi.test.web.exception.UserAlreadyVoteException;
 
 /**
- * Validator related to Topic actions.
+ * Validador de ações sobre pautas.
  */
 @Component
 public class TopicValidator {
 
-	@Autowired
-    private ITopicService topicService;
+    @Autowired
+    private ITopicPersistenceService topicService;
     @Autowired
     private IVoteService voteService;
 
-	public void validatePollForGetResults(long topicId) {
-		Topic topic = topicService.findById(topicId);
-		Poll poll = getPollIfValid(topic);
-
-		if (poll == null) {
-        	throw new ClosedTopicException();
-        } else if (isPollOpen(poll)) {
-        	throw new OpenTopicException();
-        }
-	}
-
-	public void validateForVote(long topicId, String username, VoteOption voteOption) {
+    public void validatePollForGetResults(long topicId) {
         Topic topic = topicService.findById(topicId);
-		Poll poll = getPollIfValid(topic);
+        Poll poll = getPollIfValid(topic);
 
-		if (voteOption == null) {
-			throw new InvalidVoteOptionException();
-		} else if (poll == null) {
-			throw new ClosedTopicException();
-		} else if (isPollExpired(poll)) {
-			throw new ExpiredTopicException();
-		} else if (voteService.userAlreadyVote(username, topicId)) {
-			throw new UserAlreadyVoteException();
-		}
-	}
+        if (poll == null) {
+            throw new ClosedTopicException();
+        } else if (isPollOpen(poll)) {
+            throw new OpenTopicException();
+        }
+    }
 
-	private Poll getPollIfValid(Topic topic) {
-		if (topic == null) {
-			throw new InvalidTopicException();
-		}
-		return topic.getPoll();
-	}
+    public void validateForVote(long topicId, String username, VoteOption voteOption) {
+        Topic topic = topicService.findById(topicId);
+        Poll poll = getPollIfValid(topic);
 
-	private boolean isPollOpen(Poll poll) {
-		Instant now = Instant.now();
-		Instant expiration = getExpirationInstant(poll);
+        if (voteOption == null) {
+            throw new InvalidVoteOptionException();
+        } else if (poll == null) {
+            throw new ClosedTopicException();
+        } else if (isPollExpired(poll)) {
+            throw new ExpiredTopicException();
+        } else if (voteService.userAlreadyVote(username, topicId)) {
+            throw new UserAlreadyVoteException();
+        }
+    }
 
-		return now.isBefore(expiration);
-	}
+    private Poll getPollIfValid(Topic topic) {
+        if (topic == null) {
+            throw new InvalidTopicException();
+        }
+        return topic.getPoll();
+    }
 
-	private boolean isPollExpired(Poll poll) {
-		Instant now = Instant.now();
-		Instant expirationInstant = getExpirationInstant(poll);
-		
-		return now.isAfter(expirationInstant);
-	}
+    private boolean isPollOpen(Poll poll) {
+        Instant now = Instant.now();
+        Instant expiration = getExpirationInstant(poll);
 
-	private Instant getExpirationInstant(Poll poll) {
-		Instant creation = poll.getCreatedOn().toInstant();
-		long pollDuration = TimeUnit.SECONDS.convert(poll.getDurationInMinutes(), TimeUnit.MINUTES);
+        return now.isBefore(expiration);
+    }
 
-		return creation.plusSeconds(pollDuration);
-	}
+    private boolean isPollExpired(Poll poll) {
+        Instant now = Instant.now();
+        Instant expirationInstant = getExpirationInstant(poll);
+
+        return now.isAfter(expirationInstant);
+    }
+
+    private Instant getExpirationInstant(Poll poll) {
+        Instant creation = poll.getCreatedOn().toInstant();
+        long pollDuration = TimeUnit.SECONDS.convert(poll.getDurationInMinutes(), TimeUnit.MINUTES);
+
+        return creation.plusSeconds(pollDuration);
+    }
 }

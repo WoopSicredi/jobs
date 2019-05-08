@@ -6,50 +6,52 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-
-@XStreamAlias("user_vote")
+/**
+ * Classe de persistência que modela o registro de votação de um determinado
+ * usuário numa pauta específica.
+ */
 @Entity
 public class UserVote {
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-	@Column(name = "topic_id")
-	private long topicId;
+    @Column(name = "topic_id")
+    private long topicId;
 
-	@Column(nullable = false)
-	private String username;
+    @Column(nullable = false)
+    private String username;
 
-	public UserVote() {}
+    public UserVote() {
+    }
 
-	public UserVote(long topicId, String username) {
-		this.topicId = topicId;
-		this.username = username;
-	}
+    public UserVote(long topicId, String username) {
+        this.topicId = topicId;
+        this.username = username;
+    }
 
-	public long getId() {
-		return id;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public long getTopicId() {
-		return topicId;
-	}
+    public long getTopicId() {
+        return topicId;
+    }
 
-	public void setTopicId(long topicId) {
-		this.topicId = topicId;
-	}
+    public void setTopicId(long topicId) {
+        this.topicId = topicId;
+    }
 
-	public String getUser() {
-		return username;
-	}
-	
-	public void setUser(String user) {
-		this.username = user;
-	}
+    public String getUser() {
+        return username;
+    }
+
+    public void setUser(String user) {
+        this.username = user;
+    }
 }

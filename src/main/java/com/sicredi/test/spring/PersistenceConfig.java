@@ -21,11 +21,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.google.common.base.Preconditions;
 
+/**
+ * Configuração spring para acessoa a base de dados e seus comportamentos.
+ */
 @Configuration
 @EnableTransactionManagement
 @PropertySource({ "classpath:persistence-${envTarget:h2}.properties" })
-@ComponentScan(basePackages = { "com.sicredi.test.persistence"})
-@EnableJpaRepositories(basePackages = {"com.sicredi.test.persistence.dao", "com.sicredi.test.modelmapper.repository"})
+@ComponentScan(basePackages = { "com.sicredi.test.persistence" })
+@EnableJpaRepositories(basePackages = { "com.sicredi.test.persistence.dao", "com.sicredi.test.modelmapper.repository" })
 public class PersistenceConfig {
 
     @Autowired
@@ -39,7 +42,8 @@ public class PersistenceConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan(new String[] { "com.sicredi.test.persistence.model", "com.sicredi.test.modelmapper.model" });
+        em.setPackagesToScan(
+                new String[] { "com.sicredi.test.persistence.model", "com.sicredi.test.modelmapper.model" });
 
         final HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         // vendorAdapter.set

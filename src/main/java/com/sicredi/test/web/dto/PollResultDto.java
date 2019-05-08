@@ -3,42 +3,46 @@ package com.sicredi.test.web.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Objeto de transferência dos resultados de uma votação.
+ */
 public class PollResultDto {
 
-	private long topicId;
-	private String topicName;
-	
-	private List<VoteCountDto> votes = new ArrayList<>();
-	
-	public PollResultDto() {}
-	
-	public PollResultDto(long topicId, String topicName) {
-		this.topicId = topicId;
-		this.topicName = topicName;
-	}
-	
-	public long getTopicId() {
-		return topicId;
-	}
+    private long topicId;
+    private String topicName;
 
-	public void setTopicId(long topicId) {
-		this.topicId = topicId;
-	}
-	
-	public String getTopicName() {
-		return topicName;
-	}
-	
-	public void setTopicName(String topicName) {
-		this.topicName = topicName;
-	}
+    private List<VoteCountDto> votes = new ArrayList<>();
 
-	public List<VoteCountDto> getVotes() {
-		return votes;
-	}
-	
-	public void setVotes(List<VoteCountDto> votes) {
-		this.votes = votes;
-	}
+    public PollResultDto() {
+    }
+
+    public PollResultDto(long topicId, String topicName) {
+        this.topicId = topicId;
+        this.topicName = topicName;
+    }
+
+    public long getTopicId() {
+        return topicId;
+    }
+
+    public void setTopicId(long topicId) {
+        this.topicId = topicId;
+    }
+
+    public String getTopicName() {
+        return topicName;
+    }
+
+    public void setTopicName(String topicName) {
+        this.topicName = topicName;
+    }
+
+    public List<VoteCountDto> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(List<VoteCountDto> votes) {
+        this.votes = votes;
+    }
 
 }

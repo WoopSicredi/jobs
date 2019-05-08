@@ -14,23 +14,24 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.google.common.base.Objects;
-import com.thoughtworks.xstream.annotations.XStreamAlias;
 
-@XStreamAlias("poll")
+/**
+ * Classe que modela uma votação de uma determinada pauta.
+ */
 @Entity
 public class Poll implements Serializable {
 
-	private static final long serialVersionUID = 6854668792809573665L;
+    private static final long serialVersionUID = 6854668792809573665L;
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-	@OneToOne
+    @OneToOne
     @MapsId
-	private Topic topic;
-	
-	@Column(name = "created_on")
+    private Topic topic;
+
+    @Column(name = "created_on")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdOn = new Date();
 
@@ -41,36 +42,36 @@ public class Poll implements Serializable {
     }
 
     public Poll(int durationInMinutes) {
-		this.durationInMinutes = durationInMinutes;
-	}
+        this.durationInMinutes = durationInMinutes;
+    }
 
-	public int getDurationInMinutes() {
-		return durationInMinutes;
-	}
+    public int getDurationInMinutes() {
+        return durationInMinutes;
+    }
 
     public void setDurationInMinutes(int durationInMinutes) {
-		this.durationInMinutes = durationInMinutes;
-	}
+        this.durationInMinutes = durationInMinutes;
+    }
 
     public Date getCreatedOn() {
-		return createdOn;
-	}
+        return createdOn;
+    }
 
     public void setCreatedOn(Date createdOn) {
-		this.createdOn = createdOn;
-	}
+        this.createdOn = createdOn;
+    }
 
     public Topic getTopic() {
-		return topic;
-	}
-    
+        return topic;
+    }
+
     public void setTopic(Topic topic) {
-		this.topic = topic;
-	}
+        this.topic = topic;
+    }
 
     @Override
     public int hashCode() {
-    	return Objects.hashCode(id);
+        return Objects.hashCode(id);
     }
 
     @Override
@@ -82,7 +83,7 @@ public class Poll implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         final Poll other = (Poll) obj;
-        
+
         return other.id == this.id;
     }
 

@@ -6,10 +6,12 @@ import org.springframework.data.repository.query.Param;
 
 import com.sicredi.test.persistence.model.UserVote;
 
+/**
+ * Repositório de registro de votos de usuários.
+ */
 public interface IUserVoteDao extends JpaRepository<UserVote, Long> {
 
-	@Query("select v from UserVote v where v.topicId=:topicId and v.username=:username")
-	UserVote findByTopicIdAndUsername(@Param("topicId") long topicId,
-			@Param("username") String username);
-    
+    @Query("select v from UserVote v where v.topicId=:topicId and v.username=:username")
+    UserVote findByTopicIdAndUsername(@Param("topicId") long topicId, @Param("username") String username);
+
 }

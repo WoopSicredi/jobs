@@ -22,13 +22,13 @@ import com.sicredi.test.persistence.model.Poll;
 import com.sicredi.test.persistence.model.Topic;
 import com.sicredi.test.persistence.model.UserVote;
 import com.sicredi.test.persistence.model.VoteCount;
-import com.sicredi.test.persistence.service.ITopicService;
+import com.sicredi.test.persistence.service.ITopicPersistenceService;
 import com.sicredi.test.persistence.service.IVoteService;
 import com.sicredi.test.web.converter.PollDtoToPollConverter;
 import com.sicredi.test.web.converter.PollResultsConverter;
 import com.sicredi.test.web.converter.TopicCreationDtoToTopicConverter;
 import com.sicredi.test.web.converter.TopicToTopicDtoConverter;
-import com.sicredi.test.web.dto.PollDto;
+import com.sicredi.test.web.dto.PollCreationDto;
 import com.sicredi.test.web.dto.PollResultDto;
 import com.sicredi.test.web.dto.TopicCreationDto;
 import com.sicredi.test.web.dto.TopicDto;
@@ -41,7 +41,7 @@ import com.sicredi.test.web.validator.TopicValidator;
 public class TopicController {
 
     @Autowired
-    private ITopicService topicService;
+    private ITopicPersistenceService topicService;
     @Autowired
     private IVoteService voteService;
     @Autowired
@@ -73,7 +73,7 @@ public class TopicController {
 
     @PostMapping(value = "/{id}/poll")
     @ResponseStatus(HttpStatus.CREATED)
-    public Poll openPoll(@PathVariable("id") long topicId, @RequestBody PollDto newPoll) {
+    public Poll openPoll(@PathVariable("id") long topicId, @RequestBody PollCreationDto newPoll) {
         Topic topic = topicService.findById(topicId);
         Poll poll = topic.getPoll();
         

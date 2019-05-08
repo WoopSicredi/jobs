@@ -11,30 +11,30 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 import com.google.common.base.Objects;
-import com.thoughtworks.xstream.annotations.XStreamAlias;
 
-@XStreamAlias("Topic")
+/**
+ * Classe de persistêcia que modela um pauta de votação.
+ */
 @Entity
 public class Topic implements Serializable {
 
-	private static final long serialVersionUID = 6854668792809573665L;
+    private static final long serialVersionUID = 6854668792809573665L;
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Column(nullable = false)
     private String name;
 
-    @OneToOne(mappedBy = "topic",
-    		cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "topic", cascade = CascadeType.ALL, orphanRemoval = true)
     private Poll poll;
 
     public Topic() {
     }
 
     public Topic(final String name) {
-    	this();
+        this();
         this.name = name;
     }
 
@@ -53,18 +53,18 @@ public class Topic implements Serializable {
     public void setName(final String name) {
         this.name = name;
     }
-    
+
     public Poll getPoll() {
-		return poll;
-	}
-    
+        return poll;
+    }
+
     public void setPoll(Poll poll) {
-		this.poll = poll;
-	}
+        this.poll = poll;
+    }
 
     @Override
     public int hashCode() {
-    	return Objects.hashCode(this.id);
+        return Objects.hashCode(this.id);
     }
 
     @Override
