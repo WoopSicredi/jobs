@@ -2,9 +2,11 @@
 
 É possível rodar a aplicação utilizando o maven ou diretamente via jar.
 Para rodar com maven basta utilizar o plugin do spring-boot através do seguinte comando:
+
 	- mvn spring-boot:run
 
 Também é possível criar um jar executável e executá-lo diretamente com a JVM atráves dos comandos:
+
 	- mvn install
 	- java -jar target/test-sicredi.jar
 
