@@ -70,7 +70,7 @@ public class TopicController {
 
     @GetMapping
     public List<TopicDto> findAll() {
-        LOGGER.info("Retrieving all topics {}");
+        LOGGER.info("Retrieving all topics");
         return topicService.findAll().stream().map(topic -> topicToTopicDtoConverter.convert(topic))
                 .collect(Collectors.toList());
     }
@@ -78,9 +78,11 @@ public class TopicController {
     @PostMapping(value = "/{topicId}/poll")
     @ResponseStatus(HttpStatus.CREATED)
     public Poll openPoll(@PathVariable("topicId") long topicId, @RequestBody PollCreationDto newPoll) {
+        LOGGER.info("About to open poll for topic {}", topicId);
         Topic topic = topicService.findById(topicId);
 
         topicValidator.validatePollIsNotCreated(topic);
+        LOGGER.debug("About to create poll", topicId);
         return topicService.createPoll(pollDtoToPollConverter.convert(newPoll), topic);
     }
 

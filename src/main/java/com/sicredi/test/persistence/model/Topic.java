@@ -82,7 +82,7 @@ public class Topic implements Serializable {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Foo [name=").append(name).append("]");
+        builder.append("Topic [name=").append(name).append(", id=").append(id).append("]");
         return builder.toString();
     }
 

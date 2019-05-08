@@ -90,7 +90,8 @@ public class Poll implements Serializable {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Poll [id=").append(id).append("]");
+        builder.append("Poll [id=").append(id).append(" , createdOn=").append(createdOn).append(" , durationInMin=")
+                .append(durationInMinutes).append("]");
         return builder.toString();
     }
 

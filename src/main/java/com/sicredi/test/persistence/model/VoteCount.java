@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.google.common.base.Objects;
+
 /**
  * Classe de persistência que modela a contagem de votos de um determinada opção
  * de uma pauta de votação.
@@ -69,4 +71,24 @@ public class VoteCount {
     public synchronized void increment() {
         this.count++;
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(this.id);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        VoteCount other = (VoteCount) obj;
+        if (id != other.id)
+            return false;
+        return true;
+    }
+
 }
