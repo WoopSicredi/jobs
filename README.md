@@ -58,9 +58,9 @@ As seguintes decisões técnicas foram tomadas:
 
 A maior parte das melhorias listadas abaixo não foram implementadas em virtude do tempo que tive para dedicar ao desenvolvimento que pelos meus cálculos, ficaram em torno de 6 horas não corridas. A maior parte delas foi postergada para possibilitar a implementação do requisito.
 
-* Melhorias de logs: praticamente não incluí logs na aplicação.
-* Comentários nas classes: poucos comentários forma incluídos.
-* Testes unitarios e testes de integração não foram feitos.
+* Melhorias de logs e comentários nas classes;
+* Aumentar cobertura de testes unitários;
+* Criação de testes de integração.
 * Possiblidade de geração automática de documentação não foi utilizada e seria um acréscimo a documentação da interface REST.
 * Utilização de cache em chamadas que possívelmente possam ser repetitivas, como no caso dos votos de usuário que recuperam a informação da pauta.
 
