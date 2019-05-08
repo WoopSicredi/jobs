@@ -73,7 +73,7 @@ public class TopicController {
 
     @PostMapping(value = "/{id}/poll")
     @ResponseStatus(HttpStatus.CREATED)
-    public Poll openPoll(@PathVariable("id") long topicId, @RequestBody final PollDto newPoll) {
+    public Poll openPoll(@PathVariable("id") long topicId, @RequestBody PollDto newPoll) {
         Topic topic = topicService.findById(topicId);
         Poll poll = topic.getPoll();
         
@@ -85,7 +85,7 @@ public class TopicController {
 
     @PostMapping(value = "/{id}/vote")
     @ResponseStatus(HttpStatus.OK)
-    public UserVote vote(@PathVariable("id") int topicId, @Valid @RequestBody final VoteDto vote) {
+    public UserVote vote(@PathVariable("id") long topicId, @Valid @RequestBody VoteDto vote) {
         topicValidator.validateForVote(topicId, vote.getUsername(), vote.getVoteOption());
 
         return voteService.createVote(topicId, vote.getUsername(), vote.getVoteOption());
@@ -93,7 +93,7 @@ public class TopicController {
 
     @GetMapping(value = "/{id}/poll")
     @ResponseStatus(HttpStatus.OK)
-    public PollResultDto result(@PathVariable("id") int topicId) {
+    public PollResultDto result(@PathVariable("id") long topicId) {
         List<VoteCount> votes = Optional.ofNullable(voteService.findByTopicId(topicId)).orElseGet(ArrayList::new);
 
         topicValidator.validatePollForGetResults(topicId);
@@ -104,13 +104,13 @@ public class TopicController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Topic create(@Valid @RequestBody final TopicCreationDto topic) {
+    public Topic create(@Valid @RequestBody TopicCreationDto topic) {
         return topicService.create(topicCreationDtoToTopicConverter.convert(topic));
     }
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void delete(@PathVariable("id") final Long id) {
+    public void delete(@PathVariable("id") long id) {
         topicService.deleteById(id);
     }
 }
