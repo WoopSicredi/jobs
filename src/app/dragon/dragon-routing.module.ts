@@ -13,8 +13,12 @@ import { DragonProfileComponent }   from './pages/dragon-profile/dragon-profile.
 const dragonRoutes : Routes = [
     { path: 'dragon/:id/:nome/:action',     component: DragonFormComponent    }
 ,   { path: 'dragons/:id/:nome/:action',    component: DragonFormComponent    }
+,   { path: 'dragon/:id//:action',          component: DragonFormComponent    }
+,   { path: 'dragons/:id//:action',         component: DragonFormComponent    }
 ,   { path: 'dragon/:id/:nome',             component: DragonProfileComponent }
 ,   { path: 'dragons/:id/:nome',            component: DragonProfileComponent }
+,   { path: 'dragon/:id',                   component: DragonProfileComponent }
+,   { path: 'dragons/:id',                  component: DragonProfileComponent }
 ,   { path: 'dragons',                      component: DragonListComponent    }
 ,   { path: 'dragon',                       component: DragonListComponent    }
 ]
