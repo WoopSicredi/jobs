@@ -1,7 +1,7 @@
 
-import { NgModule }       from '@angular/core'
-import { CommonModule }   from '@angular/common'
-import { FormsModule }    from '@angular/forms'
+import { NgModule }                         from '@angular/core'
+import { CommonModule }                     from '@angular/common'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
  
 import { DragonFormComponent }      from './pages/dragon-form/dragon-form.component'
 import { DragonListComponent }      from './pages/dragon-list/dragon-list.component'
@@ -17,8 +17,9 @@ import { DragonService }            from './services/dragon.service'
 
     imports: [
         CommonModule
-    ,   FormsModule
     ,   DragonRoutingModule
+    ,   FormsModule
+    ,   ReactiveFormsModule
     ]
 
 ,   declarations: [
