@@ -1,57 +1,27 @@
-# Transformação Digital
+# Solution
 
-Estamos buscando pessoas inspiradas por tecnologia e inovação, capazes e engajadas para construir juntos uma plataforma digital cooperativa para o futuro.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.10.
 
-## Sobre Nós
+## Development server
 
-Somos uma das maiores instituições financeiras cooperativas do país e uma das melhores empresas para trabalhar no Brasil. Isso mostra que, aqui, os números não são o mais importante. Somos uma organização cooperativa feita de pessoas e para pessoas.​
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-Aqui, todos tem voz e participam das decisões. Mas não é só isso que nos faz diferentes das instituições financeiras comuns. Acreditamos no relacionamento para gerar crescimento, no cuidado com o bem-estar das pessoas no presente e no seu desenvolvimento para o futuro. Sabemos que, juntos, todos ganhamos.
+## Code scaffolding
 
-Faça parte dessa história. Aqui, seu trabalho é reconhecido e faz a diferença para a vida de milhares de Associados.
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Conheça os nossos pilares
+## Build
 
-#### DESIGN
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
-Não basta parecer simples. Tem que ser simples. Encantar nossos usuários a cada interação.
+## Running unit tests
 
-#### ENGAJAMENTO
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-Construímos experiências surpreendentes e relevantes para a vida das pessoas. Garantir a satisfação dos usuários é o que nos move.
+## Running end-to-end tests
 
-#### AGILIDADE
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-Criamos rápido. Lançamos rápido. Aprendemos e resolvemos rápido. Melhoramos sempre.
+## Further help
 
-## Atitudes que valorizamos!
-
-#### SIMPLICIDADE
-
-Focamos no que realmente importa.
-
-#### FOCO NO USUÁRIO
-
-O usuário é sempre o centro de tudo.
-
-#### EMPREENDEDORISMO
-
-Somos visionários e sonhadores. 
-Acreditamos e realizamos.
-
-#### INOVAÇÃO
-
-Somos curiosos e queremos criar novas tendências.
-
-#### COLABORAÇÃO
-
-Somos uma cooperativa.
-Fazemos juntos para fazer a diferença.
-
-#### APRENDIZAGEM
-
-Não sabemos tudo.
-Mas tudo o que sabemos é compartilhado.
-
-## Vagas
-https://sicredi.gupy.io
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
