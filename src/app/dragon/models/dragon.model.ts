@@ -14,7 +14,7 @@ export class DragonModel extends Model implements Deserializable
 {
     
     createdAt   :   string
-    headers    ?:   any[]
+    headers    ?:   any
     histories   :   any[]
     id          :   number
     name        :   string
