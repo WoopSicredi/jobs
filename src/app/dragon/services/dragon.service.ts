@@ -93,4 +93,19 @@ export class DragonService extends DataService
 
   }
 
+
+
+  public postDragon (dragon : DragonModel)
+  {
+    
+    return (
+      
+      this.post (dragon)
+      .map      ( (json) => json )
+      .catch    (this.onError)
+
+    )
+
+  }
+
 }

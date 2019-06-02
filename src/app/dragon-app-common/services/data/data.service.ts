@@ -103,6 +103,22 @@ export class DataService
 
 
 
+  public post (resource : object)
+  {
+    
+    return (
+      
+      this.http
+      .post( this.url, JSON.stringify(resource) )
+      .map( (response) => response.json() )
+      .catch(this.onError)
+
+    )
+
+  }
+
+
+
   protected get http ()
   {
     return (this._http)

@@ -79,3 +79,15 @@ body {
     overflow-x: hidden !important;
     overflow-y: hidden !important;
 }
+
+.da-clickable {
+    cursor:         pointer;
+    pointer-events: all;
+}
+
+.da-new {
+    position:   fixed;
+    right:      1.5rem;
+    top:        70px;
+    z-index:    99;
+}

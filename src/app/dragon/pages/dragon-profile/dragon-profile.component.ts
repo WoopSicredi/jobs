@@ -76,7 +76,7 @@ export class DragonProfileComponent extends DragonPageComponent implements OnIni
   private onGet (dragon : DragonModel)
   {
 
-    this.onDismissError()
+    this.onDismissToast()
     this.dragon = dragon
 
   }

@@ -6,7 +6,7 @@ import { AuthService }            from '../../../dragon-app-common/auth/services
 import { DragonError }            from '../../errors/dragon-error'
 import { DragonModel }            from '../../models/dragon.model'
 import { DragonService }          from '../../services/dragon.service'
-import { DragonPageComponent } from '../dragon-page/dragon-page.component'
+import { DragonPageComponent }    from '../dragon-page/dragon-page.component'
 
 
 
@@ -59,8 +59,8 @@ export class DragonListComponent extends DragonPageComponent implements OnInit
   private onError (error : DragonError)
   {
 
-    this.hasError   =  true
-    this.lastError  = 'Não foi possível recuperar a lista de dragões'
+    this.hasError =  true
+    this.message  = 'Não foi possível recuperar a lista de dragões'
 
   }
 
@@ -93,8 +93,8 @@ export class DragonListComponent extends DragonPageComponent implements OnInit
       {
 
         this.dragons.splice(index, 0, deletedDragon)
-        this.hasError   = true
-        this.lastError  = 'Não foi possível excluir o dragão'
+        this.hasError = true
+        this.message  = 'Não foi possível excluir o dragão'
         
       }
       
@@ -107,7 +107,7 @@ export class DragonListComponent extends DragonPageComponent implements OnInit
   private onDelete (dragon : DragonModel)
   {
 
-    this.onDismissError()
+    this.onDismissToast()
     this.dragons.map( (dragon) => delete(dragon['pending']) )
     dragon['pending']  = true
 

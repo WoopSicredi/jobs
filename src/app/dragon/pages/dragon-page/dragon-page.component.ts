@@ -20,10 +20,12 @@ import { LoggedInPageComponent }  from '../../../dragon-app-common/pages/logged-
 export class DragonPageComponent extends LoggedInPageComponent implements OnInit 
 {
 
-  private _dragon     : DragonModel
-  private _hasError   : boolean
-  private _lastError  : string
-  private _service    : DragonService
+  protected _dragon     : DragonModel
+  protected _hasError   : boolean
+  protected _hasNotice  : boolean
+  protected _message    : string
+  protected _pending    : boolean
+  protected _service    : DragonService
 
 
 
@@ -39,7 +41,7 @@ export class DragonPageComponent extends LoggedInPageComponent implements OnInit
 
     this.service  = service
 
-    this.onDismissError = this.onDismissError.bind(this)
+    this.onDismissToast = this.onDismissToast.bind(this)
 
   }
 
@@ -52,29 +54,39 @@ export class DragonPageComponent extends LoggedInPageComponent implements OnInit
 
 
 
-  protected onDismissError ()
+  protected onDismissToast ()
   {
 
-    this.hasError   = false
-    this.lastError  = 'Não foi possível excluir o dragão'
+    this.hasError = this.hasNotice = false
+    this.message  = 'Não foi possível excluir o dragão'
 
   }
 
 
 
-  public get dragon ()
+  protected get dragon ()
   {
     return (this._dragon)
   }
 
-  public get hasError ()
+  protected get hasError ()
   {
     return (this._hasError)
   }
 
-  public get lastError ()
+  protected get hasNotice ()
   {
-    return (this._lastError)
+    return (this._hasNotice)
+  }
+
+  protected get message ()
+  {
+    return (this._message)
+  }
+
+  protected get pending ()
+  {
+    return (this._pending)
   }
 
   protected get service ()
@@ -84,21 +96,31 @@ export class DragonPageComponent extends LoggedInPageComponent implements OnInit
 
 
 
-  public set dragon (dragon)
+  protected set dragon (dragon)
   {
     this._dragon = dragon
   }
 
-  public set hasError (hasError)
+  protected set hasError (hasError)
   {
     this._hasError = hasError
   }
 
-  public set lastError (lastError)
+  protected set hasNotice (hasNotice)
   {
-    this._lastError = lastError
+    this._hasNotice = hasNotice
   }
 
+  protected set message (message)
+  {
+    this._message = message
+  }
+
+  protected set pending (pending)
+  {
+    this._pending = pending
+  }
+  
   protected set service (service)
   {
     this._service = service
