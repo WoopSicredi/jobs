@@ -4,5 +4,9 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
-};
+
+  DRAGON_API_URL: 'http://5c4b2a47aa8ee500142b4887.mockapi.io/api/v1/dragon'
+
+, production:     false
+
+}

@@ -1,4 +1,10 @@
 
-<p>
-  dragon-list works!
-</p>
+<ul class="list">
+
+  <li *ngFor="let dragon of dragons"
+      class="list-item"
+  >
+    {{  dragon.name }}
+  </li>
+
+</ul>
