@@ -244,7 +244,7 @@ export class DragonFormComponent extends DragonPageComponent implements OnInit
     dragon.createdAt  = new Date().toDateString()
     dragon.headers    = {}
     dragon.histories  = []
-    dragon.id         = this.dragon.id
+    dragon.id         = ((this.dragon) ? (this.dragon.id) : (null))
     dragon.name       = this.name.value.trim()
     dragon.type       = this.type.value.trim()
 
