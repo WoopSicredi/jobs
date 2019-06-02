@@ -13,12 +13,12 @@ import { TypeModel }        from './type.model'
 export class DragonModel extends Model implements Deserializable
 {
     
-    createdAt   :   DateModel
-    headers    ?:   HeadersModel
-    histories   :   HistoryModel[]
+    createdAt   :   string
+    headers    ?:   any[]
+    histories   :   any[]
     id          :   number
     name        :   string
-    type        :   TypeModel
+    type        :   string
 
 
 
@@ -27,10 +27,10 @@ export class DragonModel extends Model implements Deserializable
             
         Object.assign(this, input)
 
-        this.createdAt  =   new DateModel().deserialize(input.createdAt)
-        this.headers    =   new HeadersModel().deserialize(input.headers)
+        // this.createdAt  =   new DateModel().deserialize(input.createdAt)
+        // this.headers    =   new HeadersModel().deserialize(input.headers)
         this.histories  =   input.histories.map( (history) => new HistoryModel().deserialize(history) )
-        this.type       =   new TypeModel().deserialize(input.type)
+        // this.type       =   new TypeModel().deserialize(input.type)
 
         return (this)
 

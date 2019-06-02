@@ -2,16 +2,11 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component, OnInit }      from '@angular/core'
 
-import 'rxjs/add/observable/throw'
-import 'rxjs/add/operator/catch'
-
-import { AuthService }            from '../../../dragon-app-common/auth/services/auth.service';
-import { DragonModel }            from '../../models/dragon.model';
-import { DragonService }          from '../../services/dragon.service';
-import { LoggedInPageComponent }  from '../../../dragon-app-common/pages/logged-in-page/logged-in-page.component'
-import { DragonError } from '../../errors/dragon-error';
-import { DragonNotFoundError } from '../../errors/dragon-not-found-error';
-import { Observable } from 'rxjs/Observable';
+import { AuthService }            from '../../../dragon-app-common/auth/services/auth.service'
+import { DragonError }            from '../../errors/dragon-error'
+import { DragonModel }            from '../../models/dragon.model'
+import { DragonService }          from '../../services/dragon.service'
+import { DragonPageComponent } from '../dragon-page/dragon-page.component'
 
 
 
@@ -23,13 +18,10 @@ import { Observable } from 'rxjs/Observable';
 , templateUrl:  './dragon-list.component.html'
 , styleUrls:    ['./dragon-list.component.scss']
 })
-export class DragonListComponent extends LoggedInPageComponent implements OnInit 
+export class DragonListComponent extends DragonPageComponent implements OnInit 
 {
 
   private _dragons    : DragonModel[]
-  private _hasError   : boolean
-  private _lastError  : string
-  private _service    : DragonService
 
 
 
@@ -41,12 +33,10 @@ export class DragonListComponent extends LoggedInPageComponent implements OnInit
   ) 
   { 
 
-    super (auth, route, router)
+    super (service, auth, route, router)
 
-    this.service  = service
-
-    this.onDismissError = this.onDismissError.bind(this)
-    this.onGet          = this.onGet.bind(this)
+    this.onError  = this.onError.bind(this)
+    this.onGet    = this.onGet.bind(this)
 
   }
 
@@ -57,19 +47,20 @@ export class DragonListComponent extends LoggedInPageComponent implements OnInit
 
     this.service
     .getDragons()
-    .subscribe( this.onGet )
+    .subscribe( 
+      this.onGet
+    , this.onError
+    )
 
   }
 
 
 
-  private onEdit ($event, dragon : DragonModel)
+  private onError (error : DragonError)
   {
 
-    $event.preventDefault()
-    $event.stopPropagation()
-
-    console.debug(dragon)
+    this.hasError   =  true
+    this.lastError  = 'Não foi possível recuperar a lista de dragões'
 
   }
 
@@ -119,18 +110,6 @@ export class DragonListComponent extends LoggedInPageComponent implements OnInit
     this.onDismissError()
     this.dragons.map( (dragon) => delete(dragon['pending']) )
     dragon['pending']  = true
-    console.debug(dragon)
-
-  }
-
-
-
-  private onDismissError ()
-  {
-
-    console.debug('TURANDO OS ERRO')
-    this.hasError   = false
-    this.lastError  = 'Não foi possível excluir o dragão'
 
   }
 
@@ -151,41 +130,11 @@ export class DragonListComponent extends LoggedInPageComponent implements OnInit
     return (this._dragons)
   }
 
-  public get hasError ()
-  {
-    return (this._hasError)
-  }
-
-  public get lastError ()
-  {
-    return (this._lastError)
-  }
-
-  private get service ()
-  {
-    return (this._service)
-  }
-
 
 
   public set dragons (dragons)
   {
     this._dragons = dragons
-  }
-
-  public set hasError (hasError)
-  {
-    this._hasError = hasError
-  }
-
-  public set lastError (lastError)
-  {
-    this._lastError = lastError
-  }
-
-  private set service (service)
-  {
-    this._service = service
   }
 
 }

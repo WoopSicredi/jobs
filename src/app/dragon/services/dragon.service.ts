@@ -50,6 +50,22 @@ export class DragonService extends DataService
 
 
 
+  public getDragon (id : number)  : Observable<DragonModel | DragonError>
+  {
+
+    return (
+
+      this
+      .get(id)
+      .map( (json) => new DragonModel().deserialize(json) )
+      .catch ( this.onAppError )
+
+    )
+
+  }
+
+
+
   public getDragons ()  : Observable<DragonModel[] | DragonError>
   {
 
@@ -58,6 +74,8 @@ export class DragonService extends DataService
       this
       .getAll()
       .map( (json) => Array.prototype.map.call(json, (tuple) => new DragonModel().deserialize(tuple) ) )
+      .catch ( this.onAppError )
+
     )
 
   }

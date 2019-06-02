@@ -21,6 +21,20 @@ body {
     min-width:      $FULL-PAGE-WIDTH;
 }
 
+.da-wrapper {
+    margin-top:     70px;
+    min-height:     calc(100% - 70px);
+    min-width:      $FULL-PAGE-WIDTH;
+    text-align:     center;
+}
+
+.da-content-wrapper {
+    display:    inline-block !important;
+    max-width:  calc(100% - 20px);
+    min-width:  300px;
+    width:      700px;
+}
+
 .da-error-holder {
     font-size:  0.8rem;
     min-height: 50px;

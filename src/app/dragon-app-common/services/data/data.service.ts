@@ -53,6 +53,23 @@ export class DataService
 
 
 
+  public get (id : number)  : Observable<any | AppError>
+  {
+
+    const url   = `${this.url}/${id}`
+
+    return (
+
+      this.http
+      .get  (url)
+      .map  ( (response) => response.json() )
+      .catch(this.onError)
+
+    )
+
+  }
+
+
   public getAll ()  : Observable<any | AppError>
   {
 
