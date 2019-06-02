@@ -105,8 +105,7 @@ export class DragonFormComponent extends DragonPageComponent implements OnInit
         ((dragon) ? (dragon.name) : (''))
 
       , [ 
-          Validators.pattern(/^[^\s]{1}.*[^\s]$/ig)
-        , Validators.required
+          Validators.required
         ]
 
       )
@@ -116,8 +115,7 @@ export class DragonFormComponent extends DragonPageComponent implements OnInit
         ((dragon) ? (dragon.type) : (''))
 
       , [
-          Validators.pattern(/^[^\s]{1}.*[^\s]$/ig)
-        , Validators.required
+          Validators.required
         ]
 
       )
