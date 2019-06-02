@@ -2,7 +2,7 @@
 export interface LoginErrorFormat  
 {
 
-    invalidPassword ?:  true
+    invalidPassword ?:  boolean
     
     invalidUsername ?:  boolean
 

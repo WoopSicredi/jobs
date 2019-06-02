@@ -3,11 +3,18 @@ import { Http }         from '@angular/http'
 import { Injectable }   from '@angular/core'
 import { Observable }   from 'rxjs/Observable'
 
-import 'rxjs/add/operator/switchMap'
+import 'rxjs/add/operator/catch'
+import 'rxjs/add/observable/throw'
 
-import { environment }  from './../../../environments/environment'
-import { DataService }  from './../../dragon-app-common/services/data/data.service'
-import { DragonModel }  from '../models/dragon.model'
+import { environment }  from '../../../environments/environment'
+
+import { AppError }             from '../../dragon-app-common/errors/app-error';
+import { DataService }          from '../../dragon-app-common/services/data/data.service'
+import { DragonError }          from '../errors/dragon-error'
+import { DragonModel }          from '../models/dragon.model'
+import { NotFoundError }        from '../../dragon-app-common/errors/not-found-error';
+import { DragonNotFoundError }  from '../errors/dragon-not-found-error';
+
 
 
 
@@ -18,12 +25,32 @@ export class DragonService extends DataService
 
   constructor (http: Http) 
   { 
+
     super((<string> environment.DRAGON_API_URL), http)
+
   }
 
 
 
-  public getDragons ()  : Observable<DragonModel[]>
+  public deleteDragon (dragon : DragonModel) : Observable<DragonModel | DragonError>
+  {
+
+    const id : number  = dragon.id
+
+    return (
+
+      this
+      .delete (id)
+      .map    ( (json) => new DragonModel().deserialize(json) )
+      .catch  ( this.onAppError )
+
+    )
+
+  }
+
+
+
+  public getDragons ()  : Observable<DragonModel[] | DragonError>
   {
 
     return (
@@ -31,9 +58,20 @@ export class DragonService extends DataService
       this
       .getAll()
       .map( (json) => Array.prototype.map.call(json, (tuple) => new DragonModel().deserialize(tuple) ) )
-      .catch(this.onError)
-
     )
+
+  }
+
+
+
+  private onAppError (appError : AppError)
+  {
+
+    if (appError instanceof NotFoundError) {
+      return (Observable.throw(new DragonNotFoundError({ dragonNotFound: true })))
+    }
+
+    return (Observable.throw(appError))
 
   }
 

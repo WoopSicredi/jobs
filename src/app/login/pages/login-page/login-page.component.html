@@ -13,15 +13,17 @@
     </label>
     <div class="input-group">
       
-      <input  autocomplete    = "username"
-              class           = "form-control w3-card-2"
-              id              = "username"
-              formControlName = "username"
-              minlength       = "5"
-              name            = "username"
-              placeholder     = "nome de usuário"
+      <input  autocomplete            = "username"
+              autofocus
+              class                   = "form-control w3-card-2"
+              [class.w3-border-theme] = "(username.touched) && (username.invalid)"
+              id                      = "username"
+              formControlName         = "username"
+              minlength               = "5"
+              name                    = "username"
+              placeholder             = "nome de usuário"
               required
-              type            = "text" 
+              type                    = "text" 
       >
 
     </div>
@@ -42,15 +44,18 @@
     </label>
     <div class="input-group w3-border-bottom">
       
-      <input  autocomplete    = "password"
-              class           = "form-control w3-card-2"
-              id              = "password" 
-              formControlName = "password"
-              minlength       = "5"
-              name            = "password"
-              placeholder     = "senha"
+      <input  autocomplete            = "password"
+              class                   = "form-control w3-border-theme w3-card-2"
+              [class.w3-border-theme] = "(password.touched) && (password.invalid)"
+              id                      = "password" 
+              focused
+              formControlName         = "password"
+              minlength               = "5"
+              name                    = "password"
+              placeholder             = "senha"
               required
-              type            = "password" 
+              tabindex                = "1"
+              type                    = "password" 
       >
 
     </div>

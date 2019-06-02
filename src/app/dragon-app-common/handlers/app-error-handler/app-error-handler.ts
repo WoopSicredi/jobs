@@ -1,8 +1,8 @@
 
 import { ErrorHandler } from '@angular/core'
 
-import { LoginError }           from '../../../auth/errors/login-error'
-import { LoginErrorHandler }    from '../../../auth/handlers/login-error-handler';
+import { LoginError }           from '../../auth/errors/login-error'
+import { LoginErrorHandler }    from '../../auth/handlers/login-error-handler';
 
 
 

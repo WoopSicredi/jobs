@@ -1,6 +1,6 @@
 
-import { AppError }         from '../../errors/errors/app-error'
-import { LoginErrorFormat } from '../interfaces/login-error-format';
+import { AppError }         from '../../errors/app-error'
+import { LoginErrorFormat } from './../interfaces/login-error-format'
 
 
 

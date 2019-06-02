@@ -6,6 +6,10 @@ import 'rxjs/add/observable/throw'
 import 'rxjs/add/operator/catch'
 import 'rxjs/add/operator/map'
 
+import { AppError }         from '../../errors/app-error'
+import { BadRequestError }  from './../../errors/bad-request-error'
+import { NotFoundError }    from './../../errors/not-found-error'
+
 
 
 
@@ -29,14 +33,34 @@ export class DataService
 
 
 
-  public getAll ()
+  public delete (id : number) : Observable<any | AppError>
+  {
+
+    const url   = `${this.url}/${666}`
+
+    console.debug(url)
+
+    return (
+
+      this.http
+      .delete (url)
+      .map    ( (response) => response.json() )
+      .catch  (this.onError)
+
+    )
+
+  }
+
+
+
+  public getAll ()  : Observable<any | AppError>
   {
 
     return (
 
       this.http
-      .get(this.url)
-      .map( (response) => response.json() )
+      .get  (this.url)
+      .map  ( (response) => response.json() )
       .catch(this.onError)
 
     )
@@ -45,12 +69,18 @@ export class DataService
 
 
 
-  protected onError (originalError : Response)
+  protected onError (originalError : Response)  : Observable<AppError>
   {
 
-    return (
-      Observable.throw(originalError)
-    )
+    if (400 === originalError.status) {
+      return (Observable.throw(new BadRequestError(originalError)))
+    }
+
+    if (404 === originalError.status) {
+      return (Observable.throw(new NotFoundError(originalError)))
+    }
+
+    return (Observable.throw(new AppError(originalError)))
 
   }
 

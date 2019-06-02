@@ -77,6 +77,10 @@ export class LoginPageComponent extends PageComponent implements OnInit
   ngOnInit () 
   {
 
+    // if (this.auth.isLoggedIn) {
+    //   this.router.navigate([''])
+    // }
+
   }
 
 
