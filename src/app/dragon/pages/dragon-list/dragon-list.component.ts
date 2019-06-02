@@ -140,7 +140,6 @@ export class DragonListComponent extends LoggedInPageComponent implements OnInit
   {
     
     dragons.sort( (a, b) => a.name.localeCompare(b.name) )
-    dragons[0]['pending'] = true
     this.dragons  = dragons
     
   }
