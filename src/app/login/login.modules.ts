@@ -1,7 +1,7 @@
 
-import { NgModule }       from '@angular/core'
-import { CommonModule }   from '@angular/common'
-import { FormsModule }    from '@angular/forms'
+import { NgModule }                         from '@angular/core'
+import { CommonModule }                     from '@angular/common'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
  
 import { LoginPageComponent }   from './pages/login-page/login-page.component'
 import { LoginRoutingModule }   from './login-routing.module'
@@ -16,6 +16,7 @@ import { LoginRoutingModule }   from './login-routing.module'
         CommonModule
     ,   FormsModule
     ,   LoginRoutingModule
+    ,   ReactiveFormsModule
     ]
 
 ,   declarations: [

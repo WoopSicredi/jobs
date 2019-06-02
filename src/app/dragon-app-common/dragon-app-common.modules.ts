@@ -3,10 +3,11 @@ import { ErrorHandler }     from '@angular/core'
 import { HttpModule }       from '@angular/http'
 import { NgModule }         from '@angular/core'
 
-import { AppErrorHandler }  from './errors/app-error-handler/app-error-handler'
-import { AuthService }      from './auth/services/auth.service'
-import { DataService }      from './services/data/data.service'
-import { PageComponent }    from './page/pages/page.component'
+import { AppErrorHandler }          from './errors/handlers/app-error-handler/app-error-handler'
+import { AuthService }              from './auth/services/auth.service'
+import { DataService }              from './services/data/data.service'
+import { LoggedInPageComponent }    from './pages/logged-in-page/logged-in-page.component'
+import { PageComponent }            from './pages/page/page.component'
 
 
 
@@ -15,7 +16,8 @@ import { PageComponent }    from './page/pages/page.component'
 @NgModule({
 
     declarations: [
-        PageComponent
+        LoggedInPageComponent
+    ,   PageComponent
     ]
 
     , imports: [

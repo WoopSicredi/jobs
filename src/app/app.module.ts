@@ -1,6 +1,6 @@
 
 import { BrowserModule }          from '@angular/platform-browser'
-import { NgModule }               from '@angular/core'
+import { LOCALE_ID, NgModule }    from '@angular/core'
 
 import { DragonAppCommonModule }  from  './dragon-app-common/dragon-app-common.modules'
 import { DragonModule }           from  './dragon/dragon.modules'
@@ -32,6 +32,10 @@ import { AppRoutingModule }       from './app-routing.module'
   ]
 
 , providers: [
+    {
+      provide:  LOCALE_ID
+    , useValue: 'pt-BR'
+    }
   ]
   
 , bootstrap: [

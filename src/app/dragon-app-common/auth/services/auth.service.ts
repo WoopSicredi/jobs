@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core'
 
 import { environment }  from  './../../../../environments/environment'  
 
+import { LoginError }     from '../errors/login-error'
 import { LoginInfoModel } from './../models/login-info.model'
 
 
@@ -13,47 +14,72 @@ import { LoginInfoModel } from './../models/login-info.model'
 export class AuthService 
 {
 
-  public static _isLogedIn  : bool
+  public static _isLoggedIn  : boolean
 
 
 
-  private constructor () 
+  public constructor () 
   { 
     //  Apenas métodos estáticos aqui
   }
 
 
 
-  public static logIn (loginInfo : LoginInfoModel)  : boolean
+  //  Apenas mockeando um login assíncrono
+  public logIn (loginInfo : LoginInfoModel)  : Promise<boolean | LoginError>
   {
+
     
-    const loginShouldBe     = (<string> environment.TEST_USERNAME)
-    const passwordShouldBe  = (<string> environment.TEST_USERNAME)
+    if (this.isLoggedIn) {
 
-    if (0 != (loginShouldBe.localeCompare(loginInfo.username))) {
-      return (false)
+      return ( new Promise ( (resolve) => resolve(true) ) )
+
     }
 
-    if (0 != (passwordShouldBe.localeCompare(loginInfo.password))) {
-      return (false)
-    }
 
-    return (true)
+    //  Caso não esteja logado
+    return (
+
+      new Promise ((resolve, reject) => 
+      {
+
+        setTimeout(() =>
+        {
+
+          const loginShouldBe     = (<string> environment.TEST_USERNAME)
+          const passwordShouldBe  = (<string> environment.TEST_USERNAME)
+
+          if (0 != (loginShouldBe.localeCompare(loginInfo.username))) {
+            return(reject(new LoginError({ invalidUsername: true })))
+          }
+
+          if (0 != (passwordShouldBe.localeCompare(loginInfo.password))) {
+            return(reject(new LoginError( { invalidPassword: true } )))
+          }
+
+          AuthService._isLoggedIn = true
+          resolve (true)
+
+        }, 333)
+
+      })
+
+    )
 
   }
 
 
 
-  public static logOut ()
+  public logOut ()  : void
   {
-    this._isLogedIn = false
+    AuthService._isLoggedIn = false
   }
 
 
 
-  public static get isLogedIn ()
+  public get isLoggedIn () : boolean
   {
-    return (this._isLogedIn)
+    return (AuthService._isLoggedIn)
   }
 
 }
