@@ -108,4 +108,21 @@ export class DragonService extends DataService
 
   }
 
+
+
+  public putDragon (dragon : DragonModel)
+  {
+
+    const id : number  = dragon.id
+
+    return (
+      
+      this.put  (id, dragon)
+      .map      ( (json) => json )
+      .catch    (this.onError)
+
+    )
+
+  }
+
 }

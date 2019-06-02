@@ -6,7 +6,7 @@ import { FormGroup, FormControl, Validators }                          from '@an
 import { AuthService }          from '../../../dragon-app-common/auth/services/auth.service'
 import { DragonPageComponent }  from '../dragon-page/dragon-page.component'
 import { DragonService }        from '../../services/dragon.service'
-import { DragonModel } from '../../models/dragon.model';
+import { DragonModel }          from '../../models/dragon.model';
 
 
 
@@ -37,6 +37,9 @@ export class DragonFormComponent extends DragonPageComponent implements OnInit
 
     super (service, auth, route, router)
 
+    this.onEdit     = this.onEdit.bind(this)
+    this.onError    = this.onError.bind(this)
+    this.onGet      = this.onGet.bind(this)
     this.getParams  = this.getParams.bind(this)
     this.onCreate   = this.onCreate.bind(this)
 
@@ -75,6 +78,23 @@ export class DragonFormComponent extends DragonPageComponent implements OnInit
 
 
 
+  private createDragon (dragon : DragonModel)
+  {
+
+    this.service
+    .postDragon (dragon)
+    .subscribe  (
+      
+      this.onCreate
+
+    , (error)    => console.error(error)
+
+    )
+
+  }
+
+
+
   private createForm (dragon ?: DragonModel)
   {
 
@@ -85,7 +105,7 @@ export class DragonFormComponent extends DragonPageComponent implements OnInit
         ((dragon) ? (dragon.name) : ('dragao_01'))
 
       , [ 
-          Validators.pattern(/[^\s]+[^\s]$/)
+          Validators.pattern(/^[^\s]{1}.*[^\s]$/ig)
         , Validators.required
         ]
 
@@ -96,7 +116,7 @@ export class DragonFormComponent extends DragonPageComponent implements OnInit
         ((dragon) ? (dragon.type) : ('tipo_01'))
 
       , [
-          Validators.pattern(/[^\s]+[^\s]$/)
+          Validators.pattern(/^[^\s]{1}.*[^\s]$/ig)
         , Validators.required
         ]
 
@@ -108,14 +128,46 @@ export class DragonFormComponent extends DragonPageComponent implements OnInit
 
 
 
+  private editDragon (dragon : DragonModel)
+  {
+     
+    this.service
+    .putDragon (dragon)
+    .subscribe  (
+      
+      this.onEdit
+
+    , this.onError
+
+    )
+
+  }
+
+
+
   private getParams (params : ParamMap)
   {
 
-    const id    = parseInt(params.get('id'))
     this.action = params.get('action')
 
     if ('create' === this.action) {
       this.createForm()
+    }
+    else if ('edit' === this.action) {
+
+      this.service
+      .getDragon(parseInt(params.get('id')))
+      .subscribe(
+
+        this.onGet
+
+      , this.onError
+
+      )
+
+    }
+    else {
+      this.router.navigate(['not-found'])
     }
 
   }
@@ -135,6 +187,52 @@ export class DragonFormComponent extends DragonPageComponent implements OnInit
 
 
 
+  private onEdit (dragon : DragonModel)
+  {
+
+    this.afterSend()
+    this.form.reset()
+
+    this.dragon     = dragon
+
+    this.router.navigate(
+      
+      [
+        '/dragons'
+      ]
+
+    , {
+        queryParams:  {
+          message:  'dragão editado com sucesso'
+        }
+      }
+
+    )
+
+  }
+
+
+
+  private onError (error)
+  {
+
+    this.router.navigate(['/not-found'])
+
+  }
+
+
+
+  private onGet (dragon : DragonModel)
+  {
+
+    this.onDismissToast()
+    this.createForm(dragon)
+    this.dragon = dragon
+
+  }
+
+
+
   private onSubmit ($event)
   {
 
@@ -148,18 +246,16 @@ export class DragonFormComponent extends DragonPageComponent implements OnInit
     dragon.createdAt  = new Date().toDateString()
     dragon.headers    = {}
     dragon.histories  = []
+    dragon.id         = this.dragon.id
     dragon.name       = this.name.value.trim()
     dragon.type       = this.type.value.trim()
 
-    this.service
-    .postDragon (dragon)
-    .subscribe  (
-      
-      this.onCreate
-
-    , (error)    => console.error(error)
-
-    )
+    if ('create' == this.action) {
+      return (this.createDragon(dragon))
+    }
+    else {
+      return (this.editDragon(dragon))
+    }
 
   }
 

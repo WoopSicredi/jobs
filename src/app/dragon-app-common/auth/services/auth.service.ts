@@ -14,7 +14,7 @@ import { LoginInfoModel } from './../models/login-info.model'
 export class AuthService 
 {
 
-  public static _isLoggedIn  : boolean  = true
+  public static _isLoggedIn  : boolean  = false
 
 
 

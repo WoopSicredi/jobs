@@ -58,7 +58,7 @@ export class DragonPageComponent extends LoggedInPageComponent implements OnInit
   {
 
     this.hasError = this.hasNotice = false
-    this.message  = 'Não foi possível excluir o dragão'
+    this.message  = null
 
   }
 

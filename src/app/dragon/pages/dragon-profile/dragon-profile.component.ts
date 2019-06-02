@@ -65,7 +65,6 @@ export class DragonProfileComponent extends DragonPageComponent implements OnIni
   private onError (error)
   {
 
-    console.debug(error)
     this.router.navigate(['/not-found'])
 
   }

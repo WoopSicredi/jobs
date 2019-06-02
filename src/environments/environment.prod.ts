@@ -5,4 +5,7 @@ export const environment = {
 
 , production:     true
 
+, TEST_USERNAME:  'dragon'
+, TEST_PASSWORD:  'dragon'
+
 }

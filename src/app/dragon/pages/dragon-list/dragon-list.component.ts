@@ -1,6 +1,11 @@
 
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component, OnInit }      from '@angular/core'
+import { Observable }             from 'rxjs/Observable'
+
+import 'rxjs/add/observable/combineLatest'
+import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/switchMap'
 
 import { AuthService }            from '../../../dragon-app-common/auth/services/auth.service'
 import { DragonError }            from '../../errors/dragon-error'
@@ -45,12 +50,31 @@ export class DragonListComponent extends DragonPageComponent implements OnInit
   ngOnInit () 
   {
 
-    this.service
-    .getDragons()
+    Observable.combineLatest([
+      this.route.paramMap
+    , this.route.queryParamMap
+    ])
+    .switchMap( (param) => 
+    {
+
+      let optionalParams  = param[1]
+      
+      if (optionalParams.get('message')) {
+        this.hasNotice  = true
+        this.message    = optionalParams.get('message')
+      }
+
+      return (this.service.getDragons())
+
+    })
     .subscribe( 
       this.onGet
     , this.onError
     )
+
+
+
+    
 
   }
 

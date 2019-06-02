@@ -36,7 +36,7 @@ export class DataService
   public delete (id : number) : Observable<any | AppError>
   {
 
-    const url   = `${this.url}/${666}`
+    const url   = `${this.url}/${id}`
 
     console.debug(url)
 
@@ -114,6 +114,24 @@ export class DataService
       .catch(this.onError)
 
     )
+
+  }
+
+
+
+  public put (id : number, resource : object)
+  {
+
+    const url   = `${this.url}/${id}`
+
+    return (
+      this.http
+      .put( url, JSON.stringify(resource) )
+      .map( (response) => response.json() )
+      .catch(this.onError)
+      
+    )
+
 
   }
 
