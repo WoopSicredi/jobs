@@ -18,7 +18,7 @@ export class DragonService extends DataService
 
   constructor (http: Http) 
   { 
-    super(environment.DRAGON_API_URL, http)
+    super((<string> environment.DRAGON_API_URL), http)
   }
 
 

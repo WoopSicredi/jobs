@@ -9,4 +9,7 @@ export const environment = {
 
 , production:     false
 
+, TEST_USERNAME:  'dragon'
+, TEST_PASSWORD:  'dragon'
+
 }
