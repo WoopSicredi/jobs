@@ -178,6 +178,7 @@ export class DragonFormComponent extends DragonPageComponent implements OnInit
     this.afterSend()
     this.form.reset()
 
+    this.dragon     = null
     this.hasNotice  = true
     this.message    = 'Dragão criado com sucesso'
 
@@ -241,7 +242,7 @@ export class DragonFormComponent extends DragonPageComponent implements OnInit
 
     const dragon      = new DragonModel()
 
-    dragon.createdAt  = new Date().toDateString()
+    dragon.createdAt  = ((this.dragon) ? (this.dragon.createdAt) : (new Date().toDateString()))
     dragon.headers    = {}
     dragon.histories  = []
     dragon.id         = ((this.dragon) ? (this.dragon.id) : (null))

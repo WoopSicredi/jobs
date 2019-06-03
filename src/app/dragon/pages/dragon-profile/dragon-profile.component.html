@@ -49,6 +49,15 @@
         </div>
       </div>
 
+      <div class="w3-border w3-row-padding"> 
+        <div class="w3-col w3-third">
+          <span class="w3-tag">Data de criação</span>
+        </div>
+        <div class="w3-col w3-twothird w3-padding">
+            {{ dragon.createdAt | date:'dd/MM/yyyy' }}
+        </div>
+      </div>
+
 
       <button class         = "btn btn-primary w3-margin-top w3-margin-bottom w3-show-inline-block w3-theme-dark"
               [routerLink]  = "['/dragon', dragon.id, dragon.name, 'edit']"
