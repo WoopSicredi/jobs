@@ -1,0 +1,36 @@
+
+h2 {
+    font-family:    'Roboto Slab', serif;
+    font-size:      25px;
+    text-align:     left;
+
+}
+
+.list-group {
+    min-width:  300px;
+}
+
+.list-group-item {
+    padding:    0px;
+}
+
+a
+, a:active
+, a:hover
+, a:link
+, a:visited {
+    text-decoration:    none;
+    z-index:            1;
+}
+
+.controls {
+
+    margin-bottom:  0.35rem;
+    margin-right:   0.5rem;
+    margin-top:     0.25rem;
+
+    button {
+        z-index:    2;
+    }
+
+}

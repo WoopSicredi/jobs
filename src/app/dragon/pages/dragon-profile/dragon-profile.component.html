@@ -1,0 +1,73 @@
+
+<div class="da-wrapper">
+
+  <div class="da-content-wrapper w3-card-4">
+
+    <div  *ngIf="! dragon"
+          class="w3-card-2 w3-padding w3-margin w3-theme-l1">
+      <span class="fa fa-spin fa-spinner w3-margin-right"></span> Buscando dados sobre esse dragão
+    </div>
+
+
+
+    <div  *ngIf="!! dragon">
+
+      <h2 class="w3-display-container w3-display-top w3-theme-d3">
+        
+        <span class   = "da-clickable fa fa-chevron-left w3-display-left w3-margin-bottom w3-padding"
+              (click) = "router.navigate(['dragons'])"
+        ></span>
+
+        {{ dragon.name }}
+
+      </h2>
+    
+      <div class="w3-border w3-row-padding"> 
+        <div class="w3-col w3-third">
+          <span class="w3-tag">id</span>
+        </div>
+        <div class="w3-col w3-twothird w3-padding">
+            {{ dragon.id | number }}
+        </div>
+      </div>
+
+      <div class="w3-border w3-row-padding"> 
+        <div class="w3-col w3-third">
+          <span class="w3-tag">Nome</span>
+        </div>
+        <div class="w3-col w3-twothird w3-padding">
+            {{ dragon.name }}
+        </div>
+      </div>
+
+      <div class="w3-border w3-row-padding"> 
+        <div class="w3-col w3-third">
+          <span class="w3-tag">Tipo</span>
+        </div>
+        <div class="w3-col w3-twothird w3-padding">
+            {{ dragon.type   }}
+        </div>
+      </div>
+
+      <div class="w3-border w3-row-padding"> 
+        <div class="w3-col w3-third">
+          <span class="w3-tag">Data de criação</span>
+        </div>
+        <div class="w3-col w3-twothird w3-padding">
+            {{ dragon.createdAt | date:'dd/MM/yyyy' }}
+        </div>
+      </div>
+
+
+      <button class         = "btn btn-primary w3-margin-top w3-margin-bottom w3-show-inline-block w3-theme-dark"
+              [routerLink]  = "['/dragon', dragon.id, dragon.name, 'edit']"
+      >
+        <span class="fa fa-pencil-square-o"></span> Editar
+      </button>
+
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,149 @@
+
+  <div class="da-wrapper">
+
+      <div  *ngIf="hasError || hasNotice"
+      aria-atomic="true"
+      aria-live="assertive"
+      class="toast w3-bottom" 
+      role="alert w3-animate-opacity w3-card-4"  
+      style="opacity: 1;"
+  >
+  <div class="toast-header w3-theme">
+    <strong class="mr-auto">{{ ((hasError) ? ('Erro') : ('Aviso')) }}</strong>
+    <button aria-label="Close"
+            class="ml-2 mb-1 close w3-theme-hover"
+            data-dismiss="toast"
+            type="button"
+            (click)="onDismissToast()"
+      >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body w3-theme-l3">
+    {{ message }}
+  </div>
+  </div>
+
+  <div class="da-content-wrapper">
+
+    <div  *ngIf="('edit' === action) && (! dragon)"
+          class="w3-card-2 w3-padding w3-margin w3-theme-l1">
+      <span class="fa fa-spin fa-spinner w3-margin-right"></span> Buscando dados sobre esse dragão
+    </div>
+
+
+    <div *ngIf="('edit' != action) || (dragon)">
+
+      <h2 class="w3-display-container w3-display-top w3-theme-d3">
+      
+        <span class   = "da-clickable fa fa-chevron-left w3-display-left w3-margin-bottom w3-padding"
+              (click) = "router.navigate(['dragons'])"
+        ></span>
+
+        {{ (('create' === action) ? ('Criando') : ('Editando')) }} um dragão
+
+      </h2>
+
+      <form [formGroup]="form" 
+            class="w3-card-4 w3-left-align w3-margin-top w3-padding"
+            (ngSubmit)="onSubmit($event)"
+      >
+
+        <label  class = "w3-margin-top" 
+                for   = "#name"
+        >
+          Nome
+        </label>
+        <div class="input-group">
+          
+          <input  autocomplete            = "name"
+                  autofocus
+                  class                   = "form-control w3-card-2"
+                  [class.w3-border-theme] = "(name.touched) && (name.invalid)"
+                  id                      = "name"
+                  formControlName         = "name"
+                  minlength               = "1"
+                  name                    = "name"
+                  placeholder             = "nome do dragão"
+                  required
+                  type                    = "text" 
+          >
+
+        </div>
+        <div class="da-error-holder w3-display-container">
+          <div  *ngIf="(name.touched) && (name.invalid)"
+                class="w3-padding w3-theme-l1"
+          >
+            <span *ngIf="name.errors.pattern">Nome não pode começar/terminar com espaços</span>
+            <span *ngIf="name.errors.required">Nome é obrigatório</span>
+          </div>  
+        </div>
+
+
+
+        <label  for="#type"
+        >
+          Tipo
+        </label>
+        <div class="input-group w3-border-bottom">
+          
+          <input  autocomplete            = "type"
+                  class                   = "form-control w3-border-theme w3-card-2"
+                  [class.w3-border-theme] = "(type.touched) && (type.invalid)"
+                  id                      = "type" 
+                  focused
+                  formControlName         = "type"
+                  minlength               = "1"
+                  name                    = "type"
+                  placeholder             = "tipo do dragão"
+                  required
+                  tabindex                = "1"
+                  type                    = "text" 
+          >
+
+        </div>
+        <div class="da-error-holder w3-display-container">
+          <div  *ngIf="(type.touched) && (type.invalid)"
+                class="w3-padding w3-theme-l1"
+          >
+          <span *ngIf="type.errors.pattern">Tipo não pode começar/terminar com espaços</span>
+          <span *ngIf="type.errors.required">Tipo é obrigatória</span>
+          </div>  
+        </div>
+
+
+
+        <div class="w3-container w3-center w3-margin-bottom">
+
+          <button class="btn btn-primary w3-show-inline-block w3-theme-dark"
+                  [disabled]="(form.invalid) || (form.pristine)"
+          >
+            Submit
+          </button>
+
+        </div>
+
+        <div class="da-error-holder w3-display-container">
+
+          <div  *ngIf="pending"
+            class="w3-padding w3-theme-l3"
+          >
+            <span><span class="fa fa-spin fa-spinner fa-lg w3-margin-right"></span> Salvando o dragão</span>
+          </div>
+
+          <div  *ngIf="form.errors"
+                class="w3-padding w3-theme-l1"
+          >
+              <span *ngIf="form.errors.invalidUsername">Login inválido</span>
+              <span *ngIf="form.errors.invalidPassword">Senha inválida</span>
+          </div> 
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>

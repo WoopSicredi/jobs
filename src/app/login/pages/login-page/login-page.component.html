@@ -1,0 +1,102 @@
+
+<div class="wrapper w3-center">
+
+  <form [formGroup]="form" 
+        class="w3-card-4 w3-display-middle w3-left-align w3-padding"
+        (ngSubmit)="onSubmit($event)"
+  >
+
+    <label  class = "w3-margin-top" 
+            for   = "#username"
+    >
+      Login
+    </label>
+    <div class="input-group">
+      
+      <input  autocomplete            = "username"
+              autofocus
+              class                   = "form-control w3-card-2"
+              [class.w3-border-theme] = "(username.touched) && (username.invalid)"
+              id                      = "username"
+              formControlName         = "username"
+              minlength               = "6"
+              name                    = "username"
+              placeholder             = "nome de usuário"
+              required
+              type                    = "text" 
+      >
+
+    </div>
+    <div class="da-error-holder w3-display-container">
+      <div  *ngIf="(username.touched) && (username.invalid)"
+            class="w3-padding w3-theme-l1"
+      >
+          <span *ngIf="username.errors.required">Login é obrigatório</span>
+          <span *ngIf="username.errors.minlength">Login é de no mínimo {{ username.errors.minlength.requiredLength }} caracteres</span>
+      </div>  
+    </div>
+
+
+
+    <label  for="#password"
+    >
+      Senha
+    </label>
+    <div class="input-group w3-border-bottom">
+      
+      <input  autocomplete            = "password"
+              class                   = "form-control w3-border-theme w3-card-2"
+              [class.w3-border-theme] = "(password.touched) && (password.invalid)"
+              id                      = "password" 
+              focused
+              formControlName         = "password"
+              minlength               = "6"
+              name                    = "password"
+              placeholder             = "senha"
+              required
+              tabindex                = "1"
+              type                    = "password" 
+      >
+
+    </div>
+    <div class="da-error-holder w3-display-container">
+      <div  *ngIf="(password.touched) && (password.invalid)"
+            class="w3-padding w3-theme-l1"
+      >
+          <span *ngIf="password.errors.required">Senha é obrigatória</span>
+          <span *ngIf="password.errors.minlength">Senha é de no mínimo {{ password.errors.minlength.requiredLength }} caracteres</span>
+      </div>  
+    </div>
+
+
+
+    <div class="w3-container w3-center w3-margin-bottom">
+
+      <button class="btn btn-primary w3-show-inline-block w3-theme-dark"
+              [disabled]="form.invalid"
+      >
+        Submit
+      </button>
+
+    </div>
+
+    <div class="da-error-holder w3-display-container">
+
+      <div  *ngIf="pending"
+        class="w3-padding w3-theme-l3"
+      >
+        <span><span class="fa fa-spin fa-spinner fa-lg w3-margin-right"></span> Fazedo login</span>
+      </div>
+
+      <div  *ngIf="form.errors"
+            class="w3-padding w3-theme-l1"
+      >
+          <span *ngIf="form.errors.invalidUsername">Login inválido</span>
+          <span *ngIf="form.errors.invalidPassword">Senha inválida</span>
+      </div> 
+
+    </div>
+
+  </form>
+
+</div>

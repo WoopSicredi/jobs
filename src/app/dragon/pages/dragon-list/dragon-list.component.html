@@ -1,0 +1,109 @@
+
+<div class="da-wrapper w3-center">
+
+  <div  *ngIf="hasError || hasNotice"
+        aria-atomic="true"
+        aria-live="assertive"
+        class="toast w3-bottom" 
+        role="alert w3-animate-opacity w3-card-4"  
+        style="opacity: 1;"
+  >
+    <div class="toast-header w3-theme">
+      <strong class="mr-auto"> {{ ((hasError) ? ('Erro') : ('Aviso')) }} </strong>
+      <button aria-label="Close"
+              class="ml-2 mb-1 close w3-theme-hover"
+              data-dismiss="toast"
+              type="button"
+              (click)="onDismissToast()"
+        >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="toast-body w3-theme-l3">
+      {{ message }}
+    </div>
+  </div>
+
+
+
+  <button class         = "da-new w3-button w3-card-2 w3-circle w3-hover-theme w3-theme-d5"
+          [routerLink]  = "['/dragon', '0', '-', 'create']"
+  >
+    <span class="fa fa-plus fa-3x"></span>
+  </button>
+
+
+
+  <div class="da-content-wrapper w3-card-2 w3-margin-bottom w3-margin-top w3-show-inline-block">
+  
+    <div class="w3-container w3-theme-d1">
+      <h2>
+        Lista de dragões
+      </h2>
+    </div>
+    <ul class="list-group">
+
+      <li *ngFor  = "let dragon of dragons"
+          class   = "list-group-item w3-left-align w3-theme-l5"
+      >
+
+        <a  class               = "w3-hover-theme-light w3-hover-theme-text-light w3-padding w3-show"
+            [class.w3-disabled] = "dragon['pending']"
+            [routerLink]        = "(dragon['pending']) ? (['/dragons']) : (['/dragon', dragon.id, dragon.name])"
+        >
+          {{  dragon.name }}
+        </a>
+
+        <div class="controls w3-display-topright">
+          
+          <button class               = "btn w3-hover-theme w3-theme-l1 w3-tiny"
+                  [class.w3-disabled] = "dragon.pending"
+                  [disabled]          = "dragon.pending"
+                  [routerLink]        = "['/dragon', dragon.id, dragon.name, 'edit']"
+          >
+            <span class="w3-hide-small fa fa-pencil-square-o">&nbsp;</span> 
+            <span>Editar</span>
+          </button>
+
+          <button class               = "btn w3-hover-theme w3-theme-l3 w3-tiny"
+                  [class.w3-disabled] = "dragon.pending"
+                  [disabled]          = "dragon.pending"
+                  (click)             = "onDelete(dragon)"
+          >
+              <span class="w3-hide-small fa fa-trash">&nbsp;</span> 
+              <span>Excluir</span>
+            </button>
+
+        </div>
+
+        <div  *ngIf="dragon['pending']"
+              class="w3-animate-opacity w3-theme-l1 w3-padding"
+        >
+          <span>Desejas excluir?</span> 
+
+          <div class="controls w3-display-bottomright">
+          
+              
+            <button class   = "btn btn-danger w3-tiny"
+                    (click) = "onConfirmNo(dragon)"
+            >
+                <span class="fa fa-times">&nbsp;</span> Não
+            </button>
+
+            <button class   = "btn btn-success w3-tiny"
+                    (click) = "onConfirmYes(dragon)"
+            >
+              <span class="fa fa-check"></span> Sim
+            </button>
+    
+            </div>
+
+        </div>
+
+      </li>
+
+    </ul>
+
+  </div>
+
+</div>

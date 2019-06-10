@@ -1,0 +1,10 @@
+
+label::after {
+    content:    ': ';
+}
+
+form {
+    display:    inline-block;
+    max-width:  300px;
+    min-width:  300px;
+}

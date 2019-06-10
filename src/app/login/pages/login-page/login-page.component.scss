@@ -1,0 +1,14 @@
+
+.wrapper {
+    min-height:     100vh;
+    min-width:      100vw;
+}
+
+form {
+    max-width:  300px;
+    min-width:  300px;
+}
+
+.form-control.ng-invalid {
+    border-width:   2px;
+}

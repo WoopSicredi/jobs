@@ -1,0 +1,93 @@
+
+@import "./variables";
+@import "./mixins";
+
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "~w3-css/4/w3pro.css";
+@import "./vendor/w3-css/themes/w3-theme-red.css";
+
+@import "./vendor/font-awesome/font-awesome.min.css";
+@import url('https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab:700&display=swap');
+
+
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family:    'Roboto', sans-serif;
+    min-height:     $FULL-PAGE-HEIGHT;
+    min-width:      $FULL-PAGE-WIDTH;
+}
+
+.da-wrapper {
+    margin-top:     70px;
+    min-height:     calc(100% - 70px);
+    min-width:      $FULL-PAGE-WIDTH;
+    text-align:     center;
+}
+
+.da-content-wrapper {
+    display:    inline-block !important;
+    max-width:  calc(100% - 20px);
+    min-width:  300px;
+    width:      700px;
+}
+
+.da-error-holder {
+    font-size:  0.8rem;
+    min-height: 50px;
+}
+
+.da-scrollable {
+    -webkit-overflow-scrolling: touch;
+}
+
+.da-scrollable::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width:              3px;
+    height:             10px;
+}
+
+.da-scrollable::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(255, 0, 0, 0.3);
+}
+
+.da-scrollable::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+    border-radius:      4px;
+    background-color:   rgba(255, 0, 0, 0.3);
+}
+
+.da-scrollable-x {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.da-scrollable-y {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.da-scrollable-x-y {
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+.da-non-scrollable {
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+}
+
+.da-clickable {
+    cursor:         pointer;
+    pointer-events: all;
+}
+
+.da-new {
+    position:   fixed;
+    right:      1.5rem;
+    top:        70px;
+    z-index:    99;
+}

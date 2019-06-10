@@ -1,0 +1,30 @@
+
+.w3-col {
+
+    text-align:    left;
+
+    @media all and (min-width: 601px) 
+    {
+        text-align: center;    
+    }
+
+}
+
+.w3-tag {
+
+    height:         35px;
+    line-height:    35px;
+    width:          100%;
+    vertical-align: middle;
+
+    @media all and (min-width: 601px) 
+    {
+        text-align: right !important;    
+    }
+
+}
+
+
+.w3-tag::after {
+    content:    ': ';
+}
