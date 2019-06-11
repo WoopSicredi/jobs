@@ -1,0 +1,56 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.4.RELEASE")
+    }
+}
+
+plugins {
+    id 'com.palantir.docker' version '0.22.0'
+    id 'org.springframework.boot' version '2.1.4.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.7.RELEASE'
+    id 'application'
+}
+
+description = "A REST service for managing polls"
+group = 'com.vollino.poll'
+version = '0.1.0-SNAPSHOT'
+
+application {
+    mainClassName = 'com.vollino.poll.service.Application'
+}
+
+docker {
+    name 'vollino/poll-service:version'
+    dockerfile file('Dockerfile')
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    maven {
+        url "https://plugins.gradle.org/m2/"
+    }
+}
+
+apply from: './java.gradle'
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'com.google.guava:guava:27.1-jre'
+    implementation('io.springfox:springfox-swagger2:2.9.2') {
+        exclude group: 'com.fasterxml.jackson.core'
+    }
+    implementation 'io.springfox:springfox-swagger-ui:2.9.2'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.9.8'
+    runtime 'org.flywaydb:flyway-core:5.2.4'
+    runtime 'org.postgresql:postgresql:42.2.5'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.zonky.test:embedded-database-spring-test:1.4.1'
+    testImplementation 'io.rest-assured:rest-assured:3.3.0'
+    testRuntime 'org.testcontainers:postgresql:1.11.2'
+}
