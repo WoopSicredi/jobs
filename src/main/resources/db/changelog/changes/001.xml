@@ -1,0 +1,51 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+	<changeSet author="egindri" id="1">
+		<createTable tableName="TOPIC">
+			<column autoIncrement="true" name="id" type="INT">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="name" type="VARCHAR(64)">
+				<constraints nullable="false" />
+			</column>
+			<column name="start_time" type="datetime" />
+			<column name="end_time" type="datetime" />
+		</createTable>
+	</changeSet>
+
+	<changeSet author="egindri" id="2">
+		<createTable tableName="VOTE">
+			<column autoIncrement="true" name="id" type="INT">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="user_id" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="topic_id" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="value" type="BIT(1)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet author="egindri" id="3">
+		<createIndex indexName="topic_id" tableName="vote">
+			<column name="topic_id" />
+		</createIndex>
+	</changeSet>
+
+	<changeSet author="egindri" id="4">
+		<addForeignKeyConstraint
+			baseColumnNames="topic_id" baseTableName="vote"
+			constraintName="vote_fk" deferrable="false" initiallyDeferred="false"
+			onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id"
+			referencedTableName="TOPIC" validate="true" />
+	</changeSet>
+</databaseChangeLog>
