@@ -1,0 +1,32 @@
+.Dragon {
+    width: 250px;
+    height: 100%;
+    border: solid 1px #c441b7;
+    border-radius: 25px;
+    padding: 10px;
+    margin: 10px;
+}
+
+
+.first-row-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.id {
+    font-size: 9px;
+}
+
+
+.Commands {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    color: #c441b7;
+}
+
+.Commands span:hover {
+    color: white
+}
