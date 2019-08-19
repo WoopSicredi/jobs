@@ -1,4 +1,5 @@
 import * as actionTypes from './actionTypes';
+import * as actions from './index';
 import axios from 'axios'
 
 
@@ -8,6 +9,7 @@ export const saveDragon = (dragonDetails) => {
         axios.put(url, dragonDetails)
             .then(response =>{         
                 dispatch(saveDragonSuccess(response));
+                dispatch(actions.getDragonsList());
             })
             .catch(error => {    
                 dispatch(saveDragonFail("An error has occurred"));
@@ -31,28 +33,37 @@ export const saveDragonFail = error => {
 
 export const deleteDragon = dragonId => {
     return dispatch => {
+        dispatch(deleteDragonInit());
         const url = `http://5c4b2a47aa8ee500142b4887.mockapi.io/api/v1/dragon/${dragonId}`;
         axios.delete(url)
             .then(response => {
-                dispatch(deleteDragonSuccess(true));
+                dispatch(deleteDragonSuccess(true)); 
+                dispatch(actions.getDragonsList());
             })
             .catch( error => {
                 dispatch(deleteDragonFail("An error has occurred"))
             })
     }
 }
+export const deleteDragonInit = () => {
+    return {
+        type: actionTypes.DELETE_DRAGON_INIT,
+       
+    }
+}
 
 export const deleteDragonSuccess = success => {
     return {
         type: actionTypes.DELETE_DRAGON_SUCCESS,
-        wasDeleted: success
+       
     }
 }
 
 export const deleteDragonFail = error => {
     return {
         type: actionTypes.DELETE_DRAGON_FAIL,
-        error: error
+        error: error,
+       
     }
 }
 
@@ -63,6 +74,7 @@ export const createDragon = (newDragon) => {
         axios.post(url,newDragon)
             .then(response => {
                 dispatch(createDragonSuccess(true));
+                dispatch(actions.getDragonsList());
             })
             .catch(error => {
                 dispatch(createDragonFail("An error has occurred"));

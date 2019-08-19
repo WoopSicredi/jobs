@@ -18,8 +18,8 @@ const App = props => {
     routes = (
       <Switch>
         <Route path="/" exact component={Login} />
-        <Route path="/list" exact component={DragonList} />
         <Route path="/dragon/:id" render={props => <Dragon {...props} />} />
+        <Route path="/list" exact component={DragonList} />
         <Redirect to="/" />
       </Switch>
     );

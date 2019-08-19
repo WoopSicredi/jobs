@@ -4,32 +4,38 @@ import {updateObject} from '../../shared/utility';
 const initialState = {
   dragons: [],
   error: null,
-  loading: false
+  loading: false,
+  wasUpdate: false
 };
 
 const getDragonsList = (state, action) => {
   return updateObject(state,{
     dragons: action.dragonsList,
-    loading: true
+    loading: true,
+    wasUpdate: false
   })
 };
 
 const getDragonsListSuccess = (state, action) => {
   return updateObject(state,{
     dragons: action.dragonsList,
-    loading: false
+    loading: false,
+    wasUpdate: true
+
   })
 };
 const getDragonsListFail = (state, action) => {
   return updateObject(state,{
     error: action.error,
-    loading: false
+    loading: false,
+    wasUpdate: false
   })
 };
 
 const sortDragonList = (state, action) => {
   return updateObject(state, {
-    dragons: action.sortedDragonsList  
+    dragons: action.sortedDragonsList,
+    wasUpdate: action.wasUpdate
   })
 }
 

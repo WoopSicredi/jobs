@@ -10,24 +10,21 @@ import "./dragon.css";
 const Dragon = props => {
   const [dragonDetails, setDragonDetails] = useState({});
   const [isEdit, setIsEdit] = useState(false);
-
-
-  useEffect(()=>{
-    display = setDisplayMode();
-  },[isEdit])
+  const [wasDeleted, setWasDeleted] = useState(false)
 
 
   useEffect(() => {
     setDragonDetails({
       ...props.location.state
     });
+    setWasDeleted(false)
   }, []);
 
   useEffect(() => {
-    if(props.wasDeleted) {
+    if(wasDeleted) {
       props.history.goBack();
     }
-  },[props.wasDeleted])
+  },[wasDeleted])
 
 
   const formatDate = date => {
@@ -50,6 +47,7 @@ const Dragon = props => {
 
   const deleteDragonHandler = () => {
     props.deleteDragon(dragonDetails.id);
+    setWasDeleted(true);
   }
   const editDragonHandler = () => {
     setIsEdit(!isEdit);
@@ -140,7 +138,6 @@ const mapStateToProps = state => {
   return {
     successMessage: state.dragon.successMessage,
     error: state.dragon.error,
-    wasDeleted: state.dragon.wasDeleted
   }
 }
 

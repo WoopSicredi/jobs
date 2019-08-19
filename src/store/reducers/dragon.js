@@ -4,27 +4,30 @@ import { updateObject } from "../../shared/utility";
 const initialState = {
   error: null,
   successMessage: null,
-  wasDeleted: false
+  wasCreated: false
 };
 
 const saveDragonSuccess = (state, action) => {
-  return updateObject(state, { successMessage: action.successMessage });
+  return updateObject(state, { successMessage: action.successMessage, wasCreated: true });
 };
 
 const saveDragonFail = (state, action) => {
-  return updateObject(state, { error: action.error });
+  return updateObject(state, { error: action.error, wasCreated: false });
 };
 
 const deleteDragonSuccess = (state, action) => {
-  return updateObject(state, { wasDeleted: action.wasDeleted });
+  return updateObject(state, action);
 };
+const deleteDragonInit = (state, action) => {
+  return updateObject(state, action);
 
+}
 const deleteDragonFail = (state, action) => {
   return updateObject(state, { error: action.error });
 };
 
 const createDragonFail = (state, action) => {
-    return updateObject(state, { error: action.error });
+    return updateObject(state, { error: action.error, wasCreated: false });
 };
 
 const createDragonSuccess = (state,action) => {
@@ -36,6 +39,8 @@ const reducer = (state = initialState, action) => {
       return saveDragonSuccess(state, action);
     case actionTypes.SAVE_DRAGON_FAIL:
       return saveDragonFail(state, action);
+    case actionTypes.DELETE_DRAGON_INIT:
+      return deleteDragonInit(state,action);
     case actionTypes.DELETE_DRAGON_SUCCESS:
       return deleteDragonSuccess(state, action);
     case actionTypes.DELETE_DRAGON_FAIL:

@@ -1,4 +1,5 @@
 import * as actionTypes from "./actionTypes";
+import * as actions from "./index";
 
 export const initLogin = () => {
   return {
@@ -17,6 +18,7 @@ export const login = (credentials) => {
   return dispatch => {
     if(credentials.username.length > 4 && credentials.password.length > 4) {
       dispatch(initLogin());
+      dispatch(actions.getDragonsList());
     } else {
       dispatch(loginFail());
     }

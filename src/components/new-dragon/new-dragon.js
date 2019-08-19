@@ -11,7 +11,7 @@ const NewDragon = props => {
     name:"",
     type: "",
     createdAt: new Date().toString(),
-    hitories: []
+    histories: []
   });
 
   const submitHandler = event => {
@@ -56,7 +56,7 @@ const NewDragon = props => {
 
 const mapStateToProps = state => {
   return {
-    error: state.dragon.error
+    error: state.dragon.error,
   }
 }
 
@@ -66,4 +66,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(null,mapDispatchToProps)(NewDragon);
+export default connect(mapStateToProps,mapDispatchToProps)(NewDragon);

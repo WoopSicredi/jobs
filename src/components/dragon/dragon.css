@@ -7,6 +7,9 @@
     margin: 10px;
 }
 
+.Dragon h2 {
+    word-wrap: break-word;
+}
 
 .first-row-info {
     display: flex;
