@@ -1,57 +1,68 @@
-# Transformação Digital
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-Estamos buscando pessoas inspiradas por tecnologia e inovação, capazes e engajadas para construir juntos uma plataforma digital cooperativa para o futuro.
+## Available Scripts
 
-## Sobre Nós
+In the project directory, you can run:
 
-Somos uma das maiores instituições financeiras cooperativas do país e uma das melhores empresas para trabalhar no Brasil. Isso mostra que, aqui, os números não são o mais importante. Somos uma organização cooperativa feita de pessoas e para pessoas.​
+### `npm start`
 
-Aqui, todos tem voz e participam das decisões. Mas não é só isso que nos faz diferentes das instituições financeiras comuns. Acreditamos no relacionamento para gerar crescimento, no cuidado com o bem-estar das pessoas no presente e no seu desenvolvimento para o futuro. Sabemos que, juntos, todos ganhamos.
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-Faça parte dessa história. Aqui, seu trabalho é reconhecido e faz a diferença para a vida de milhares de Associados.
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
 
-## Conheça os nossos pilares
+### `npm test`
 
-#### DESIGN
+Launches the test runner in the interactive watch mode.<br>
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-Não basta parecer simples. Tem que ser simples. Encantar nossos usuários a cada interação.
+### `npm run build`
 
-#### ENGAJAMENTO
+Builds the app for production to the `build` folder.<br>
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-Construímos experiências surpreendentes e relevantes para a vida das pessoas. Garantir a satisfação dos usuários é o que nos move.
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!
 
-#### AGILIDADE
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-Criamos rápido. Lançamos rápido. Aprendemos e resolvemos rápido. Melhoramos sempre.
+### `npm run eject`
 
-## Atitudes que valorizamos!
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-#### SIMPLICIDADE
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Focamos no que realmente importa.
+Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-#### FOCO NO USUÁRIO
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-O usuário é sempre o centro de tudo.
+## Learn More
 
-#### EMPREENDEDORISMO
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-Somos visionários e sonhadores. 
-Acreditamos e realizamos.
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-#### INOVAÇÃO
+### Code Splitting
 
-Somos curiosos e queremos criar novas tendências.
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
 
-#### COLABORAÇÃO
+### Analyzing the Bundle Size
 
-Somos uma cooperativa.
-Fazemos juntos para fazer a diferença.
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
 
-#### APRENDIZAGEM
+### Making a Progressive Web App
 
-Não sabemos tudo.
-Mas tudo o que sabemos é compartilhado.
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
 
-## Vagas
-https://sicredi.gupy.io
+### Advanced Configuration
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+
+### Deployment
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+
+### `npm run build` fails to minify
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

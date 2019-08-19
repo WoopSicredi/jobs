@@ -1,0 +1,40 @@
+.Login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+input, button {
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #f542e3;
+    border-radius: 25px;
+}
+
+.Login input {
+    background: #282c34;
+    color: #fff;
+    text-align: center;
+}
+
+.Login button {
+    background: #c441b7;
+    color: #fff;
+    cursor: pointer;
+}
+
+.Login button:hover {
+    background: #fff;
+    color: #c441b7;
+}
+
+.Logo {
+    color: #c441b7;
+    margin-bottom: 20px; 
+}
+
+.loginButtons { 
+    display: flex;
+    flex-direction: column;
+   
+}

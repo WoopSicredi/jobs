@@ -1,0 +1,45 @@
+.DragonList {
+  display: flex;
+  flex-direction: column;
+}
+
+.Command {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.Command svg {
+  color: #c441b7;
+}
+
+.Command:hover {
+  color: #c441b7
+}
+
+.dragon {
+  display: flex;
+
+  flex-grow: 1;
+}
+
+.dragon svg {
+  color: #c441b7
+}
+
+ul {
+  padding: 0;
+}
+li {
+  list-style: none;
+  flex-grow: 2;
+}
+
+span {
+  cursor: pointer;
+
+}
+li:hover {
+  color: #c441b7;
+  cursor: pointer;
+}
