@@ -142,3 +142,13 @@ Inicie o serviço e a documentação do Swagger com a lista de serviços encontr
   "votingResult": "SIM"
 }`
 
+## Explicação breve do porquê das escolhas tomadas durante o desenvolvimento da solução Uso de testes automatizados e ferramentas de qualidade
+
++ 1º Fiz o serviço usando Spring boot e Java, pois são as tecnologias que tenho mais familiaridade.
++ 2º Utilizei o serviço de testes do banco de dados https://db4free.net/ pois simula a utilização de banco de dados como serviço(DBAAS). 
++ 3º Usei o Flyway para versionar a base de dados, o que possibilita evoluir seu schema.
++ 4º Separação em um duas camadas chaves (application e domains) explicadas no tópico "Estrutura do projeto" e para melhor separação de camadas para o domain possui mais 5 subcamadas: **controller**: responsável por disponibilizar os serviços; **dto**: Objetos de transação utilizados na comunicação com o cliente; **model**: as entidades utilizadas; **repository**: responsável por realizar as chamadas ao banco de dados; **service**: trata as regras de negócio
++ 5º Javax.validations utilizado para validar as requisições aos serviços
++ 6º Testes unitários e de integração:
+	- Neste ponto tive dificuldade, muito em referente aos testes de integração. 9 testes de integração não obtiveram sucesso e adicionei um FIXME para correção. Ao testar o sistema com as condições nos testes, o mesmo se comportou como o esperado. Por isso comentei para posterior análise e correção.
+	
