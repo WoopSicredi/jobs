@@ -32,8 +32,8 @@ public class VotoService {
 
 	public VotoResponse votar(Long pautaId, Associado associado, Boolean decisao) {
 		Long usuarioId = associado.getId();
-		Pauta pauta = recuperarPautaService.retornarPautaPorId(pautaId);
-		Optional<Voto> optVote = votoRepository.findByPautaAndUsuarioId(pauta, usuarioId);
+		Pauta pauta = recuperarPautaService.retornarPautaPorId(pautaId);		
+		Optional<Voto> optVote = pauta.getVotos().stream().filter(v -> usuarioId.equals(v.getUsuarioId())).findFirst();
 		if (optVote.isPresent()) {
 			throw new BusinessException(MensagemValidacaoVotacaoEnum.ASSOCIADO_JA_VOTOU_NESTA_PAUTA);
 		} else if (!pauta.temSessaoAtiva()) {
