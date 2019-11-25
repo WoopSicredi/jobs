@@ -7,10 +7,12 @@ import javax.validation.constraints.Size;
 import br.com.sicredi.votacaoapi.domains.pauta.model.Pauta;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public class CriarPautaRequest {
 
 	@NotBlank(message = "{nome.nao.vazio}")

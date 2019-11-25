@@ -11,10 +11,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import br.com.sicredi.votacaoapi.domains.pauta.model.Pauta;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public class PautaDTO {
 
 	private Long pautaId;
@@ -31,7 +33,7 @@ public class PautaDTO {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime fimVotacao;
 
-	public static PautaDTO turnsIntoDTO(Pauta pauta) {
+	public static PautaDTO converterEmDTO(Pauta pauta) {
 		return new PautaDTO(pauta.getId(), pauta.getNome(), pauta.getInicioVotacao(), pauta.getFimVotacao());
 	}
 

@@ -20,7 +20,7 @@ public class VotoResponse {
 	private Boolean decision;
 	
 	public VotoResponse(Pauta pauta, Associado associado, Boolean decisao) {
-		this.pautaDTO = PautaDTO.turnsIntoDTO(pauta);
+		this.pautaDTO = PautaDTO.converterEmDTO(pauta);
 		this.associado = associado;
 		this.decision = decisao;
 	}

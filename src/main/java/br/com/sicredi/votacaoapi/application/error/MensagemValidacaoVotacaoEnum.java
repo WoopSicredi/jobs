@@ -14,7 +14,9 @@ public enum MensagemValidacaoVotacaoEnum {
 	BAD_REQUEST("bad.request"),
 	ASSOCIADO_JA_VOTOU_NESTA_PAUTA("associado.ja.votou.nesta.pauta"),
 	SOMENTE_SESSOES_ATIVAS_ESTAO_APTAS_A_RECEBEREM_VOTOS("somente.sessoes.ativas.estao.aptas.a.receberem.votos"),
-	ASSOCIADO_IMPEDIDO_DE_VOTAR("associado.impedido.de.votar");
+	ASSOCIADO_IMPEDIDO_DE_VOTAR("associado.impedido.de.votar"),
+	SESSAO_NAO_INICIOU("sessao.nao.iniciou"),
+	SESSAO_ESTA_ATIVA("sessao.esta.ativa");
 	
 	private String codigo;
 	
