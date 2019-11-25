@@ -151,4 +151,29 @@ Inicie o serviço e a documentação do Swagger com a lista de serviços encontr
 + 5º Javax.validations utilizado para validar as requisições aos serviços
 + 6º Testes unitários e de integração:
 	- Neste ponto tive dificuldade, muito em referente aos testes de integração. 9 testes de integração não obtiveram sucesso e adicionei um FIXME para correção. Ao testar o sistema com as condições nos testes, o mesmo se comportou como o esperado. Por isso comentei para posterior análise e correção.
+
+## Melhorias
+
++ 1º Utilização de fila e mensageria para requisição aos serviços. Nenhum acesso deve ser realizado diretamente ao serviço, pois caso o serviço demore para processar a requisição irá comprometer toda a aplicação. O ideal é utilizar um RabbitMQ, Kafka ou semelhantes para empilhar o processamento e posteriormente encaminhar a resposta ao solicitante. Não realizei esta funcionalidade neste projeto pois confesso que não tenho a expertise com mensageria, mas tenho a noção e com um pouco mais tempo implementarei este recurso.
++ 2º Melhorias também as classes de testes, muito código redudante. 
++ 3º Melhorias de logs e comentários nas classes.
++ 4º Aumentar cobertura de testes unitários e de integração.
++ 5º Ao apurar o resultado da votação, é realizado o cálculo de quem ganhou. Umas das melhorias seria criar uma estrutura onde o resultado fosse salvo e o serviço iria nessa nova estrutura. Poderíamos também ser utilizado um REDIS da vida para obter melhor performance.
+
+## Tarefas Bônus
+
++ 1º Tarefa Bônus 1 - Integração com sistemas externos
+	- Fiz, mas foi da forma mais simples possível. Tentei ver como funcionava a integração via apache camel, porém como investir tempo em outras funcionalidades deixei essa para depois e acabei realizando da forma simples com RestTemplate.
++ 2º Tarefa Bônus 2 - Mensageria e filas
+	- Fiquei devendo :(
+	No passado utilizei ActiveMQ, mas como esta ultrapassado estava estudando RabbitMQ mas não consegui implementar. Com um pouco mais de prazo, eu resolveria.
++ 3º Tarefa Bônus 3 - Performance
+	- Este item não passei nem perto de executar, iria utilizar o JMetter para me ajudar nesta atividade. Uma estrutura de dados que armazenasse o resultado da votação (de preferência REDIS) e filas e mensagerias e com alta disponibilidade (swarm, kubernetes, rancher, openshift) ajudaria neste item. Eu iria realizar o dockerfile, mas como não conseguir testar até o fim deste desafio, acabei não realizando o commit.
++ 4º Tarefa Bônus 4 - Versionamento da API
+	- Eu sempre me baseei no GITFLOW e trabalhando com o versionamento semântico: **major.version**, **minor.version** e **patch.version**. Ao realizar correçãoes de bug, atualizo o **patch.version**, novas funcionalidades atualizo o **minor.version** e quando altero minha aplicação a tornando incompatível com a versão anterior atualizo o **major.version**.
+	
+# E por hoje é só.
+	
+	
+	
 	
