@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 
+import br.com.sicredi.votacaoapi.application.error.BusinessException;
+import br.com.sicredi.votacaoapi.application.error.MensagemValidacaoVotacaoEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -46,6 +48,19 @@ public class Pauta {
 
 	public Pauta(String nome) {
 		this.nome = nome;
+	}
+	
+	public void abrirSessao(Long duracaoEmMinutos) {
+		if (temSessaoIniciada()) {
+			throw new BusinessException(MensagemValidacaoVotacaoEnum.SESSAO_JA_FOI_INICIADA_EXCEPTION);
+		}
+		
+		inicioVotacao = LocalDateTime.now();
+		fimVotacao = inicioVotacao.plusMinutes(duracaoEmMinutos == null ? 1 : duracaoEmMinutos);
+	}
+	
+	public boolean temSessaoIniciada() {
+		return inicioVotacao != null;
 	}
 
 }
