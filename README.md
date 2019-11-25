@@ -45,7 +45,7 @@ Ao executar o jar, estaremos iniciando o serviço na porta **8081**
 
 Um ponto importante é que foi utilizado o Flyway no projeto, ou seja, caso queira utilizar um banco próprio o sistema irá gerar automaticamente a estrutura de dados. Ponto importante é que deverá ser **MySQL8**.
 
-## Estrutura do sistema
+## Estrutura do projeto
 
 O projeto contem está organizado em dois principais pacotes:
 + application: 
@@ -74,6 +74,71 @@ tempo determinado na chamada de abertura ou 1 minuto por default):
 
 Inicie o serviço e a documentação do Swagger com a lista de serviços encontra-se no link: http://localhost:8080/swagger-ui.html
 
++ Criar pauta
+    - /pauta/criar - POST
+        - Requesição: JSON contendo o nome da pauta
+        `{
+	"nome": "Pauta Teste"
+}`
+        - Resposta: JSON contendo o id gerado da pauta e o nome da mesma
+        `{
+    "topicId": 1,
+    "name": "Pauta Teste"
+}`
 
++ Abrir Sessão
+    - /pauta/abrirSessao - PUT
+        - Requisição: JSON contendo o id da pauta e a duração em minutos da sessão(opcional)
+        `{
+  "duracaoEmMinutos": 10,
+  "pautaId": 1
+}`
+        - Resposta: JSON contendo o id da pauta, o nome da pauta e horário de início e fim da sessão no formato: 'yyyy-MM-dd HH:mm:ss'
+        `{
+    "pautaId": 1,
+    "nome": "Pauta Teste",
+    "inicioVotacao": "2019-11-25 07:51:20",
+    "fimVotacao": "2019-11-25 08:01:20"
+}`
 
++ Votar
+    - /pauta/votar - POST
+        - Requisição: JSON contendo a decisão do voto (true é SIM / false é NÃO), o identificador da pauta e objeto do associado contendo o identificador e o cpf(opcional)
+        `{
+  "associado": {
+    "cpf": "91509896007",
+    "id": 1
+  },
+  "decisao": true,
+  "pautaId": 1
+}`
+        - Resposta: JSON contendo todas as informações da pauta e o voto do associado
+        `{
+  "pautaDTO": {
+    "pautaId": 1,
+    "nome": "Pauta Teste",
+    "inicioVotacao": "2019-11-25 07:51:20",
+    "fimVotacao": "2019-11-25 08:01:20"
+  },
+  "associado": {
+    "id": 1,
+    "cpf": "91509896007"
+  },
+  "decision": true
+}`
+
++ Apuração 
+    - /pauta/apuracao/{pautaId} - GET
+        - Requisição: Enviar o código da pauta no endereço do serviço
+            `/pauta/apuracao/1`
+        - Resposta: JSON contendo as informações da pauta e o resultado da votação
+        `{
+  "pauta": {
+    "pautaId": 1,
+    "nome": "Pauta Teste",
+    "inicioVotacao": "2019-11-25 07:51:20",
+    "fimVotacao": "2019-11-25 08:01:20"
+  },
+  "votingResult": "SIM"
+}`
 
