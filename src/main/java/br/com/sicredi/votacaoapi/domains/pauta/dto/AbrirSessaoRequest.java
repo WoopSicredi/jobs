@@ -12,11 +12,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AbrirSessaoRequest {
 	
-	@NotNull(message = "{pautaId.invalido}")
-	@Positive(message = "{valor.nao.pode.ser.negativo}")
+	@NotNull(message = "Por favor informe o identificador da pauta")
+	@Positive(message = "Valor não pode ser negativo")
 	private Long pautaId;
 
-	@Positive(message = "{valor.nao.pode.ser.negativo}")
+	@Positive(message = "Valor não pode ser negativo")
 	private Long duracaoEmMinutos;
 	
 }

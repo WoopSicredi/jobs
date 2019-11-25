@@ -15,9 +15,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CriarPautaRequest {
 
-	@NotBlank(message = "{nome.nao.vazio}")
-	@NotNull(message = "{nome.invalido}")
-	@Size(max=100, message = "{nome.tamanho.invalido}")
+	@NotBlank(message = "Nome é campo obrigatório")
+	@NotNull(message = "Por favor digite um nome válido")
+	@Size(max=100, message = "O nome deve possuir no máximo 100 caracteres")
 	@Setter
 	private String nome;
 	

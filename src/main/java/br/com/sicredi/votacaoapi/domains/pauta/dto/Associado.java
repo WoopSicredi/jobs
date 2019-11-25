@@ -13,11 +13,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Associado {
 	
-	@NotNull(message = "{associado.id.invalido}")
-	@Positive(message = "{valor.nao.pode.ser.negativo}")
+	@NotNull(message = "Por favor informe o código do associado")
+	@Positive(message = "Valor não pode ser negativo")
 	private Long id;
 	
-	@Pattern(regexp = "[0-9]{3}[0-9]{3}[0-9]{3}[0-9]{2}", message="{cpf.invalid}")
+	@Pattern(regexp = "[0-9]{3}[0-9]{3}[0-9]{3}[0-9]{2}", message="Informe os 11 dígitos do CPF")
 	private String cpf;
 	
 	public Associado(Long id) {

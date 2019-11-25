@@ -83,7 +83,7 @@ public class PautaController {
 	@GetMapping("/apuracao/{pautaId}")
 	@ResponseBody
 	public ResponseEntity<ResultadoVotacaoResponse> apuracao(
-			@PathVariable @NotNull(message = "{pautaId.invalido}") @Positive(message = "{valor.nao.pode.ser.negativo}") Long pautaId) {
+			@PathVariable @NotNull(message = "Por favor informe o identificador da pauta") @Positive(message = "Valor não pode ser negativo") Long pautaId) {
 		return ResponseEntity.ok().body(apuracaoDaVotacaoPautaService.apurar(pautaId));
 	}
 

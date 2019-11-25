@@ -13,15 +13,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class VotoRequest {
 
-	@NotNull(message = "{pautaId.invalido}")
-	@Positive(message = "{valor.nao.pode.ser.negativo}")
+	@NotNull(message = "Por favor informe o identificador da pauta")
+	@Positive(message = "Valor não pode ser negativo")
 	private Long pautaId;
 
 	@Valid
-	@NotNull(message = "{associado.invalido}")
+	@NotNull(message = "Por favor informe o associado")
 	private Associado associado;
 
-	@NotNull(message = "{decisao.invalido}")
+	@NotNull(message = "Por favor informe o voto")
 	private Boolean decisao;
 
 }
