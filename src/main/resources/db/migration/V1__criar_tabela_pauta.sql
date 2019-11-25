@@ -1,0 +1,7 @@
+CREATE TABLE pauta (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  nome VARCHAR(100) NOT NULL,
+  inicio_votacao TIMESTAMP,
+  fim_votacao TIMESTAMP,
+  PRIMARY KEY pk__pauta (id)
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8MB4;
