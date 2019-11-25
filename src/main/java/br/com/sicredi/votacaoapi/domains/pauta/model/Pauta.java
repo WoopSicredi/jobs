@@ -59,6 +59,10 @@ public class Pauta {
 		fimVotacao = inicioVotacao.plusMinutes(duracaoEmMinutos == null ? 1 : duracaoEmMinutos);
 	}
 	
+	public boolean temSessaoAtiva() {
+		return temSessaoIniciada() && LocalDateTime.now().isBefore(fimVotacao);
+	}
+	
 	public boolean temSessaoIniciada() {
 		return inicioVotacao != null;
 	}

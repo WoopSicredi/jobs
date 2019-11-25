@@ -11,7 +11,10 @@ public enum MensagemValidacaoVotacaoEnum {
 	EXCECAO_INTERNA("excecao.interna"),
 	PAUTA_NAO_EXISTE("pauta.nao.existe"),
 	SESSAO_JA_FOI_INICIADA_EXCEPTION("sessao.ja.foi.iniciada.exception"),
-	BAD_REQUEST("bad.request");
+	BAD_REQUEST("bad.request"),
+	ASSOCIADO_JA_VOTOU_NESTA_PAUTA("associado.ja.votou.nesta.pauta"),
+	SOMENTE_SESSOES_ATIVAS_ESTAO_APTAS_A_RECEBEREM_VOTOS("somente.sessoes.ativas.estao.aptas.a.receberem.votos"),
+	ASSOCIADO_IMPEDIDO_DE_VOTAR("associado.impedido.de.votar");
 	
 	private String codigo;
 	
