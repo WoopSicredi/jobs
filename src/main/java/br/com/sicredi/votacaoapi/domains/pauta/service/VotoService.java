@@ -38,7 +38,7 @@ public class VotoService {
 			throw new BusinessException(MensagemValidacaoVotacaoEnum.ASSOCIADO_JA_VOTOU_NESTA_PAUTA);
 		} else if (!pauta.temSessaoAtiva()) {
 			throw new BusinessException(MensagemValidacaoVotacaoEnum.SOMENTE_SESSOES_ATIVAS_ESTAO_APTAS_A_RECEBEREM_VOTOS);
-		} else if (checarStatusAssociadoService.checkAssociateStatus(associado) == AssociateStatus.UNABLE_TO_VOTE) {
+		} else if (checarStatusAssociadoService.recuperarStatus(associado) == AssociateStatus.UNABLE_TO_VOTE) {
 			throw new BusinessException(MensagemValidacaoVotacaoEnum.ASSOCIADO_IMPEDIDO_DE_VOTAR);
 		}
 		

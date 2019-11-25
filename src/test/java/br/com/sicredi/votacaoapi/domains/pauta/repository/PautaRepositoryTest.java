@@ -7,9 +7,11 @@ import java.util.Optional;
 
 import javax.validation.ConstraintViolationException;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -19,17 +21,14 @@ import br.com.sicredi.votacaoapi.domains.pauta.model.Pauta;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
+@AutoConfigureTestDatabase(replace = Replace.NONE)
 public class PautaRepositoryTest {
 
+	@Autowired
 	private PautaRepository pautaRepository;
 
-	@Autowired
-	public PautaRepositoryTest(PautaRepository pautaRepository) {
-		this.pautaRepository = pautaRepository;
-	}
-
 	@Test
-	public void createShouldPersistData() {
+	public void criarDeveriaPersistirDados() {
 		Pauta pauta = new Pauta("Pauta de Teste");
 		pautaRepository.save(pauta);
 		assertThat(pauta.getId()).isNotNull();
@@ -37,7 +36,7 @@ public class PautaRepositoryTest {
 	}
 
 	@Test
-	public void deleteShouldRemoveData() {
+	public void deleteDeveriaRemoverDados() {
 		Pauta pauta = new Pauta("Pauta de Teste");
 		pautaRepository.save(pauta);
 		pautaRepository.delete(pauta);
@@ -45,7 +44,7 @@ public class PautaRepositoryTest {
 	}
 
 	@Test
-	public void updateShouldChangeAndPersistData() {
+	public void atualizarDeveriaAlterarEPersistirDados() {
 		Pauta pauta = new Pauta("Pauta de Teste");
 		pautaRepository.save(pauta);
 		pauta.setNome("Pauta de Teste Dois");
@@ -58,7 +57,7 @@ public class PautaRepositoryTest {
 	}
 	
 	@Test
-	public void createWhenNameIsNullShouldThrowDataIntegrityViolationException() {
+	public void criarQuandoNomeENuloDeveriaDispararDataIntegrityViolationException() {
 		DataIntegrityViolationException thrown = catchThrowableOfType(() -> pautaRepository.save(new Pauta()),
 				DataIntegrityViolationException.class);
 		
@@ -66,7 +65,7 @@ public class PautaRepositoryTest {
 	}
 	
 	@Test
-	public void createWhenNameSizeIsLargerThan100ShouldThrowConstraintViolationException() {
+	public void criarQuandoTamanhoDoNomeEMaiorQue100DeveriaDispararConstraintViolationException() {
 		ConstraintViolationException thrown = catchThrowableOfType(() -> pautaRepository.save(new Pauta(StringUtils.spaces(101))),
 				ConstraintViolationException.class);
 

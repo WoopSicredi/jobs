@@ -23,7 +23,7 @@ public class ChecarStatusAssociadoService {
 		this.restTemplateService = restTemplateService;
 	}
 
-	public AssociateStatus checkAssociateStatus(Associado associado) {
+	public AssociateStatus recuperarStatus(Associado associado) {
 		String cpf = associado.getCpf();
 		if (cpf == null || cpf.length() == 0) {
 			return AssociateStatus.ABLE_TO_VOTE;
@@ -35,7 +35,7 @@ public class ChecarStatusAssociadoService {
 		
 		return response != null && response.getStatusCodeValue() == 200
 				? AssociateStatus.fromStatus(response.getBody().getStatus())
-				: AssociateStatus.ABLE_TO_VOTE;
+				: AssociateStatus.UNABLE_TO_VOTE;
 	}
 
 }
