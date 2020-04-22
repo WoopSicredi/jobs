@@ -1,0 +1,44 @@
+// displays variables:
+@mixin display-flex($direction, $align, $justify) {
+    display: flex;
+    flex-direction: $direction;
+    align-items: $align;
+    justify-content: $justify;
+}
+
+// colors variables:
+$color-primary: #6F1703;
+$color-secondary: #F4DA3F;
+$color-primary-dark: #490F01;
+$color-secondary-light: #FFEF8D;
+$color-background: #FFFCFC;
+
+// width and height variables:
+$default-page-width: 100%;
+$default-page-height: 100vh;
+$huge-width: 100%;
+$big-width: 80%;
+$medium-width: 50%;
+$small-width: 20%;
+
+// font variables:
+$huge-size-font: 26px;
+$big-size-font: 24px;
+$medium-size-font: 18px;
+$default-size-font: 14px;
+$small-size-font: 12px;
+
+$default-color-font: #000000;
+$contrast-color-font: #FFFCFC;
+$primary-color-font: $color-primary;
+$secondary-color-font: $color-secondary;
+
+$bold-font: 700;
+$bolder-font: 900;
+
+// devices witdh:
+$mobile-large: 425px;
+$mobile-medium: 375px;
+$mobile-small: 320px;
+$tablet: 768px;
+$laptop: 1024px;
