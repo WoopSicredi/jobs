@@ -1,0 +1,36 @@
+@import 'styles/variables';
+
+.dragon-list {
+  background-color: $color-background;
+  padding: 2%;
+
+  &__content {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 20px;
+    justify-content: center;
+  }
+}
+
+@media (max-width: $mobile-large) {
+  .dragon-list {
+    padding: 5%;
+
+    &__content {
+      grid-template-columns: auto;
+    }
+  }
+}
+
+@media (min-width: $mobile-large + 1) and (max-width: $tablet) {
+  .dragon-list__content {
+    grid-template-columns: repeat(2, auto);
+    column-gap: 10px;
+  }
+}
+
+@media (min-width: $tablet + 1) and (max-width: $laptop) {
+  .dragon-list__content {
+    grid-template-columns: repeat(2, auto);
+  }
+}

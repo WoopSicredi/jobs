@@ -1,0 +1,54 @@
+@import 'styles/variables';
+
+.create-or-edit-dragon {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  grid-template-rows: auto;
+  height: 100%;
+  width: 100%;
+  background-color: $color-background;
+  padding: 2%;
+  box-sizing: border-box;
+
+  &__image {
+    width: 100%;
+    img {
+      width: 100%;
+    }
+  }
+
+  &__form {
+    @include display-flex(column, center, flex-start);
+    width: 100%;
+    padding: 2%;
+    box-sizing: border-box;
+
+    form {
+      width: 80%;
+    }
+  }
+}
+
+@media (max-width: $mobile-large) {
+  .create-or-edit-dragon {
+    grid-template-columns: auto;
+    grid-template-rows: 30% 50%;
+
+    &__image {
+      @include display-flex(row, center, center);
+      height: 100%;
+      width: unset;
+      max-width: 100%;
+
+      img {
+        height: 100%;
+        width: unset;
+        max-width: 100%;
+      }
+    }
+
+    &__form form {
+      margin: 20px 0;
+    }
+  }
+}

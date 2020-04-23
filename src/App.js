@@ -1,26 +1,53 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import axios from 'axios';
 
-function App() {
+import { FirebaseAuthProvider } from '@react-firebase/auth';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
+import { config } from './firebaseConfig';
+
+import { Login, Home } from 'scenes';
+import { Loader } from 'components';
+
+import './App.scss';
+
+const App = () => {
+  const [_showLoader, _setShowLoader] = useState(false);
+
+  function _configureRequestInterceptor() {
+    axios.interceptors.request.use((config) => {
+      _setShowLoader(true);
+      return config;
+    });
+
+    axios.interceptors.response.use(
+      (response) => {
+        _setShowLoader(false);
+        return response;
+      },
+      (error) => {
+        _setShowLoader(false);
+        return Promise.reject(error);
+      }
+    );
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='app'>
+      {_configureRequestInterceptor()}
+      {_showLoader ? <Loader /> : null}
+      <FirebaseAuthProvider {...config} firebase={firebase}>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path='/login' component={Login} />
+            <Route path='/' component={Home} />
+            <Redirect to='/' />
+          </Switch>
+        </BrowserRouter>
+      </FirebaseAuthProvider>
     </div>
   );
-}
+};
 
 export default App;

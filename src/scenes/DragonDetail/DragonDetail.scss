@@ -1,0 +1,128 @@
+@import 'styles/variables';
+
+.dragon-detail {
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  grid-template-rows: 100%;
+  height: 100%;
+  width: 100%;
+  background-color: $color-background;
+
+  &__image {
+    height: 100%;
+    width: 100%;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__info {
+    @include display-flex(column, flex-start, flex-start);
+    width: 100%;
+    height: 100%;
+    padding: 5%;
+    box-sizing: border-box;
+    color: $default-color-font;
+    overflow-y: scroll;
+
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+
+      .dragon-info {
+        max-width: 80%;
+        word-break: break-word;
+
+        .dragon-name {
+          font-size: $huge-size-font;
+          color: $color-primary;
+          font-weight: $bold-font;
+          margin: 0;
+          text-transform: capitalize;
+        }
+
+        .divider {
+          width: 20px;
+          border: 1px solid $color-secondary;
+          margin: 0 0 20px 0;
+        }
+      }
+
+      .actions {
+        display: flex;
+        width: 60px;
+        height: 30px;
+
+        button {
+          @include display-flex(row, center, center);
+          height: 100%;
+          width: 100%;
+          background: none;
+          border: none;
+          outline: none;
+          cursor: pointer;
+
+          &:hover {
+            background-color: $color-secondary-light;
+          }
+
+          img {
+            height: 50%;
+            max-width: 100%;
+            pointer-events: none;
+          }
+        }
+      }
+    }
+
+    .dragon-type,
+    .dragon-created-at {
+      margin: 0;
+      font-size: $medium-size-font;
+
+      .attribute {
+        color: $color-primary;
+      }
+
+      .value {
+        text-transform: capitalize;
+      }
+    }
+
+    .dragon-histories {
+      font-size: $default-size-font;
+      color: $default-color-font;
+
+      &::first-letter {
+        text-transform: capitalize;
+      }
+    }
+  }
+}
+
+@media (max-width: $tablet) {
+  .dragon-detail {
+    grid-template-rows: 55% auto;
+    grid-template-columns: auto;
+    overflow-y: scroll;
+
+    &__image img {
+      position: relative;
+      width: 100%;
+    }
+
+    &__info {
+      overflow-y: unset;
+    }
+  }
+}
+
+@media (min-width: $mobile-large + 1) and (max-width: $tablet) {
+  .dragon-detail {
+    grid-template-rows: 60% auto;
+  }
+}

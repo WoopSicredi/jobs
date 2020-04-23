@@ -1,0 +1,30 @@
+@import 'styles/variables';
+
+.login {
+  @include display-flex(column, center, space-around);
+  width: 100vw;
+  height: 100vh;
+  background-color: $color-background;
+
+  .logo {
+    width: 30%;
+  }
+
+  .btn-sign-in {
+    width: 30%;
+    margin: 5% 0;
+  }
+}
+
+@media (max-width: $mobile-large) {
+  .login {
+    .logo {
+      width: 70%;
+    }
+
+    .btn-sign-in {
+      width: 80%;
+      margin: 20% 0;
+    }
+  }
+}
