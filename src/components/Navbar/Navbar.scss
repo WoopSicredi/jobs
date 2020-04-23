@@ -1,0 +1,94 @@
+@import 'styles/variables';
+
+$logo-margin: 0 30px;
+
+.navbar {
+  @include display-flex(row, center, space-between);
+  width: 100%;
+  height: 10%;
+  background-color: $color-primary;
+  border-bottom: $color-secondary solid 1px;
+  box-sizing: border-box;
+  position: fixed;
+  z-index: 1;
+
+  &__logo {
+    height: 100%;
+
+    &__img {
+      height: 100%;
+    }
+  }
+
+  &__actions {
+    max-width: 50%;
+    height: 100%;
+
+    ul {
+      @include display-flex(row, center, space-between);
+      height: 100%;
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      height: 100%;
+      float: left;
+
+      a,
+      button {
+        height: 100%;
+        display: flex;
+        color: $contrast-color-font;
+        text-decoration: none;
+        align-items: center;
+        padding: 0 30px;
+        font-size: $default-size-font;
+
+        &:hover {
+          background-color: $color-primary-dark;
+        }
+      }
+
+      button {
+        background: none;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-family: 'Montserrat', sans-serif;
+      }
+    }
+  }
+}
+
+@media (max-width: $mobile-large) {
+  .navbar {
+    @include display-flex(column, center, space-between);
+    height: 15%;
+
+    &__logo {
+      height: 55%;
+    }
+
+    &__actions {
+      width: 100%;
+      height: 45%;
+      max-width: 100%;
+
+      ul li {
+        width: 100%;
+
+        a,
+        button {
+          font-size: $small-size-font;
+          justify-content: center;
+        }
+
+        button {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,80 @@
+@import 'styles/variables';
+
+$dragon-card-width: 300px;
+$dragon-card-height: 350px;
+$dragon-card-width-small: 200px;
+$dragon-card-height-small: 250px;
+
+.dragon-card {
+  width: $dragon-card-width;
+  height: $dragon-card-height;
+  box-sizing: border-box;
+  cursor: pointer;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    height: 15%;
+    padding: 0 10px;
+    background-color: $color-primary;
+    color: $contrast-color-font;
+    border-bottom: $color-secondary solid 1px;
+    box-sizing: border-box;
+
+    .dragon-name {
+      max-height: 100%;
+      margin: 0;
+      font-size: $medium-size-font;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-transform:capitalize;
+    }
+  }
+
+  &__content {
+    height: 70%;
+
+    .dragon-image {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__footer {
+    @include display-flex(row, center, center);
+    height: 15%;
+    background-color: $color-primary;
+    color: $contrast-color-font;
+    border-top: $color-secondary solid 1px;
+    box-sizing: border-box;
+
+    button {
+      @include display-flex(row, center, center);
+      height: 100%;
+      width: 100%;
+      background: none;
+      border: none;
+      outline: none;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $color-primary-dark;
+      }
+
+      img {
+        height: 50%;
+        max-width: 100%;
+        pointer-events: none;
+      }
+    }
+  }
+}
+
+@media (max-width: $tablet) {
+  .dragon-card {
+    width: $dragon-card-width-small;
+    height: $dragon-card-height-small;
+  }
+}
