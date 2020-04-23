@@ -55,3 +55,22 @@ Mas tudo o que sabemos é compartilhado.
 
 ## Vagas
 https://sicredi.gupy.io
+
+
+--------------
+## Solução
+
+### Iniciar o projeto
+Para iniciar o projeto é necessário rodar os seguintes comandos:
+1. `npm install`
+2. `npm start`
+
+### Autenticação
+A autenticação da aplicação está sendo realizada pelo Firebase Auth, utilizando autenticação anônima.
+
+### PWA
+A aplicação foi configurada como uma PWA e seu download pode ser testada acessando: `https://dracarys.surge.sh/`
+
+Porém, como a API está em um domínio não seguro (http), o browser barra as requisições para a mesma, impedindo a utilização completa da versão hospedada.
+
+--------
