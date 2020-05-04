@@ -3,4 +3,7 @@
     <string name="action_settings">Settings</string>
     <string name="activity_list_title">Eventos</string>
     <string name="price_label">R$</string>
+    <string name="datetime_format">dd/MM/yyyy hh:mm</string>
+    <string name="checkin_success">Check-in feito com sucesso!</string>
+    <string name="checkin_error">Erro no check-in</string>
 </resources>

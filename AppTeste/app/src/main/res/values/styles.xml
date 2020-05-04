@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="fontFamily">@font/belleza</item>
     </style>
 
     <style name="ProgressBarCustom" parent="ThemeOverlay.AppCompat.Light">
@@ -17,11 +18,13 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ToolBarTheme">
+        <item name="android:textColor">@android:color/transparent</item>
+    </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="ToolBarTheme" parent="AppTheme.AppBarOverlay">
+    <style name="ToolBarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="fontFamily">@font/belleza</item>
         <item name="android:textColor">@color/text_white</item>
         <item name="android:textSize">20sp</item>
