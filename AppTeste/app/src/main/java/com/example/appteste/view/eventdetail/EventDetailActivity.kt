@@ -1,7 +1,8 @@
 package com.example.appteste.view.eventdetail
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -13,14 +14,16 @@ import com.example.appteste.model.CheckIn
 import com.example.appteste.model.Event
 import com.example.appteste.network.MainNetwork
 import com.example.appteste.util.getFactory
+import com.example.appteste.view.register.RegisterActivity
 import com.example.appteste.viewmodel.EventDetailViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_event_detail.*
-import kotlinx.android.synthetic.main.activity_event_list.*
 import kotlinx.android.synthetic.main.content_event_detail.*
 import kotlinx.coroutines.Dispatchers
 
 class EventDetailActivity : AppCompatActivity() {
+
+    private lateinit var prefs: SharedPreferences
 
     private val viewModel: EventDetailViewModel by lazy {
         ViewModelProviders.of(
@@ -38,11 +41,14 @@ class EventDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        prefs = getSharedPreferences("com.example.appTeste", Context.MODE_PRIVATE)
         setContentView(R.layout.activity_event_detail)
         setupToolbar()
         val event = intent.getSerializableExtra(EVENT_EXTRA) as Event
         fab.setOnClickListener {
-            viewModel.postCheckIn(CheckIn(event.id, "", ""))
+            viewModel.postCheckIn(CheckIn(event.id,
+                prefs.getString(RegisterActivity.EMAIL_KEY, "") ?: "",
+                prefs.getString(RegisterActivity.NAME_KEY, "") ?: ""))
         }
         setupDetails(event)
         registerObservers()

@@ -1,5 +1,7 @@
 package com.example.appteste
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -12,13 +14,14 @@ import com.example.appteste.extensions.setToolbarTitle
 import com.example.appteste.network.MainNetwork
 import com.example.appteste.util.getFactory
 import com.example.appteste.view.event.EventAdapter
+import com.example.appteste.view.register.RegisterActivity
 import com.example.appteste.viewmodel.EventListViewModel
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_event_detail.*
 import kotlinx.android.synthetic.main.activity_event_list.*
 import kotlinx.coroutines.Dispatchers
 
 class EventListActivity : AppCompatActivity() {
+
+    private lateinit var prefs: SharedPreferences
 
     private val viewModel: EventListViewModel by lazy {
         ViewModelProviders.of(
@@ -36,6 +39,7 @@ class EventListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        prefs = getSharedPreferences("com.example.appTeste", Context.MODE_PRIVATE)
         setContentView(R.layout.activity_event_list)
         setupToolbar()
         registerObservers()
@@ -65,7 +69,12 @@ class EventListActivity : AppCompatActivity() {
         // as you specify a parent activity in AndroidManifest.xml.
 
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_leave -> {
+                prefs.edit().putString(RegisterActivity.NAME_KEY, "").apply()
+                prefs.edit().putString(RegisterActivity.EMAIL_KEY, "").apply()
+                finishAffinity()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
