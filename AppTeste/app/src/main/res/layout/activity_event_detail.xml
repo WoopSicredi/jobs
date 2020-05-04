@@ -1,115 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".EventListActivity">
 
-    <ImageView
-        android:id="@+id/image_cover_reading_detail"
-        android:layout_width="100dp"
-        android:layout_height="150dp"
-        android:scaleType="center"
-        android:src="@color/colorPrimaryDark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_title_detail" />
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_height"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-    <TextView
-        android:id="@+id/text_publisher_detail"
-        android:layout_width="100dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="80dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_author_detail"
-        tools:text="Belos Livros" />
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:toolbarId="@+id/toolbar"
+            app:expandedTitleTextAppearance="@color/colorPrimaryDark"
+            app:collapsedTitleTextAppearance="@color/text_white">
 
-    <TextView
-        android:id="@+id/text_publication_year_detail"
-        android:layout_width="100dp"
-        android:layout_height="29dp"
-        android:layout_marginEnd="80dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/colorPrimary"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_author_detail"
-        tools:text="2010" />
+            <ImageView
+                android:id="@+id/toolbar_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax" />
 
-    <TextView
-        android:id="@+id/text_synopsis_detail"
-        android:layout_width="250dp"
-        android:layout_height="200dp"
-        android:ellipsize="end"
-        android:maxLines="100"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_page_count_detail"
-        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut dolor quam, dapibus ut scelerisque non, lacinia ut enim. Praesent congue massa vitae leo scelerisque pharetra. Nam ante nisl, tincidunt quis sapien a, rhoncus interdum leo. Etiam ac tellus a ligula venenatis tincidunt." />
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-    <TextView
-        android:id="@+id/text_author_detail"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/colorPrimary"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_cover_reading_detail"
-        tools:text="Dornel Laguna" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <TextView
-        android:id="@+id/text_title_detail"
-        android:layout_width="100dp"
-        android:layout_height="29dp"
-        android:layout_marginTop="32dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Reconquista" />
+    <include layout="@layout/content_event_detail" />
 
-    <TextView
-        android:id="@+id/text_page_count_detail"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="80dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/colorPrimary"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_publisher_detail"
-        tools:text="172" />
-
-    <ImageButton
-        android:id="@+id/button_back_detail"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorAccent"
-        android:tint="@color/colorPrimary"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/abc_vector_test" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_margin="@dimen/fab_margin"
+        app:layout_anchor="@id/app_bar"
+        app:layout_anchorGravity="bottom|end"
+        app:srcCompat="@android:drawable/ic_dialog_email" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

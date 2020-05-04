@@ -8,13 +8,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.appteste.extensions.setToolbarTitle
 import com.example.appteste.network.MainNetwork
 import com.example.appteste.util.getFactory
 import com.example.appteste.view.event.EventAdapter
 import com.example.appteste.viewmodel.EventListViewModel
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_event_detail.*
 import kotlinx.android.synthetic.main.activity_event_list.*
-import kotlinx.android.synthetic.main.content_scrolling.*
 import kotlinx.coroutines.Dispatchers
 
 class EventListActivity : AppCompatActivity() {
@@ -36,13 +37,15 @@ class EventListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event_list)
-        setSupportActionBar(toolbar)
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
+        setupToolbar()
         registerObservers()
         configAdapter()
+    }
+
+    private fun setupToolbar() {
+        setSupportActionBar(findViewById(R.id.toolbar_top))
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        setToolbarTitle(getString(R.string.activity_list_title))
     }
 
     override fun onResume() {
@@ -86,7 +89,8 @@ class EventListActivity : AppCompatActivity() {
     }
 
     private fun configAdapter() {
-        recycler_event_list.layoutManager = LinearLayoutManager(this)
+        recycler_event_list.layoutManager = LinearLayoutManager(this,
+            LinearLayoutManager.HORIZONTAL, false)
         recycler_event_list.adapter = adapter
     }
 }
