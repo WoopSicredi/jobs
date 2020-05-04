@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorAccent"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="16dp"
@@ -19,43 +19,50 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginBottom="16dp"
-            android:background="@color/colorAccent"
-            android:textColorHint="@color/colorPrimaryDark">
+            android:background="@color/text_white"
+            android:gravity="center_vertical"
+            android:textColorHint="@color/colorPrimary">
 
             <EditText
                 android:id="@+id/name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
                 android:hint="@string/name_label"
                 android:maxLines="1"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
                 android:singleLine="true"
-                android:textColor="@color/text_white"
-                android:textColorHighlight="@color/text_white"
-                android:textColorLink="@color/text_white" />
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHighlight="@color/colorPrimaryDark"
+                android:textColorLink="@color/colorPrimaryDark" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginBottom="16dp"
-            android:background="@color/colorAccent"
-            android:textColorHint="@color/colorPrimaryDark">
+            android:background="@color/text_white"
+            android:gravity="center_vertical"
+            android:textColorHint="@color/colorPrimary">
 
             <AutoCompleteTextView
                 android:id="@+id/email"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@android:color/transparent"
                 android:hint="@string/email_label"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
                 android:singleLine="true"
-                android:textColor="@color/text_white"
-                android:textColorHighlight="@color/text_white"
-                android:textColorLink="@color/text_white" />
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHighlight="@color/colorPrimaryDark"
+                android:textColorLink="@color/colorPrimaryDark" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
