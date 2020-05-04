@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">AppTeste</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_leave">Sair</string>
     <string name="activity_list_title">Eventos</string>
     <string name="price_label">R$</string>
     <string name="datetime_format">dd/MM/yyyy hh:mm</string>
     <string name="checkin_success">Check-in feito com sucesso!</string>
     <string name="checkin_error">Erro no check-in</string>
+    <string name="name_label">Nome</string>
+    <string name="email_label">E-Mail</string>
+    <string name="save_name_label">Salvar</string>
 </resources>
