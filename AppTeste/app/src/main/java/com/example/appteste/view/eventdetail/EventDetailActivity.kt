@@ -1,15 +1,36 @@
 package com.example.appteste.view.eventdetail
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.example.appteste.R
+import com.example.appteste.extensions.getDate
+import com.example.appteste.extensions.monetize
+import com.example.appteste.model.CheckIn
 import com.example.appteste.model.Event
+import com.example.appteste.network.MainNetwork
+import com.example.appteste.util.getFactory
+import com.example.appteste.viewmodel.EventDetailViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_event_detail.*
+import kotlinx.android.synthetic.main.activity_event_list.*
 import kotlinx.android.synthetic.main.content_event_detail.*
+import kotlinx.coroutines.Dispatchers
 
 class EventDetailActivity : AppCompatActivity() {
+
+    private val viewModel: EventDetailViewModel by lazy {
+        ViewModelProviders.of(
+            this, getFactory(
+                EventDetailViewModel(
+                    MainNetwork(Dispatchers.IO)
+                )
+            )
+        ).get(EventDetailViewModel::class.java)
+    }
 
     companion object {
         const val EVENT_EXTRA = "eventExtra"
@@ -18,17 +39,41 @@ class EventDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event_detail)
-        setSupportActionBar(toolbar)
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        setupToolbar()
+        val event = intent.getSerializableExtra(EVENT_EXTRA) as Event
+        fab.setOnClickListener {
+            viewModel.postCheckIn(CheckIn(event.id, "", ""))
         }
-        setupDetails(intent.getSerializableExtra(EVENT_EXTRA) as Event)
+        setupDetails(event)
+        registerObservers()
+    }
+
+    private fun setupToolbar() {
+        setSupportActionBar(toolbar)
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
     }
 
     private fun setupDetails(event: Event) {
-        toolbar_layout.title = event.title
+        text_title_detail.text = event.title
+        text_when_detail.text = event.date.getDate(getString(R.string.datetime_format))
+        text_price_detail.text = event.price.toString().monetize(this)
+        text_description_detail.text = event.description
         Glide.with(this).load(event.image).into(toolbar_image)
+    }
+
+    private fun registerObservers() {
+        viewModel.showSucess.observe(this, Observer { success ->
+            if (success) {
+                Snackbar.make(fab, getString(R.string.checkin_success), Snackbar.LENGTH_LONG).show()
+            }
+        })
+        viewModel.showError.observe(this, Observer { error ->
+            if (error) {
+                Snackbar.make(fab, getString(R.string.checkin_error), Snackbar.LENGTH_LONG).show()
+            }
+        })
     }
 
 }

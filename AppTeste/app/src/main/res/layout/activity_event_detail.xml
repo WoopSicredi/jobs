@@ -20,10 +20,9 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:toolbarId="@+id/toolbar"
-            app:expandedTitleTextAppearance="@color/colorPrimaryDark"
-            app:collapsedTitleTextAppearance="@color/text_white">
+            app:expandedTitleTextAppearance="@style/AppTheme.AppBarOverlay"
+            app:layout_scrollFlags="noScroll|exitUntilCollapsed"
+            app:toolbarId="@+id/toolbar">
 
             <ImageView
                 android:id="@+id/toolbar_image"
@@ -37,6 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/abc_vector_test"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -51,5 +51,5 @@
         android:layout_margin="@dimen/fab_margin"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:srcCompat="@drawable/ic_event_add" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

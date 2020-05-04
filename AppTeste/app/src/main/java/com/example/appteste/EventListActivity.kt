@@ -77,10 +77,15 @@ class EventListActivity : AppCompatActivity() {
             } else {
                 adapter.addEvents(eventList)
                 recycler_event_list.visibility = View.VISIBLE
+            }
+        })
+        viewModel.showLoader.observe(this, Observer { show ->
+            if(show) {
+                progress_main.visibility = View.VISIBLE
+            } else {
                 progress_main.visibility = View.GONE
             }
         })
-
         viewModel.showError.observe(this, Observer { error ->
             if (error) {
                 progress_main.visibility = View.GONE
