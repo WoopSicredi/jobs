@@ -3,7 +3,7 @@ package br.com.nerdrapido.mvvmmockapiapp.remote.model
 /**
  * Created By FELIPE GUSBERTI @ 08/08/2020
  */
-data class ItemResponse(
+data class EventResponse(
 
     val people: List<PersonResponse> = emptyList(),
     /**

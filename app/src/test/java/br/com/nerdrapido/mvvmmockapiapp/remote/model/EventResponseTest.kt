@@ -21,7 +21,7 @@ import java.io.InputStream
  * Created By FELIPE GUSBERTI @ 08/08/2020
  */
 @RunWith(RobolectricTestRunner::class)
-class ItemResponseTest : KoinTest {
+class EventResponseTest : KoinTest {
 
     val date = 1534784400000L
     val description =
@@ -61,7 +61,7 @@ class ItemResponseTest : KoinTest {
 
     @Test
     fun `test item hydratation from json`() {
-        val itemResponse = jsonMapper.fromString(cuponJson, ItemResponse::class.java)
+        val itemResponse = jsonMapper.fromString(cuponJson, EventResponse::class.java)
         Assert.assertEquals(date, itemResponse.date)
         Assert.assertEquals(description, itemResponse.description)
         Assert.assertEquals(image, itemResponse.image)
