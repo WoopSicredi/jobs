@@ -1,0 +1,2 @@
+rootProject.name='MVVM Mock API App'
+include ':app'
