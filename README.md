@@ -28,3 +28,6 @@
 ##### https://insert-koin.io/
 ##### https://github.com/InsertKoinIO/koin
 ##### https://medium.com/collabcode/inje%C3%A7%C3%A3o-de-depend%C3%AAncia-no-kotlin-com-koin-4d093f80cb63
+
+#### Implementação do Okhttplogger para logar conteúdo de requisições web
+##### https://square.github.io/okhttp/interceptors/

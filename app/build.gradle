@@ -20,11 +20,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "SERVER_URL", '"http://5b840ba5db24a100142dcd8c.mockapi.io/api/"')
         }
         debug {
             useLibrary 'android.test.runner'
             useLibrary 'android.test.base'
             useLibrary 'android.test.mock'
+            buildConfigField("String", "SERVER_URL", '"http://5b840ba5db24a100142dcd8c.mockapi.io/api/"')
         }
     }
 
@@ -77,7 +79,11 @@ dependencies {
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-android-viewmodel:$koin_version"
 
-    // Core library
+    // Implementação do Okhttplogger
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.8.0'
+
+
+    // Test Core library
     testImplementation 'androidx.test:core:1.2.0'
 
     // Implementação de Test do Coroutines para trabalho assíncrono
@@ -106,4 +112,7 @@ dependencies {
     def test_runner_version = '1.2.0'
     androidTestImplementation "androidx.test:runner:$test_runner_version"
     androidTestImplementation "androidx.test:rules:$test_runner_version"
+
+
+
 }

@@ -1,10 +1,6 @@
 package br.com.nerdrapido.mvvmmockapiapp.di
 
-import br.com.nerdrapido.mvvmmockapiapp.di.modules.CacheModule
-import br.com.nerdrapido.mvvmmockapiapp.di.modules.DataModule
-import br.com.nerdrapido.mvvmmockapiapp.di.modules.DomainModule
-import br.com.nerdrapido.mvvmmockapiapp.di.modules.PresentationModule
-import br.com.nerdrapido.mvvmmockapiapp.di.modules.RemoteModule
+import br.com.nerdrapido.mvvmmockapiapp.di.modules.*
 
 /**
  * Created By FELIPE GUSBERTI @ 08/08/2020
@@ -14,6 +10,7 @@ import br.com.nerdrapido.mvvmmockapiapp.di.modules.RemoteModule
 object MainModule {
 
     val module = listOf(
+        HelperModule.helperModule,
         CacheModule.cacheModule,
         RemoteModule.remoteModule,
         DataModule.dataModule,
