@@ -1,5 +1,7 @@
-package br.com.nerdrapido.mvvmmockapiapp.data.mapper
+package br.com.nerdrapido.mvvmmockapiapp.data.mapper.event
 
+import br.com.nerdrapido.mvvmmockapiapp.data.mapper.person.PersonDataMapper
+import br.com.nerdrapido.mvvmmockapiapp.data.mapper.cupom.CupomDataMapper
 import br.com.nerdrapido.mvvmmockapiapp.data.model.EventData
 import br.com.nerdrapido.mvvmmockapiapp.remote.model.EventResponse
 
@@ -9,10 +11,9 @@ import br.com.nerdrapido.mvvmmockapiapp.remote.model.EventResponse
 class EventDataMapperImpl(
     private val cupomDataMapper: CupomDataMapper,
     private val personDataMapper: PersonDataMapper
-) : EventDataMaper{
+) : EventDataMapper {
     override fun mapRemoteToData(response: EventResponse): EventData {
         return EventData(
-            personDataMapper.mapRemoteToDataList(response.people),
             response.date,
             response.description,
             response.image,
@@ -21,7 +22,8 @@ class EventDataMapperImpl(
             response.price,
             response.title,
             response.id,
-            cupomDataMapper.mapRemoteToDataList(response.cupons)
+            cupomDataMapper.mapRemoteToDataList(response.cupons),
+            personDataMapper.mapRemoteToDataList(response.people)
         )
     }
 

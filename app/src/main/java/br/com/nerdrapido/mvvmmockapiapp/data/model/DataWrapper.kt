@@ -13,13 +13,7 @@ sealed class DataWrapper<out T> {
     data class Success<out T>(val value: T) : DataWrapper<T>()
 
     /**
-     * Quando há um erro genérico na requisição.
-     */
-    data class GenericError(val error: Throwable) :
-        DataWrapper<Nothing>()
-
-    /**
      * Quando há erro de rede, ou seja, a requisição nem foi concluída com sucesso.
      */
-    data class NetworkError(val error: Throwable) : DataWrapper<Nothing>()
+    data class Error(val error: Throwable) : DataWrapper<Nothing>()
 }

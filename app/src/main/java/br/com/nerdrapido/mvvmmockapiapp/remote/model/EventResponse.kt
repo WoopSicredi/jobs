@@ -5,7 +5,6 @@ package br.com.nerdrapido.mvvmmockapiapp.remote.model
  */
 data class EventResponse(
 
-    val people: List<PersonResponse> = emptyList(),
     /**
      * Considerado parâmetro obrigatório.
      */
@@ -39,5 +38,7 @@ data class EventResponse(
      */
     val id: String,
 
-    val cupons: List<CupomResponse> = emptyList()
+    val cupons: List<CupomResponse> = emptyList(),
+
+    val people: List<PersonResponse> = emptyList()
 )

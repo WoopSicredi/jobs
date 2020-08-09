@@ -131,15 +131,11 @@ dependencies {
 
 }
 
-//task testAll(dependsOn: ['testDebugUnitTest']) {
-//    group = 'custom_tasks'
-//    description = "Run all tests"
-//}
-//
-//task testAllWithCoverage(dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
-//    group = 'custom_tasks'
-//    description = "Run all tests With Coverage"
-//}
+task testAll(dependsOn: ['testDebugUnitTest']) {
+    group = 'custom_tasks'
+    description = "Run all tests"
+}
+
 
 jacoco {
     toolVersion = "0.8.5"
@@ -149,6 +145,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {
 
     doFirst {
         clean
+        testAll
     }
 
     reports {

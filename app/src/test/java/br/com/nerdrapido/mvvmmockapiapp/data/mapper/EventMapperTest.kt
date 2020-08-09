@@ -2,6 +2,7 @@ package br.com.nerdrapido.mvvmmockapiapp.data.mapper
 
 import android.app.Application
 import androidx.test.core.app.ApplicationProvider
+import br.com.nerdrapido.mvvmmockapiapp.data.mapper.event.EventDataMapper
 import br.com.nerdrapido.mvvmmockapiapp.di.MainModule
 import br.com.nerdrapido.mvvmmockapiapp.remote.model.EventResponse
 import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.date
@@ -34,7 +35,7 @@ class EventMapperTest : KoinTest {
 
     private val context = ApplicationProvider.getApplicationContext<Application>()
 
-    private val eventMapper: EventDataMaper by inject()
+    private val eventMapper: EventDataMapper by inject()
 
     @Before
     fun setUp() {

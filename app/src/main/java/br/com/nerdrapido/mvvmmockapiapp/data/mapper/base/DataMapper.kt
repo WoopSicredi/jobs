@@ -1,4 +1,4 @@
-package br.com.nerdrapido.mvvmmockapiapp.data.mapper
+package br.com.nerdrapido.mvvmmockapiapp.data.mapper.base
 
 /**
  * Created By FELIPE GUSBERTI @ 08/08/2020

@@ -4,8 +4,6 @@ package br.com.nerdrapido.mvvmmockapiapp.data.model
  * Created By FELIPE GUSBERTI @ 08/08/2020
  */
 data class EventData(
-
-    val people: List<PersonData> = emptyList(),
     /**
      * Considerado parâmetro obrigatório.
      */
@@ -39,5 +37,7 @@ data class EventData(
      */
     val id: String,
 
-    val cupons: List<CupomData> = emptyList()
+    val cupons: List<CupomData> = emptyList(),
+
+    val people: List<PersonData> = emptyList()
 )

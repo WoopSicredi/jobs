@@ -25,16 +25,14 @@ class NetworkController(
      * Retorna o OkHttpClient.
      */
     private fun getInterceptor(): OkHttpClient {
+        val logging = HttpLoggingInterceptor()
+        logging.level = HttpLoggingInterceptor.Level.BODY
         val builder = OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .addInterceptor(serviceInterceptor)
-        if (BuildConfig.DEBUG) {
-            val logging = HttpLoggingInterceptor()
-            logging.level = HttpLoggingInterceptor.Level.BODY
-            builder.addInterceptor(logging)
-        }
+            .addInterceptor(logging)
         return builder.build()
     }
 }

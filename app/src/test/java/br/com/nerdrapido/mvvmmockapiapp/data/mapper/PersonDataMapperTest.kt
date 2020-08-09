@@ -2,6 +2,7 @@ package br.com.nerdrapido.mvvmmockapiapp.data.mapper
 
 import android.app.Application
 import androidx.test.core.app.ApplicationProvider
+import br.com.nerdrapido.mvvmmockapiapp.data.mapper.person.PersonDataMapper
 import br.com.nerdrapido.mvvmmockapiapp.di.MainModule
 import br.com.nerdrapido.mvvmmockapiapp.remote.model.PersonResponse
 import org.junit.After
