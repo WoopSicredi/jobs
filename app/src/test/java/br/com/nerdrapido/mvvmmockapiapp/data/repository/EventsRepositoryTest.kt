@@ -106,6 +106,7 @@ class EventsRepositoryTest : KoinTest {
         runBlocking {
             when (val itens = eventRepository.getEventList()) {
                 is DataWrapper.Error -> {
+                    Assert.assertNotNull(itens.error)
                 }
                 else -> throw RuntimeException()
             }
@@ -125,6 +126,7 @@ class EventsRepositoryTest : KoinTest {
         runBlocking {
             when (val itens = eventRepository.getEventList()) {
                 is DataWrapper.Error -> {
+                    Assert.assertNotNull(itens.error)
                 }
                 else -> throw RuntimeException()
             }

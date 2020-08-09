@@ -3,6 +3,9 @@ package br.com.nerdrapido.mvvmmockapiapp.remote.network
 import android.app.Application
 import androidx.test.core.app.ApplicationProvider
 import br.com.nerdrapido.mvvmmockapiapp.di.MainModule
+import br.com.nerdrapido.mvvmmockapiapp.remote.service.EventService
+import kotlinx.coroutines.runBlocking
+import okhttp3.Interceptor
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -24,7 +27,6 @@ class NetworkStartupTest : KoinTest {
 
     private val networkController: NetworkController by inject()
 
-
     @Before
     fun setUp() {
         startKoin {
@@ -44,5 +46,14 @@ class NetworkStartupTest : KoinTest {
     @Test
     fun `inject networkTest`() {
         assert(networkController.retrofit.baseUrl() != null)
+    }
+
+    @Test
+    fun `test hot network service interceptor`() {
+        val service = networkController.retrofit.create(EventService::class.java)
+
+        runBlocking {
+            val itemResponse = service.getEvent("3")
+        }
     }
 }
