@@ -44,11 +44,6 @@ class NetworkStartupTest : KoinTest {
 
 
     @Test
-    fun `inject networkTest`() {
-        assert(networkController.retrofit.baseUrl() != null)
-    }
-
-    @Test
     fun `test hot network service interceptor`() {
         val service = networkController.retrofit.create(EventService::class.java)
 

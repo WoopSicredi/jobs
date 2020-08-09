@@ -47,13 +47,6 @@ class JsonMapperTest : KoinTest {
     }
 
     @Test
-    fun `test fromString with class`() {
-        val jsonObject = jsonMapper.fromString(jsonString, JsonMapperTestObject::class.java)
-        assert(jsonObject.val1 == val1)
-        assert(jsonObject.val2 == val2)
-    }
-
-    @Test
     fun `test fromString with type`() {
         val type: Type = object : TypeToken<JsonMapperTestObject>() {}.type
         val jsonObject : JsonMapperTestObject = jsonMapper.fromString(jsonString, type)
