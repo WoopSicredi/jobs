@@ -129,6 +129,14 @@ dependencies {
     androidTestImplementation "androidx.test:runner:$test_runner_version"
     androidTestImplementation "androidx.test:rules:$test_runner_version"
 
+    // Implementação do mockito
+    def mockito_version = '2.21.0'
+    testImplementation "org.mockito:mockito-inline:$mockito_version"
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+    testImplementation "org.mockito:mockito-android:$mockito_version"
+
+    testImplementation "android.arch.core:core-testing:1.1.1"
+
 }
 
 task testAll(dependsOn: ['testDebugUnitTest']) {
@@ -158,7 +166,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {
     def debugKotlin = fileTree(dir: "${buildDir}/tmp/kotlin-classes/debug", excludes: fileFilter)
     def mainSrc = "${project.projectDir}/src/main/java"
 
-    sourceDirectories = files([mainSrc])
-    classDirectories = files([debugJava, debugKotlin])
-    executionData = files("${buildDir}/jacoco/testDebugUnitTest.exec")
+    getSourceDirectories().setFrom(files([mainSrc]))
+    getClassDirectories().setFrom(files([debugJava, debugKotlin]))
+    getExecutionData().setFrom(files("${buildDir}/jacoco/testDebugUnitTest.exec"))
 }

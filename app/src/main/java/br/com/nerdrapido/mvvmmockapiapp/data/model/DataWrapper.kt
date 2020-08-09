@@ -15,5 +15,11 @@ sealed class DataWrapper<out T> {
     /**
      * Quando há erro de rede, ou seja, a requisição nem foi concluída com sucesso.
      */
-    data class Error(val error: Throwable) : DataWrapper<Nothing>()
+    data class NetworkError(val error: Throwable) : DataWrapper<Nothing>()
+
+    /**
+     * Quando há erro interno genérico, ex.: json parse do objeto.
+     */
+    data class GenericError(val error: Throwable) : DataWrapper<Nothing>()
+
 }

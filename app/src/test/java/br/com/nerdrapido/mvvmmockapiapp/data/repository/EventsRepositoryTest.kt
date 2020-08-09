@@ -3,19 +3,10 @@ package br.com.nerdrapido.mvvmmockapiapp.data.repository
 import android.app.Application
 import androidx.test.core.app.ApplicationProvider
 import br.com.nerdrapido.mvvmmockapiapp.data.model.DataWrapper
-import br.com.nerdrapido.mvvmmockapiapp.data.model.EventData
 import br.com.nerdrapido.mvvmmockapiapp.data.repository.event.EventRepository
 import br.com.nerdrapido.mvvmmockapiapp.di.MainModule
-import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.date
-import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.description
-import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.eventId
-import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.image
-import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.latitude
-import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.longitude
-import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.price
-import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.title
 import br.com.nerdrapido.mvvmmockapiapp.remote.network.MockServiceInterceptorWithException
-import br.com.nerdrapido.mvvmmockapiapp.remote.network.MockServiceInterceptorWithFile
+import br.com.nerdrapido.mvvmmockapiapp.remote.network.MockServiceInterceptorWithString
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import org.junit.After
@@ -31,8 +22,7 @@ import org.koin.dsl.module
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.robolectric.RobolectricTestRunner
-import java.io.IOException
-import java.net.HttpURLConnection
+import java.net.HttpURLConnection.HTTP_OK
 
 /**
  * Created By FELIPE GUSBERTI @ 08/08/2020
@@ -60,7 +50,7 @@ class EventsRepositoryTest : KoinTest {
     }
 
     @Test
-    fun `test get getEventList Generic exception`() {
+    fun `test get getEventList Network exception`() {
         loadKoinModules(
             module {
                 single<Interceptor>(override = true) {
@@ -71,7 +61,27 @@ class EventsRepositoryTest : KoinTest {
 
         runBlocking {
             when (val itens = eventRepository.getEventList()) {
-                is DataWrapper.Error -> {
+                is DataWrapper.NetworkError -> {
+                    Assert.assertNotNull(itens.error)
+                }
+                else -> throw RuntimeException()
+            }
+        }
+    }
+
+    @Test
+    fun `test get getEventList Generic exception`() {
+        loadKoinModules(
+            module {
+                single<Interceptor>(override = true) {
+                    MockServiceInterceptorWithString("{}", HTTP_OK)
+                }
+            }
+        )
+
+        runBlocking {
+            when (val itens = eventRepository.getEventList()) {
+                is DataWrapper.GenericError -> {
                     Assert.assertNotNull(itens.error)
                 }
                 else -> throw RuntimeException()

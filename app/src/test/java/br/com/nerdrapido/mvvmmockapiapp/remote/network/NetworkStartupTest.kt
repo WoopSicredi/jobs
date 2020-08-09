@@ -5,7 +5,6 @@ import androidx.test.core.app.ApplicationProvider
 import br.com.nerdrapido.mvvmmockapiapp.di.MainModule
 import br.com.nerdrapido.mvvmmockapiapp.remote.service.EventService
 import kotlinx.coroutines.runBlocking
-import okhttp3.Interceptor
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -48,7 +47,7 @@ class NetworkStartupTest : KoinTest {
         val service = networkController.retrofit.create(EventService::class.java)
 
         runBlocking {
-            val itemResponse = service.getEvent("3")
+            service.getEvent("3")
         }
     }
 }

@@ -4,6 +4,7 @@ import br.com.nerdrapido.mvvmmockapiapp.data.model.DataWrapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
+import java.io.IOException
 
 /**
  * Created By FELIPE GUSBERTI @ 09/08/2020
@@ -24,7 +25,10 @@ interface BaseRepository {
                 DataWrapper.Success(call.invoke())
             } catch (throwable: Throwable) {
                 Timber.e(throwable)
-                DataWrapper.Error(throwable)
+                when (throwable) {
+                    is IOException -> DataWrapper.NetworkError(throwable)
+                    else -> DataWrapper.GenericError(throwable)
+                }
             }
         }
     }
