@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: "kotlin-kapt"
+apply plugin: 'jacoco'
+
 
 android {
     compileSdkVersion 29
@@ -27,7 +29,21 @@ android {
             useLibrary 'android.test.base'
             useLibrary 'android.test.mock'
             buildConfigField("String", "SERVER_URL", '"http://5b840ba5db24a100142dcd8c.mockapi.io/api/"')
+            testCoverageEnabled = true
         }
+    }
+
+    testOptions {
+        unitTests.all {
+            jacoco {
+                includeNoLocationClasses = true
+            }
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
 }
@@ -113,6 +129,39 @@ dependencies {
     androidTestImplementation "androidx.test:runner:$test_runner_version"
     androidTestImplementation "androidx.test:rules:$test_runner_version"
 
+}
 
+//task testAll(dependsOn: ['testDebugUnitTest']) {
+//    group = 'custom_tasks'
+//    description = "Run all tests"
+//}
+//
+//task testAllWithCoverage(dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
+//    group = 'custom_tasks'
+//    description = "Run all tests With Coverage"
+//}
 
+jacoco {
+    toolVersion = "0.8.5"
+}
+
+task jacocoTestReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {
+
+    doFirst {
+        clean
+    }
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
+    def debugJava = fileTree(dir: "${buildDir}/intermediates/classes/debugUnitTest", excludes: fileFilter)
+    def debugKotlin = fileTree(dir: "${buildDir}/tmp/kotlin-classes/debug", excludes: fileFilter)
+    def mainSrc = "${project.projectDir}/src/main/java"
+
+    sourceDirectories = files([mainSrc])
+    classDirectories = files([debugJava, debugKotlin])
+    executionData = files("${buildDir}/jacoco/testDebugUnitTest.exec")
 }

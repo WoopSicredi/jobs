@@ -4,6 +4,10 @@ import android.app.Application
 import androidx.test.core.app.ApplicationProvider
 import br.com.nerdrapido.mvvmmockapiapp.di.MainModule
 import br.com.nerdrapido.mvvmmockapiapp.helpers.json.JsonMapper
+import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.cupomEventId
+import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.cuponJson
+import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.discount
+import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.eventId
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
@@ -21,11 +25,6 @@ import org.robolectric.RobolectricTestRunner
  */
 @RunWith(RobolectricTestRunner::class)
 class CupomResponseTest : KoinTest {
-
-    val id = "3"
-    val eventId = "3"
-    val discount = 17
-    val cuponJson = "{\"id\":\"$id\",\"eventId\":\"$eventId\",\"discount\":$discount}"
 
     private val context = ApplicationProvider.getApplicationContext<Application>()
 
@@ -49,15 +48,15 @@ class CupomResponseTest : KoinTest {
     @Test
     fun `test cupom hydratation from json`() {
         val cupomResponse = jsonMapper.fromString(cuponJson, CupomResponse::class.java)
-        Assert.assertEquals(id, cupomResponse.id)
+        Assert.assertEquals(cupomEventId, cupomResponse.id)
         Assert.assertEquals(eventId, cupomResponse.eventId)
         Assert.assertEquals(discount, cupomResponse.discount)
     }
 
     @Test
     fun `test cupom hydratation`() {
-        val cupomResponse = CupomResponse(id, eventId, discount)
-        Assert.assertEquals(id, cupomResponse.id)
+        val cupomResponse = CupomResponse(cupomEventId, eventId, discount)
+        Assert.assertEquals(cupomEventId, cupomResponse.id)
         Assert.assertEquals(eventId, cupomResponse.eventId)
         Assert.assertEquals(discount, cupomResponse.discount)
     }

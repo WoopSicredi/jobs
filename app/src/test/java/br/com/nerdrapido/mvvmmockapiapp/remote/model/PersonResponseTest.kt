@@ -4,6 +4,11 @@ import android.app.Application
 import androidx.test.core.app.ApplicationProvider
 import br.com.nerdrapido.mvvmmockapiapp.di.MainModule
 import br.com.nerdrapido.mvvmmockapiapp.helpers.json.JsonMapper
+import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.eventId
+import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.name
+import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.personId
+import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.personJson
+import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.picture
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
@@ -21,12 +26,6 @@ import org.robolectric.RobolectricTestRunner
  */
 @RunWith(RobolectricTestRunner::class)
 class PersonResponseTest : KoinTest {
-
-    val id = "3"
-    val eventId = "3"
-    val name = "name 3"
-    val picture = "picture 3"
-    val cuponJson = "{\"id\":\"3\",\"eventId\":\"3\",\"name\":\"name 3\",\"picture\":\"picture 3\"}"
 
     private val context = ApplicationProvider.getApplicationContext<Application>()
 
@@ -49,8 +48,8 @@ class PersonResponseTest : KoinTest {
 
     @Test
     fun `test people hydratation from json`() {
-        val peopleResponse = jsonMapper.fromString(cuponJson, PersonResponse::class.java)
-        Assert.assertEquals(id, peopleResponse.id)
+        val peopleResponse = jsonMapper.fromString(personJson, PersonResponse::class.java)
+        Assert.assertEquals(personId, peopleResponse.id)
         Assert.assertEquals(eventId, peopleResponse.eventId)
         Assert.assertEquals(name, peopleResponse.name)
         Assert.assertEquals(picture, peopleResponse.picture)
@@ -58,8 +57,8 @@ class PersonResponseTest : KoinTest {
 
     @Test
     fun `test people hydratation`() {
-        val peopleResponse = PersonResponse(id, eventId, name, picture)
-        Assert.assertEquals(id, peopleResponse.id)
+        val peopleResponse = PersonResponse(personId, eventId, name, picture)
+        Assert.assertEquals(personId, peopleResponse.id)
         Assert.assertEquals(eventId, peopleResponse.eventId)
         Assert.assertEquals(name, peopleResponse.name)
         Assert.assertEquals(picture, peopleResponse.picture)
@@ -67,8 +66,8 @@ class PersonResponseTest : KoinTest {
 
     @Test
     fun `test people hydratation with null picture`() {
-        val peopleResponse = PersonResponse(id, eventId, name)
-        Assert.assertEquals(id, peopleResponse.id)
+        val peopleResponse = PersonResponse(personId, eventId, name)
+        Assert.assertEquals(personId, peopleResponse.id)
         Assert.assertEquals(eventId, peopleResponse.eventId)
         Assert.assertEquals(name, peopleResponse.name)
         Assert.assertNull(peopleResponse.picture)

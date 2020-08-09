@@ -1,9 +1,9 @@
-package br.com.nerdrapido.mvvmmockapiapp.remote.model
+package br.com.nerdrapido.mvvmmockapiapp.data.mapper
 
 import android.app.Application
 import androidx.test.core.app.ApplicationProvider
 import br.com.nerdrapido.mvvmmockapiapp.di.MainModule
-import br.com.nerdrapido.mvvmmockapiapp.helpers.json.JsonMapper
+import br.com.nerdrapido.mvvmmockapiapp.remote.model.EventResponse
 import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.date
 import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.description
 import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.eventId
@@ -13,6 +13,7 @@ import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.latitude
 import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.longitude
 import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.price
 import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.title
+import com.google.gson.Gson
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
@@ -24,17 +25,16 @@ import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.robolectric.RobolectricTestRunner
-import java.io.InputStream
 
 /**
  * Created By FELIPE GUSBERTI @ 08/08/2020
  */
 @RunWith(RobolectricTestRunner::class)
-class EventResponseTest : KoinTest {
+class EventMapperTest : KoinTest {
 
     private val context = ApplicationProvider.getApplicationContext<Application>()
 
-    private val jsonMapper: JsonMapper by inject()
+    private val eventMapper: EventDataMaper by inject()
 
     @Before
     fun setUp() {
@@ -53,16 +53,17 @@ class EventResponseTest : KoinTest {
 
     @Test
     fun `test item hydratation from json`() {
-        val itemResponse = jsonMapper.fromString(eventJson, EventResponse::class.java)
-        Assert.assertEquals(date, itemResponse.date)
-        Assert.assertEquals(description, itemResponse.description)
-        Assert.assertEquals(image, itemResponse.image)
-        Assert.assertEquals(longitude, itemResponse.longitude, 0.0000001)
-        Assert.assertEquals(latitude, itemResponse.latitude, 0.0000001)
-        Assert.assertEquals(price, itemResponse.price)
-        Assert.assertEquals(title, itemResponse.title)
-        Assert.assertEquals(eventId, itemResponse.id)
-        Assert.assertEquals(1, itemResponse.cupons.count())
-        Assert.assertEquals(1, itemResponse.people.count())
+        val itenResponse = Gson().fromJson<EventResponse>(eventJson, EventResponse::class.java)
+        val itemData = eventMapper.mapRemoteToData(itenResponse)
+        Assert.assertEquals(date, itemData.date)
+        Assert.assertEquals(description, itemData.description)
+        Assert.assertEquals(image, itemData.image)
+        Assert.assertEquals(longitude, itemData.longitude, 0.0000001)
+        Assert.assertEquals(latitude, itemData.latitude, 0.0000001)
+        Assert.assertEquals(price, itemData.price)
+        Assert.assertEquals(title, itemData.title)
+        Assert.assertEquals(eventId, itemData.id)
+        Assert.assertEquals(1, itemData.cupons.count())
+        Assert.assertEquals(1, itemData.people.count())
     }
 }
