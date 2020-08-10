@@ -2,6 +2,7 @@
     package="br.com.nerdrapido.mvvmmockapiapp">
 
     <application
+        android:name=".ui.application.StartApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
