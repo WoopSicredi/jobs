@@ -1,14 +1,17 @@
 package br.com.nerdrapido.mvvmmockapiapp.ui.view.eventList
 
 import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.annotation.VisibleForTesting
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.nerdrapido.mvvmmockapiapp.R
+import br.com.nerdrapido.mvvmmockapiapp.presentation.enums.ViewStateEnum
 import br.com.nerdrapido.mvvmmockapiapp.presentation.viewModel.eventList.EventListViewModel
 import kotlinx.android.synthetic.main.activity_event_list.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -22,6 +25,24 @@ class EventListActivity : AppCompatActivity() {
     val viewModel: EventListViewModel by viewModel()
 
     private val adapter = EventListAdapter(emptyList())
+
+    /**
+     * Diálogo genérico para apresentação de erros
+     */
+    private var errorDialog: AlertDialog? = null
+        get() {
+            if (field == null) {
+                field = AlertDialog.Builder(this, R.style.ThemeOverlay_MaterialComponents_Dialog)
+                    .setPositiveButton(
+                        R.string.activity_error_positive_button
+                    ) { dialogInterface: DialogInterface, _: Int ->
+                        dialogInterface.dismiss()
+                        recreate()
+                    }
+                    .create()
+            }
+            return field
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +76,14 @@ class EventListActivity : AppCompatActivity() {
     private fun registerObservers() {
         viewModel.eventListStateLiveData.observe(this, Observer {
             adapter.setItems(it.eventList)
+            when (it.state) {
+                ViewStateEnum.LOADING -> eventListPb.show()
+                ViewStateEnum.SUCCESS -> eventListPb.hide()
+                ViewStateEnum.FAILED -> {
+                    eventListPb.hide()
+                    showApiErrorResponse()
+                }
+            }
         })
     }
 
@@ -63,9 +92,12 @@ class EventListActivity : AppCompatActivity() {
         viewModel.load()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    /**
+     * Mostra diálogo com erro de carregamento da API.
+     */
+    private fun showApiErrorResponse() {
+        errorDialog?.setTitle(getString(R.string.activity_error_message_api_title))
+        errorDialog?.setMessage(getString(R.string.activity_error_message_api_message))
+        errorDialog?.show()
     }
-
-
 }

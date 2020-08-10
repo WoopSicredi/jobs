@@ -7,6 +7,7 @@ import androidx.test.espresso.contrib.RecyclerViewActions.scrollTo
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.runner.AndroidJUnit4
 import br.com.nerdrapido.mvvmmockapiapp.R
+import br.com.nerdrapido.mvvmmockapiapp.testShared.MockServiceInterceptorWithException
 import br.com.nerdrapido.mvvmmockapiapp.testShared.MockServiceInterceptorWithString
 import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.eventListJson
 import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.title
@@ -17,6 +18,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
+import java.io.IOException
 import java.net.HttpURLConnection
 
 /**
@@ -53,6 +55,43 @@ class EventListActivityTest {
                         withChild(withText(title))
                     )
                 )
+                onView(withText("Valor: R$ 19,99")).check(matches(isDisplayed()))
+                break
+            } catch (t: Throwable) {
+                i--
+                throwable = t
+                Thread.sleep(10)
+            }
+        }
+        if (i == 0) {
+            throw throwable!!
+        }
+
+    }
+
+    @Test
+    fun test_EventListActivity_api_error() {
+        loadKoinModules(
+            module {
+                single<Interceptor>(override = true) {
+                    MockServiceInterceptorWithException(IOException())
+                }
+            }
+        )
+
+        val scenario: ActivityScenario<EventListActivity> =
+            ActivityScenario.launch(EventListActivity::class.java)
+
+        scenario.onActivity {
+
+        }
+        var i = 100
+        var throwable: Throwable? = null
+        while (i > 0) {
+            try {
+                onView(withText("Houve um erro ao carregar o conteúdo.")).check(matches(isDisplayed()))
+                onView(withText("Erro!")).check(matches(isDisplayed()))
+                onView(withText("Tentar novamente")).check(matches(isDisplayed()))
                 break
             } catch (t: Throwable) {
                 i--

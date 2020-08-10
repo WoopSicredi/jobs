@@ -6,7 +6,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.nerdrapido.mvvmmockapiapp.R
 import br.com.nerdrapido.mvvmmockapiapp.data.model.EventData
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_event_list.view.*
+import java.text.DateFormat.getDateTimeInstance
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Created By FELIPE GUSBERTI @ 09/08/2020
@@ -37,6 +41,17 @@ class EventListAdapter(private var items: List<EventData>) :
 
         fun bind(eventData: EventData) {
             itemView.listTitleTv.text = eventData.title
+            val date = getDateTimeInstance()
+            val dateString = date.format(Date(eventData.date))
+
+            itemView.listDateTv.text =
+                itemView.resources.getString(R.string.item_event_list_date, dateString)
+            itemView.listPriceTv.text = itemView.resources.getString(R.string.item_event_list_price, eventData.price)
+            Glide.with(itemView.context.applicationContext)
+                .load(eventData.image)
+                .placeholder(R.drawable.img_progress)
+                .error(R.drawable.ic_broken_image)
+                .into(itemView.eventListImageIv)
         }
     }
 

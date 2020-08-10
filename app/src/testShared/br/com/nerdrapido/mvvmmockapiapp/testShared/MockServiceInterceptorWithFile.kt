@@ -24,7 +24,7 @@ class MockServiceInterceptorWithFile(
     override fun intercept(chain: Interceptor.Chain): Response {
         val classloader =
             if (context == null) Thread.currentThread().contextClassLoader else context.classLoader
-        val inputStream: InputStream = classloader.getResourceAsStream(fileName)
+        val inputStream: InputStream = classloader!!.getResourceAsStream(fileName)
         val responseBody = inputStream.bufferedReader().use { it.readText() }
         Timber.d(responseBody)
 

@@ -2,18 +2,57 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="@dimen/item_list_padding">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/eventListImageIv"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorImageBackground"
+        android:minHeight="100dp"
+        android:scaleType="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="3:4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/listTitleTv"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="16dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/item_list_text_margin"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/listDateTv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+
+        app:layout_constraintStart_toEndOf="@+id/eventListImageIv"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/listDateTv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/item_list_text_margin"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/listTitleTv"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/listTitleTv"
+        app:layout_constraintTop_toBottomOf="@+id/listTitleTv" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/listPriceTv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/item_list_text_margin"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/listTitleTv"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/listTitleTv"
+
+        app:layout_constraintTop_toBottomOf="@+id/listDateTv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
