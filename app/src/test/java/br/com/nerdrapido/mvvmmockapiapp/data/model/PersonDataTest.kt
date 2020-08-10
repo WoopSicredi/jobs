@@ -28,8 +28,6 @@ class PersonDataTest : KoinTest {
 
     private val context = ApplicationProvider.getApplicationContext<Application>()
 
-    private val jsonMapper: JsonMapper by inject()
-
     @Before
     fun setUp() {
         startKoin {

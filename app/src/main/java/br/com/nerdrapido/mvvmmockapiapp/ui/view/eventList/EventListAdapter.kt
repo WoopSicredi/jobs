@@ -9,7 +9,6 @@ import br.com.nerdrapido.mvvmmockapiapp.data.model.EventData
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_event_list.view.*
 import java.text.DateFormat.getDateTimeInstance
-import java.text.SimpleDateFormat
 import java.util.*
 
 /**
@@ -46,7 +45,8 @@ class EventListAdapter(private var items: List<EventData>) :
 
             itemView.listDateTv.text =
                 itemView.resources.getString(R.string.item_event_list_date, dateString)
-            itemView.listPriceTv.text = itemView.resources.getString(R.string.item_event_list_price, eventData.price)
+            itemView.listPriceTv.text =
+                itemView.resources.getString(R.string.item_event_list_price, eventData.price)
             Glide.with(itemView.context.applicationContext)
                 .load(eventData.image)
                 .placeholder(R.drawable.img_progress)

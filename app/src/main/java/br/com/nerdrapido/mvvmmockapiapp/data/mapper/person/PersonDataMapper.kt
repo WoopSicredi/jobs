@@ -8,5 +8,4 @@ import br.com.nerdrapido.mvvmmockapiapp.remote.model.PersonResponse
  * Created By FELIPE GUSBERTI @ 08/08/2020
  */
 interface PersonDataMapper :
-    DataMapper<PersonData, PersonResponse> {
-}
+    DataMapper<PersonData, PersonResponse>

@@ -7,5 +7,4 @@ import br.com.nerdrapido.mvvmmockapiapp.domain.useCase.base.BaseUseCase
 /**
  * Created By FELIPE GUSBERTI @ 09/08/2020
  */
-interface GetEventListUseCase : BaseUseCase<GetEventListUseCaseInput, DataWrapper<List<EventData>>> {
-}
+interface GetEventListUseCase : BaseUseCase<GetEventListUseCaseInput, DataWrapper<List<EventData>>>

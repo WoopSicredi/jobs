@@ -1,7 +1,5 @@
 package br.com.nerdrapido.mvvmmockapiapp.testShared
 
-import java.io.InputStream
-
 /**
  * Created By FELIPE GUSBERTI @ 08/08/2020
  */

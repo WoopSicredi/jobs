@@ -8,5 +8,4 @@ import br.com.nerdrapido.mvvmmockapiapp.remote.model.EventResponse
  * Created By FELIPE GUSBERTI @ 08/08/2020
  */
 interface EventDataMapper  :
-    DataMapper<EventData, EventResponse> {
-}
+    DataMapper<EventData, EventResponse>

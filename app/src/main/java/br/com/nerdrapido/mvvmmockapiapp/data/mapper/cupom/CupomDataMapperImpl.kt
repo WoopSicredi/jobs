@@ -1,6 +1,5 @@
 package br.com.nerdrapido.mvvmmockapiapp.data.mapper.cupom
 
-import br.com.nerdrapido.mvvmmockapiapp.data.mapper.cupom.CupomDataMapper
 import br.com.nerdrapido.mvvmmockapiapp.data.model.CupomData
 import br.com.nerdrapido.mvvmmockapiapp.remote.model.CupomResponse
 
