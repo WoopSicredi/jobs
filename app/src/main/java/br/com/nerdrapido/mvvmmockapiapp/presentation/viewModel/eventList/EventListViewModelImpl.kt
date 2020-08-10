@@ -7,6 +7,8 @@ import br.com.nerdrapido.mvvmmockapiapp.data.model.EventData
 import br.com.nerdrapido.mvvmmockapiapp.domain.useCase.eventList.GetEventListUseCase
 import br.com.nerdrapido.mvvmmockapiapp.domain.useCase.eventList.GetEventListUseCaseInput
 import br.com.nerdrapido.mvvmmockapiapp.presentation.enums.ViewStateEnum
+import br.com.nerdrapido.mvvmmockapiapp.presentation.exception.ApiCallNetworkException
+import br.com.nerdrapido.mvvmmockapiapp.presentation.exception.NotMappedException
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -21,6 +23,7 @@ class EventListViewModelImpl(private val getEventListUseCase: GetEventListUseCas
     override fun fetchEventList() {
         eventListStateLiveData.postValue(EventListViewState())
         GlobalScope.launch {
+            // Nunca vai cair no "else"
             when (val eventList = getEventListUseCase.execute(GetEventListUseCaseInput())) {
                 is DataWrapper.Success<List<EventData>> -> {
                     eventListStateLiveData.postValue(
@@ -35,13 +38,19 @@ class EventListViewModelImpl(private val getEventListUseCase: GetEventListUseCas
                     eventListStateLiveData.postValue(
                         EventListViewState(
                             ViewStateEnum.FAILED,
-                            eventList.error,
-                            emptyList()
+                            ApiCallNetworkException(eventList.error)
                         )
                     )
                 }
                 else -> {
-                    throw RuntimeException("Unknown Error")
+                    // Se cair aqui com certeza será DataWrapper.GenericError
+                    val eventListCasted = eventList as DataWrapper.GenericError
+                    eventListStateLiveData.postValue(
+                        EventListViewState(
+                            ViewStateEnum.FAILED,
+                            NotMappedException(eventListCasted.error)
+                        )
+                    )
                 }
             }
         }
