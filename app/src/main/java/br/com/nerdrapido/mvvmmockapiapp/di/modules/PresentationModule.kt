@@ -1,5 +1,11 @@
 package br.com.nerdrapido.mvvmmockapiapp.di.modules
 
+import br.com.nerdrapido.mvvmmockapiapp.presentation.mapper.cupom.CupomModelMapper
+import br.com.nerdrapido.mvvmmockapiapp.presentation.mapper.cupom.CupomModelMapperImpl
+import br.com.nerdrapido.mvvmmockapiapp.presentation.mapper.event.EventModelMapper
+import br.com.nerdrapido.mvvmmockapiapp.presentation.mapper.event.EventModelMapperImpl
+import br.com.nerdrapido.mvvmmockapiapp.presentation.mapper.person.PersonModelMapper
+import br.com.nerdrapido.mvvmmockapiapp.presentation.mapper.person.PersonModelMapperImpl
 import br.com.nerdrapido.mvvmmockapiapp.presentation.viewModel.eventList.EventListViewModel
 import org.koin.dsl.module
 
@@ -14,6 +20,9 @@ object PresentationModule {
      * Módulo da camada Presenter.
      */
     val getPresenterModule = module {
-        factory { EventListViewModel(get()) }
+        single<PersonModelMapper> { PersonModelMapperImpl() }
+        single<CupomModelMapper> { CupomModelMapperImpl() }
+        single<EventModelMapper> { EventModelMapperImpl(get(), get()) }
+        factory { EventListViewModel(get(), get()) }
     }
 }

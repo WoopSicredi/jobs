@@ -13,6 +13,6 @@ object DomainModule {
      * Módulo da camada Domain.
      */
     val domainModule = module {
-        single<GetEventListUseCase> { GetEventListUseCaseImpl(get()) }
+        single<GetEventListUseCase>(override = true) { GetEventListUseCaseImpl(get()) }
     }
 }

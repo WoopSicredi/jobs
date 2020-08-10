@@ -142,6 +142,7 @@ dependencies {
     testImplementation "org.mockito:mockito-core:$mockito_version"
     testImplementation "org.mockito:mockito-android:$mockito_version"
 
+    androidTestImplementation "org.mockito:mockito-android:$mockito_version"
 
     testImplementation "android.arch.core:core-testing:1.1.1"
 
@@ -149,6 +150,7 @@ dependencies {
     def test_runner_version = '1.2.0'
     androidTestImplementation "androidx.test:runner:$test_runner_version"
     androidTestImplementation "androidx.test:rules:$test_runner_version"
+    androidTestImplementation ("org.koin:koin-test:$koin_version") { exclude group: 'org.mockito' }
     androidTestImplementation('io.mockk:mockk-android:1.9.3') { exclude module: 'objenesis' }
     androidTestImplementation 'org.objenesis:objenesis:2.6'
     def espresso_version = '3.3.0-rc03'

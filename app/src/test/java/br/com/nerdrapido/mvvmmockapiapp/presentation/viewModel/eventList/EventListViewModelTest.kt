@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.test.core.app.ApplicationProvider
 import br.com.nerdrapido.mvvmmockapiapp.di.MainModule
 import br.com.nerdrapido.mvvmmockapiapp.presentation.enums.ViewStateEnum
+import br.com.nerdrapido.mvvmmockapiapp.presentation.model.Event
 import br.com.nerdrapido.mvvmmockapiapp.testShared.MockServiceInterceptorWithException
 import br.com.nerdrapido.mvvmmockapiapp.testShared.MockServiceInterceptorWithString
 import kotlinx.coroutines.runBlocking
@@ -25,6 +26,7 @@ import org.koin.test.inject
 import org.mockito.ArgumentMatchers
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.Mockito.anyList
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 import org.robolectric.RobolectricTestRunner
@@ -44,7 +46,10 @@ class EventListViewModelTest : KoinTest {
     val rule = InstantTaskExecutorRule()
 
     @Mock
-    lateinit var observer: Observer<EventListViewState>
+    lateinit var dataObserver: Observer<List<Event>>
+
+    @Mock
+    lateinit var stateObserver: Observer<ViewStateEnum>
 
     val viewModel: EventListViewModel by inject()
 
@@ -62,7 +67,8 @@ class EventListViewModelTest : KoinTest {
     @After
     fun tearDown() {
         stopKoin()
-        viewModel.eventListStateLiveData.removeObserver { }
+        viewModel.getEventList().removeObserver { }
+        viewModel.getViewState().removeObserver { }
     }
 
 
@@ -80,25 +86,20 @@ class EventListViewModelTest : KoinTest {
         )
 
         runBlocking {
-            viewModel.eventListStateLiveData.observeForever(observer)
-            viewModel.fetchEventList()
+            viewModel.getEventList().observeForever(dataObserver)
+            viewModel.getViewState().observeForever(stateObserver)
             verify(
-                observer,
+                stateObserver,
                 Mockito.timeout(10000)
-            ).onChanged(
-                EventListViewState(
-                    ViewStateEnum.LOADING
-                )
-            )
+            ).onChanged(ViewStateEnum.LOADING)
             verify(
-                observer,
+                stateObserver,
                 Mockito.timeout(10000)
-            ).onChanged(
-                EventListViewState(
-                    ViewStateEnum.SUCCESS,
-                    null
-                )
-            )
+            ).onChanged(ViewStateEnum.SUCCESS)
+            verify(
+                dataObserver,
+                Mockito.timeout(10000)
+            ).onChanged(ArgumentMatchers.anyList())
         }
     }
 
@@ -116,25 +117,20 @@ class EventListViewModelTest : KoinTest {
         )
 
         runBlocking {
-            viewModel.eventListStateLiveData.observeForever(observer)
-            viewModel.fetchEventList()
+            viewModel.getEventList().observeForever(dataObserver)
+            viewModel.getViewState().observeForever(stateObserver)
             verify(
-                observer,
+                stateObserver,
                 Mockito.timeout(10000)
-            ).onChanged(
-                EventListViewState(
-                    ViewStateEnum.LOADING
-                )
-            )
+            ).onChanged(ViewStateEnum.LOADING)
             verify(
-                observer,
+                stateObserver,
                 Mockito.timeout(10000)
-            ).onChanged(
-                EventListViewState(
-                    ViewStateEnum.FAILED,
-                    ArgumentMatchers.any()
-                )
-            )
+            ).onChanged(ViewStateEnum.FAILED)
+            verify(
+                dataObserver,
+                Mockito.timeout(10000).atLeast(0)
+            ).onChanged(ArgumentMatchers.anyList())
         }
     }
 
@@ -151,25 +147,20 @@ class EventListViewModelTest : KoinTest {
         )
 
         runBlocking {
-            viewModel.eventListStateLiveData.observeForever(observer)
-            viewModel.fetchEventList()
+            viewModel.getEventList().observeForever(dataObserver)
+            viewModel.getViewState().observeForever(stateObserver)
             verify(
-                observer,
+                stateObserver,
                 Mockito.timeout(10000)
-            ).onChanged(
-                EventListViewState(
-                    ViewStateEnum.LOADING
-                )
-            )
+            ).onChanged(ViewStateEnum.LOADING)
             verify(
-                observer,
+                stateObserver,
                 Mockito.timeout(10000)
-            ).onChanged(
-                EventListViewState(
-                    ViewStateEnum.FAILED,
-                    ArgumentMatchers.any()
-                )
-            )
+            ).onChanged(ViewStateEnum.FAILED)
+            verify(
+                dataObserver,
+                Mockito.timeout(10000).atLeast(0)
+            ).onChanged(ArgumentMatchers.anyList())
         }
     }
 }

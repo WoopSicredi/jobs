@@ -1,60 +1,56 @@
 package br.com.nerdrapido.mvvmmockapiapp.presentation.viewModel.eventList
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import br.com.nerdrapido.mvvmmockapiapp.data.model.DataWrapper
 import br.com.nerdrapido.mvvmmockapiapp.data.model.EventData
 import br.com.nerdrapido.mvvmmockapiapp.domain.useCase.eventList.GetEventListUseCase
 import br.com.nerdrapido.mvvmmockapiapp.domain.useCase.eventList.GetEventListUseCaseInput
 import br.com.nerdrapido.mvvmmockapiapp.presentation.enums.ViewStateEnum
-import br.com.nerdrapido.mvvmmockapiapp.presentation.exception.ApiCallNetworkException
-import br.com.nerdrapido.mvvmmockapiapp.presentation.exception.NotMappedException
+import br.com.nerdrapido.mvvmmockapiapp.presentation.mapper.event.EventModelMapper
+import br.com.nerdrapido.mvvmmockapiapp.presentation.model.Event
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 /**
  * Created By FELIPE GUSBERTI @ 09/08/2020
  */
-class EventListViewModel(private val getEventListUseCase: GetEventListUseCase) : ViewModel(),
-    LifecycleObserver {
+class EventListViewModel(
+    private val getEventListUseCase: GetEventListUseCase,
+    private val eventModelMapper: EventModelMapper
+) : ViewModel() {
 
-    val eventListStateLiveData = MutableLiveData<EventListViewState>()
+    private val eventList : MutableLiveData<List<Event>> by lazy {
+        MutableLiveData<List<Event>>().also {
+            fetchEventList()
+        }
+    }
 
-    fun load() {
+    private val viewState = MutableLiveData<ViewStateEnum>(ViewStateEnum.LOADING)
+
+    fun getEventList() : LiveData<List<Event>> {
+        return eventList
+    }
+
+    fun getViewState() : LiveData<ViewStateEnum> {
+        return viewState
+    }
+
+    fun onTryAgainClick() {
         fetchEventList()
     }
 
-    fun fetchEventList() {
-        eventListStateLiveData.postValue(EventListViewState())
+    private fun fetchEventList() {
+        viewState.postValue(ViewStateEnum.LOADING)
         GlobalScope.launch {
             // Nunca vai cair no "else"
-            when (val eventList = getEventListUseCase.execute(GetEventListUseCaseInput())) {
+            when (val eventDataList = getEventListUseCase.execute(GetEventListUseCaseInput())) {
                 is DataWrapper.Success<List<EventData>> -> {
-                    eventListStateLiveData.postValue(
-                        EventListViewState(
-                            ViewStateEnum.SUCCESS,
-                            null,
-                            eventList.value
-                        )
-                    )
+                    viewState.postValue(ViewStateEnum.SUCCESS)
+                    eventList.postValue(eventModelMapper.mapDataToModelList(eventDataList.value))
                 }
-                is DataWrapper.NetworkError -> {
-                    eventListStateLiveData.postValue(
-                        EventListViewState(
-                            ViewStateEnum.FAILED,
-                            ApiCallNetworkException(eventList.error)
-                        )
-                    )
-                }
-                else -> {
-                    // Se cair aqui com certeza será DataWrapper.GenericError
-                    val eventListCasted = eventList as DataWrapper.GenericError
-                    eventListStateLiveData.postValue(
-                        EventListViewState(
-                            ViewStateEnum.FAILED,
-                            NotMappedException(eventListCasted.error)
-                        )
-                    )
-                }
+                else -> viewState.postValue(ViewStateEnum.FAILED)
             }
         }
     }

@@ -7,7 +7,7 @@ import br.com.nerdrapido.mvvmmockapiapp.data.repository.event.EventRepository
 /**
  * Created By FELIPE GUSBERTI @ 09/08/2020
  */
-class GetEventListUseCaseImpl(private val eventRepository: EventRepository) : GetEventListUseCase {
+open class GetEventListUseCaseImpl(private val eventRepository: EventRepository) : GetEventListUseCase {
 
     override suspend fun execute(input: GetEventListUseCaseInput): DataWrapper<List<EventData>> {
         return eventRepository.getEventList()

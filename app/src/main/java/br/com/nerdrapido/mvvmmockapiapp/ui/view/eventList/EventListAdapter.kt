@@ -5,16 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.nerdrapido.mvvmmockapiapp.R
-import br.com.nerdrapido.mvvmmockapiapp.data.model.EventData
+import br.com.nerdrapido.mvvmmockapiapp.presentation.model.Event
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_event_list.view.*
-import java.text.DateFormat.getDateTimeInstance
-import java.util.*
 
 /**
  * Created By FELIPE GUSBERTI @ 09/08/2020
  */
-class EventListAdapter(private var items: List<EventData>) :
+class EventListAdapter(private var items: List<Event>) :
     RecyclerView.Adapter<EventListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,20 +29,17 @@ class EventListAdapter(private var items: List<EventData>) :
         holder.bind(items[position])
     }
 
-    fun setItems(itemList: List<EventData>) {
+    fun setItems(itemList: List<Event>) {
         items = itemList
         notifyDataSetChanged()
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(eventData: EventData) {
+        fun bind(eventData: Event) {
             itemView.listTitleTv.text = eventData.title
-            val date = getDateTimeInstance()
-            val dateString = date.format(Date(eventData.date))
-
             itemView.listDateTv.text =
-                itemView.resources.getString(R.string.item_event_list_date, dateString)
+                itemView.resources.getString(R.string.item_event_list_date, eventData.date)
             itemView.listPriceTv.text =
                 itemView.resources.getString(R.string.item_event_list_price, eventData.price)
             Glide.with(itemView.context.applicationContext)

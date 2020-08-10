@@ -29,20 +29,16 @@ class EventListActivity : AppCompatActivity() {
     /**
      * Diálogo genérico para apresentação de erros
      */
-    private var errorDialog: AlertDialog? = null
-        get() {
-            if (field == null) {
-                field = AlertDialog.Builder(this, R.style.ThemeOverlay_MaterialComponents_Dialog)
-                    .setPositiveButton(
-                        R.string.activity_error_positive_button
-                    ) { dialogInterface: DialogInterface, _: Int ->
-                        dialogInterface.dismiss()
-                        recreate()
-                    }
-                    .create()
+    private val errorDialog: AlertDialog by lazy {
+        return@lazy AlertDialog.Builder(this, R.style.ThemeOverlay_MaterialComponents_Dialog)
+            .setPositiveButton(
+                R.string.activity_error_positive_button
+            ) { dialogInterface: DialogInterface, _: Int ->
+                dialogInterface.dismiss()
+                viewModel.onTryAgainClick()
             }
-            return field
-        }
+            .create()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,10 +69,14 @@ class EventListActivity : AppCompatActivity() {
         registerObservers()
     }
 
+    /**
+     * @suppress nunca vai ser nulo
+     */
+    @Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
     private fun registerObservers() {
-        viewModel.eventListStateLiveData.observe(this, Observer {
-            adapter.setItems(it.eventList)
-            when (it.state) {
+        viewModel.getEventList().observe(this, Observer { adapter.setItems(it) })
+        viewModel.getViewState().observe(this, Observer {
+            when (it) {
                 ViewStateEnum.LOADING -> eventListPb.show()
                 ViewStateEnum.SUCCESS -> eventListPb.hide()
                 ViewStateEnum.FAILED -> {
@@ -87,17 +87,12 @@ class EventListActivity : AppCompatActivity() {
         })
     }
 
-    override fun onStart() {
-        super.onStart()
-        viewModel.load()
-    }
-
     /**
      * Mostra diálogo com erro de carregamento da API.
      */
     private fun showApiErrorResponse() {
-        errorDialog?.setTitle(getString(R.string.activity_error_message_api_title))
-        errorDialog?.setMessage(getString(R.string.activity_error_message_api_message))
-        errorDialog?.show()
+        errorDialog.setTitle(getString(R.string.activity_error_message_api_title))
+        errorDialog.setMessage(getString(R.string.activity_error_message_api_message))
+        errorDialog.show()
     }
 }
