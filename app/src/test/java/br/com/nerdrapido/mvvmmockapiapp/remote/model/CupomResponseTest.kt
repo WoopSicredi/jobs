@@ -4,10 +4,10 @@ import android.app.Application
 import androidx.test.core.app.ApplicationProvider
 import br.com.nerdrapido.mvvmmockapiapp.di.MainModule
 import br.com.nerdrapido.mvvmmockapiapp.helpers.json.JsonMapper
-import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.cupomEventId
-import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.cuponJson
-import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.discount
-import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.eventId
+import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.cupomEventId
+import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.cuponJson
+import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.discount
+import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.eventId
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before

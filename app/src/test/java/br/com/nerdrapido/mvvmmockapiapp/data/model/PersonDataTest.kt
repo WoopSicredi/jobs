@@ -4,11 +4,10 @@ import android.app.Application
 import androidx.test.core.app.ApplicationProvider
 import br.com.nerdrapido.mvvmmockapiapp.di.MainModule
 import br.com.nerdrapido.mvvmmockapiapp.helpers.json.JsonMapper
-import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.eventId
-import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.name
-import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.personId
-import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.personJson
-import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.picture
+import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.eventId
+import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.name
+import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.personId
+import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.picture
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before

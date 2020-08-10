@@ -6,8 +6,8 @@ import androidx.lifecycle.Observer
 import androidx.test.core.app.ApplicationProvider
 import br.com.nerdrapido.mvvmmockapiapp.di.MainModule
 import br.com.nerdrapido.mvvmmockapiapp.presentation.enums.ViewStateEnum
-import br.com.nerdrapido.mvvmmockapiapp.remote.network.MockServiceInterceptorWithException
-import br.com.nerdrapido.mvvmmockapiapp.remote.network.MockServiceInterceptorWithString
+import br.com.nerdrapido.mvvmmockapiapp.testShared.MockServiceInterceptorWithException
+import br.com.nerdrapido.mvvmmockapiapp.testShared.MockServiceInterceptorWithString
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import org.junit.After

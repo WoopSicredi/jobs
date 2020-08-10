@@ -1,5 +1,6 @@
-package br.com.nerdrapido.mvvmmockapiapp.remote.network
+package br.com.nerdrapido.mvvmmockapiapp.testShared
 
+import android.content.Context
 import com.google.gson.Gson
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -13,11 +14,16 @@ import java.io.InputStream
 /**
  * Created By FELIPE GUSBERTI @ 08/08/2020
  */
-class MockServiceInterceptorWithFile(private val fileName: String, private val code: Int) :
+class MockServiceInterceptorWithFile(
+    private val fileName: String,
+    private val code: Int,
+    private val context: Context? = null
+) :
     Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        val classloader = Thread.currentThread().contextClassLoader
+        val classloader =
+            if (context == null) Thread.currentThread().contextClassLoader else context.classLoader
         val inputStream: InputStream = classloader.getResourceAsStream(fileName)
         val responseBody = inputStream.bufferedReader().use { it.readText() }
         Timber.d(responseBody)

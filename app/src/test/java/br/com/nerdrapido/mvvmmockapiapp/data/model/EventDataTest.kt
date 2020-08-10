@@ -1,13 +1,13 @@
 package br.com.nerdrapido.mvvmmockapiapp.data.model
 
-import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.date
-import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.description
-import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.eventId
-import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.image
-import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.latitude
-import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.longitude
-import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.price
-import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock.title
+import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.date
+import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.description
+import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.eventId
+import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.image
+import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.latitude
+import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.longitude
+import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.price
+import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.title
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith

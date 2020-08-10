@@ -5,8 +5,8 @@ import androidx.test.core.app.ApplicationProvider
 import br.com.nerdrapido.mvvmmockapiapp.data.model.DataWrapper
 import br.com.nerdrapido.mvvmmockapiapp.data.model.EventData
 import br.com.nerdrapido.mvvmmockapiapp.di.MainModule
-import br.com.nerdrapido.mvvmmockapiapp.remote.model.RemoteModelMock
-import br.com.nerdrapido.mvvmmockapiapp.remote.network.MockServiceInterceptorWithFile
+import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock
+import br.com.nerdrapido.mvvmmockapiapp.testShared.MockServiceInterceptorWithFile
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import org.junit.After

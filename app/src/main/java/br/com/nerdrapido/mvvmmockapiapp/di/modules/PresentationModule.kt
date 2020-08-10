@@ -1,7 +1,6 @@
 package br.com.nerdrapido.mvvmmockapiapp.di.modules
 
 import br.com.nerdrapido.mvvmmockapiapp.presentation.viewModel.eventList.EventListViewModel
-import br.com.nerdrapido.mvvmmockapiapp.presentation.viewModel.eventList.EventListViewModelImpl
 import org.koin.dsl.module
 
 /**
@@ -15,10 +14,6 @@ object PresentationModule {
      * Módulo da camada Presenter.
      */
     val getPresenterModule = module {
-        factory<EventListViewModel> {
-            EventListViewModelImpl(
-                get()
-            )
-        }
+        factory { EventListViewModel(get()) }
     }
 }

@@ -1,4 +1,4 @@
-package br.com.nerdrapido.mvvmmockapiapp.remote.network
+package br.com.nerdrapido.mvvmmockapiapp.testShared
 
 import okhttp3.Interceptor
 import okhttp3.Response

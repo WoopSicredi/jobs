@@ -1,4 +1,4 @@
-package br.com.nerdrapido.mvvmmockapiapp.remote.network
+package br.com.nerdrapido.mvvmmockapiapp.testShared
 
 import com.google.gson.Gson
 import okhttp3.Interceptor
