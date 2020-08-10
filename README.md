@@ -5,6 +5,8 @@
 #### Arquitetura MVVM
 #### Utilizado prática TDD com testes unitários e instrumentados (JUnit e Espresso)
 #### Cobertura do Jacoco https://drive.google.com/file/d/15QdBlFGMpk1pon8EYxOT--ZKrZYvLwDh/view?usp=sharing
+Rodar task jacocoTestReportClean do gradle para verificar
+O trecho sem cobertura foi mantido pois a não declaração dos dois construtores pode acarretar em RuntimeException
 
 #### Com mais tempo poderia avançar mais, mas prezando pela qualidade, dentro da minha rotina foi até onde pude ir
 #### Tenho uma amortra de UI mais complexa desenvolvida por mim em https://github.com/fwgusberti/movie-db-app/releases/tag/1.0.0 (necessário cadastro no MovieDb https://www.themoviedb.org/?language=pt-BR)
