@@ -2,14 +2,15 @@ package br.com.nerdrapido.mvvmmockapiapp.ui.view.eventList
 
 import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.view.View
+import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.nerdrapido.mvvmmockapiapp.R
 import br.com.nerdrapido.mvvmmockapiapp.presentation.viewModel.eventList.EventListViewModel
+import kotlinx.android.synthetic.main.activity_event_list.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
@@ -17,7 +18,10 @@ import org.koin.android.viewmodel.ext.android.viewModel
  */
 class EventListActivity : AppCompatActivity() {
 
-    private val viewModel: EventListViewModel by viewModel()
+    @VisibleForTesting
+    val viewModel: EventListViewModel by viewModel()
+
+    private val adapter = EventListAdapter(emptyList())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,12 +46,26 @@ class EventListActivity : AppCompatActivity() {
     private fun onCreateCall() {
         @Suppress("UNCHECKED_CAST")
         setContentView(R.layout.activity_event_list)
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            window.statusBarColor = Color.WHITE
-        }
-        this.lifecycle.addObserver(viewModel)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        eventListRv.adapter = adapter
+        eventListRv.layoutManager = LinearLayoutManager(this)
+        registerObservers()
     }
+
+    private fun registerObservers() {
+        viewModel.eventListStateLiveData.observe(this, Observer {
+            adapter.setItems(it.eventList)
+        })
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.load()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
 
 }

@@ -22,18 +22,20 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "SERVER_URL", '"http://5b840ba5db24a100142dcd8c.mockapi.io/api/"')
+            buildConfigField("String", "SERVER_URL", '"https://5b840ba5db24a100142dcd8c.mockapi.io/api/"')
         }
         debug {
             useLibrary 'android.test.runner'
             useLibrary 'android.test.base'
             useLibrary 'android.test.mock'
-            buildConfigField("String", "SERVER_URL", '"http://5b840ba5db24a100142dcd8c.mockapi.io/api/"')
+            buildConfigField("String", "SERVER_URL", '"https://5b840ba5db24a100142dcd8c.mockapi.io/api/"')
             testCoverageEnabled = true
         }
     }
 
     testOptions {
+        animationsDisabled = true
+
         unitTests.all {
             jacoco {
                 includeNoLocationClasses = true
@@ -108,7 +110,6 @@ dependencies {
     // Implementação do Okhttplogger
     implementation 'com.squareup.okhttp3:logging-interceptor:4.8.0'
 
-
     // Test Core library
     testImplementation 'androidx.test:core:1.2.0'
 
@@ -150,7 +151,9 @@ dependencies {
     androidTestImplementation "androidx.test:rules:$test_runner_version"
     androidTestImplementation('io.mockk:mockk-android:1.9.3') { exclude module: 'objenesis' }
     androidTestImplementation 'org.objenesis:objenesis:2.6'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-rc03'
+    def espresso_version = '3.3.0-rc03'
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espresso_version"
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
 }
 

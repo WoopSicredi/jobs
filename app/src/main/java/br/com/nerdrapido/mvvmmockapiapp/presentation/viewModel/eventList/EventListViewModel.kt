@@ -19,7 +19,6 @@ class EventListViewModel(private val getEventListUseCase: GetEventListUseCase) :
 
     val eventListStateLiveData = MutableLiveData<EventListViewState>()
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun load() {
         fetchEventList()
     }

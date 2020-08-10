@@ -13,4 +13,5 @@ data class EventListViewState(
     val error: Throwable? = null,
 
     val eventList: List<EventData> = emptyList()
+
 )

@@ -1,10 +1,17 @@
 package br.com.nerdrapido.mvvmmockapiapp.ui.view
 
 import androidx.test.core.app.ActivityScenario
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions.scrollTo
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.runner.AndroidJUnit4
+import br.com.nerdrapido.mvvmmockapiapp.R
 import br.com.nerdrapido.mvvmmockapiapp.testShared.MockServiceInterceptorWithString
 import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.eventListJson
+import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.title
 import br.com.nerdrapido.mvvmmockapiapp.ui.view.eventList.EventListActivity
+import br.com.nerdrapido.mvvmmockapiapp.ui.view.eventList.EventListAdapter
 import okhttp3.Interceptor
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -32,8 +39,30 @@ class EventListActivityTest {
         )
         val scenario: ActivityScenario<EventListActivity> =
             ActivityScenario.launch(EventListActivity::class.java)
-        scenario.onActivity { activity ->
+
+        scenario.onActivity {
 
         }
+        onView(withId(R.id.eventListRv)).check(matches(isDisplayed()))
+        var i = 100
+        var throwable: Throwable? = null
+        while (i > 0) {
+            try {
+                onView(withId(R.id.eventListRv)).perform(
+                    scrollTo<EventListAdapter.ViewHolder>(
+                        withChild(withText(title))
+                    )
+                )
+                break
+            } catch (t: Throwable) {
+                i--
+                throwable = t
+                Thread.sleep(10)
+            }
+        }
+        if (i == 0) {
+            throw throwable!!
+        }
+
     }
 }
