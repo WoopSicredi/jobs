@@ -140,6 +140,16 @@ class EventActivityTest : KoinTest {
         )
         onView(
             allOf(
+                withText("Check-in"),
+                withId(R.id.checkInBt)
+            )
+        ).check(
+            matches(
+                isDisplayed()
+            )
+        )
+        onView(
+            allOf(
                 withText(price.toString()),
                 withId(R.id.infoTv)
             )

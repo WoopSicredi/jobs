@@ -11,6 +11,7 @@
     <string name="fragment_event_detail_title">Título</string>
     <string name="fragment_event_detail_description">Descrição do evento</string>
     <string name="fragment_event_detail_valor">Valor</string>
+    <string name="btn_fragment_event_detail_check_in_btn">Check-in</string>
     <string name="view_info_title">%s: </string>
 
 </resources>

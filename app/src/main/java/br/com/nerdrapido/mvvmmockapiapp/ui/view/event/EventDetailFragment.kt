@@ -1,5 +1,7 @@
 package br.com.nerdrapido.mvvmmockapiapp.ui.view.event
 
+import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -37,6 +39,10 @@ class EventDetailFragment : Fragment() {
         viewModel.getEventSelected().observe(viewLifecycleOwner, Observer {
             hydrateEvent(it)
         })
+        checkInBt.setOnClickListener {
+            viewModel.onCheckIn()
+        }
+        checkInBt.text = getString(R.string.btn_fragment_event_detail_check_in_btn)
     }
 
     private fun hydrateEvent(event: Event) {
@@ -50,7 +56,7 @@ class EventDetailFragment : Fragment() {
         // aqui é feita a mágica para que o titulo da toolbar se adapte ao conteúdo.
         // A margem do título fica atrelada ao tamanho da overview do livro e é animada no scroll
         overviewTv.addOnLayoutChangeListener { _, _, top, _, _, _, _, _, _ ->
-            collapsingToolbar.expandedTitleMarginBottom = addVoucherBt.bottom - top
+            collapsingToolbar.expandedTitleMarginBottom = checkInBt.bottom - top
         }
         detailInfoContainer.removeAllViews()
         addInfoView(

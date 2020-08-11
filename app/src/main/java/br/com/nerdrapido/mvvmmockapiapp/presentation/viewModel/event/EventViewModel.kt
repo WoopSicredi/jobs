@@ -48,6 +48,10 @@ class EventViewModel(
         fetchEventList()
     }
 
+    fun onCheckIn() {
+
+    }
+
     fun onEventItemCLick(event: Event) {
         eventSelected.postValue(event)
     }

@@ -108,9 +108,10 @@
                     app:layout_constraintTop_toBottomOf="@+id/eventCoverIv" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/addVoucherBt"
+                    android:id="@+id/checkInBt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_check"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/overviewTv"
