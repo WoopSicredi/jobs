@@ -1,7 +1,6 @@
 package br.com.nerdrapido.mvvmmockapiapp.ui.view.event
 
-import android.graphics.drawable.Drawable
-import android.os.Build
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -40,7 +39,7 @@ class EventDetailFragment : Fragment() {
             hydrateEvent(it)
         })
         checkInBt.setOnClickListener {
-            viewModel.onCheckIn()
+            TODO("ação do checkin")
         }
         checkInBt.text = getString(R.string.btn_fragment_event_detail_check_in_btn)
     }
@@ -60,14 +59,17 @@ class EventDetailFragment : Fragment() {
         }
         detailInfoContainer.removeAllViews()
         addInfoView(
+            requireContext(),
             getString(R.string.fragment_event_detail_title),
             event.title
         )
         addInfoView(
+            requireContext(),
             getString(R.string.fragment_event_detail_valor),
             event.price.toString()
         )
         addInfoView(
+            requireContext(),
             getString(R.string.fragment_event_detail_description),
             event.description,
             true
@@ -82,13 +84,16 @@ class EventDetailFragment : Fragment() {
      * @param multiline se true é criado uam [ItemInfoViewMultiline] se falso
      * [ItemInfoViewSingleLine]
      */
-    private fun addInfoView(title: String, info: String, multiline: Boolean = false) {
-        context?.let {
-            val infoView: ItemInfoView =
-                if (multiline) ItemInfoViewMultiline(it) else ItemInfoViewSingleLine(it)
-            infoView.title = title
-            infoView.info = info
-            detailInfoContainer.addView(infoView as View)
-        }
+    private fun addInfoView(
+        context: Context,
+        title: String,
+        info: String,
+        multiline: Boolean = false
+    ) {
+        val infoView: ItemInfoView =
+            if (multiline) ItemInfoViewMultiline(context) else ItemInfoViewSingleLine(context)
+        infoView.setTitle(title)
+        infoView.setInfo(info)
+        detailInfoContainer.addView(infoView as View)
     }
 }

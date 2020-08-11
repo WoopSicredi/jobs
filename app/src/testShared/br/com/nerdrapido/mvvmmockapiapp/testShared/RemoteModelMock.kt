@@ -20,12 +20,17 @@ object RemoteModelMock {
 
     val personId = "3"
     val personEventId = "3"
-    val name = "name 3"
+    val personName = "name 3"
     val picture = "picture 3"
-    val personJson = "{\"id\":\"$personId\",\"eventId\":\"$personEventId\",\"name\":\"$name\",\"picture\":\"$picture\"}"
+    val personJson = "{\"id\":\"$personId\",\"eventId\":\"$personEventId\",\"name\":\"$personName\",\"picture\":\"$picture\"}"
 
     val cupumId = "3"
     val cupomEventId = "3"
     val discount = 17
     val cuponJson = "{\"id\":\"$cupumId\",\"eventId\":\"$eventId\",\"discount\":$discount}"
+
+
+    val checkInEventId = "2"
+    val checkInName = "Fulano de tal"
+    val checkInEmail = "fulano@email.com"
 }

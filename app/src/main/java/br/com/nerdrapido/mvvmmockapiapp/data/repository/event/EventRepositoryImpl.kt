@@ -9,7 +9,10 @@ import br.com.nerdrapido.mvvmmockapiapp.remote.service.EventService
 /**
  * Created By FELIPE GUSBERTI @ 08/08/2020
  */
-class EventRepositoryImpl(networkController: NetworkController, private val eventDataMapper: EventDataMapper) :
+class EventRepositoryImpl(
+    networkController: NetworkController,
+    private val eventDataMapper: EventDataMapper
+) :
     EventRepository {
 
     private val service = networkController.retrofit.create(EventService::class.java)

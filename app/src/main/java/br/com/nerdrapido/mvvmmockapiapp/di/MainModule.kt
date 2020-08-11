@@ -11,7 +11,6 @@ object MainModule {
 
     val module = listOf(
         HelperModule.helperModule,
-        CacheModule.cacheModule,
         RemoteModule.remoteModule,
         DataModule.dataModule,
         DomainModule.domainModule,

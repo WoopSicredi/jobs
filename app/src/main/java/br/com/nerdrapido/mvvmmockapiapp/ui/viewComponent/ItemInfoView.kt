@@ -16,17 +16,19 @@ abstract class ItemInfoView constructor(
 
     protected abstract val layoutId: Int
 
-    var title: String = infoDefaultValue
-        set(value) {
-            field = value
-            updateText(title, info)
-        }
+    private var title: String = infoDefaultValue
 
-    var info: String = infoDefaultValue
-        set(value) {
-            field = value
-            updateText(title, info)
-        }
+    private var info: String = infoDefaultValue
+
+    fun setTitle(newTitle : String) {
+        title = newTitle
+        updateText(title, info)
+    }
+
+    fun setInfo(newInfo : String) {
+        info = newInfo
+        updateText(title, info)
+    }
 
     private fun updateText(title: String, info: String) {
         titleTv.text = context.getString(R.string.view_info_title, title)

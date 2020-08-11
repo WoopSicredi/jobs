@@ -18,12 +18,12 @@ class PersonTest : KoinTest {
         val personTest = Person(
             RemoteModelMock.personId,
             RemoteModelMock.eventId,
-            RemoteModelMock.name,
+            RemoteModelMock.personName,
             RemoteModelMock.picture
         )
         Assert.assertEquals(RemoteModelMock.personId, personTest.id)
         Assert.assertEquals(RemoteModelMock.eventId, personTest.eventId)
-        Assert.assertEquals(RemoteModelMock.name, personTest.name)
+        Assert.assertEquals(RemoteModelMock.personName, personTest.name)
         Assert.assertEquals(RemoteModelMock.picture, personTest.picture)
     }
 
@@ -32,11 +32,11 @@ class PersonTest : KoinTest {
         val personTest = Person(
             RemoteModelMock.personId,
             RemoteModelMock.eventId,
-            RemoteModelMock.name
+            RemoteModelMock.personName
         )
         Assert.assertEquals(RemoteModelMock.personId, personTest.id)
         Assert.assertEquals(RemoteModelMock.eventId, personTest.eventId)
-        Assert.assertEquals(RemoteModelMock.name, personTest.name)
+        Assert.assertEquals(RemoteModelMock.personName, personTest.name)
         Assert.assertNull(personTest.picture)
     }
 

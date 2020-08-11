@@ -1,5 +1,8 @@
 package br.com.nerdrapido.mvvmmockapiapp.di.modules
 
+import br.com.nerdrapido.mvvmmockapiapp.data.mapper.checkIn.CheckInDataMapper
+import br.com.nerdrapido.mvvmmockapiapp.presentation.mapper.checkIn.CheckInMapper
+import br.com.nerdrapido.mvvmmockapiapp.presentation.mapper.checkIn.CheckInMapperImpl
 import br.com.nerdrapido.mvvmmockapiapp.presentation.mapper.cupom.CupomModelMapper
 import br.com.nerdrapido.mvvmmockapiapp.presentation.mapper.cupom.CupomModelMapperImpl
 import br.com.nerdrapido.mvvmmockapiapp.presentation.mapper.event.EventModelMapper
@@ -23,6 +26,7 @@ object PresentationModule {
         single<PersonModelMapper> { PersonModelMapperImpl() }
         single<CupomModelMapper> { CupomModelMapperImpl() }
         single<EventModelMapper> { EventModelMapperImpl(get(), get()) }
-        factory { EventViewModel(get(), get()) }
+        single<CheckInMapper> { CheckInMapperImpl() }
+        factory { EventViewModel(get(), get(), get(), get()) }
     }
 }

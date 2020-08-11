@@ -2,6 +2,8 @@ package br.com.nerdrapido.mvvmmockapiapp.ui.view
 
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.Espresso.pressBack
+import androidx.test.espresso.NoActivityResumedException
 import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -24,8 +26,8 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import org.hamcrest.CoreMatchers.allOf
 import org.junit.Test
-import org.junit.internal.runners.JUnit4ClassRunner
 import org.junit.runner.RunWith
+import org.junit.runners.BlockJUnit4ClassRunner
 import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
 import org.koin.test.KoinTest
@@ -36,7 +38,7 @@ import java.lang.reflect.Type
 /**
  * Created By FELIPE GUSBERTI @ 09/08/2020
  */
-@RunWith(JUnit4ClassRunner::class)
+@RunWith(BlockJUnit4ClassRunner::class)
 class EventActivityTest : KoinTest {
 
     private val valor = "Valor: R$ 19,99"
@@ -60,9 +62,8 @@ class EventActivityTest : KoinTest {
                 single<GetEventListUseCase>(override = true) { getEventListUseCase }
             }
         )
-        val scenario: ActivityScenario<EventActivity> =
-            ActivityScenario.launch(EventActivity::class.java)
-        scenario.onActivity {}
+        ActivityScenario.launch(EventActivity::class.java)
+
         onView(withId(R.id.eventListRv)).check(matches(isDisplayed()))
         waitViewAppear(onView(withText(title)))
         onView(withId(R.id.eventListRv)).perform(
@@ -86,10 +87,7 @@ class EventActivityTest : KoinTest {
             }
         )
 
-        val scenario: ActivityScenario<EventActivity> =
-            ActivityScenario.launch(EventActivity::class.java)
-
-        scenario.onActivity {}
+        ActivityScenario.launch(EventActivity::class.java)
         waitViewAppear(onView(withText("Houve um erro ao carregar o conteúdo.")))
         onView(withText("Erro!")).check(matches(isDisplayed()))
         onView(withText("Tentar novamente")).check(matches(isDisplayed()))
@@ -115,9 +113,7 @@ class EventActivityTest : KoinTest {
             }
         )
 
-        val scenario: ActivityScenario<EventActivity> =
-            ActivityScenario.launch(EventActivity::class.java)
-        scenario.onActivity {}
+        ActivityScenario.launch(EventActivity::class.java)
         waitViewAppear(onView(withText(title)))
         onView(withId(R.id.eventListRv)).perform(
             RecyclerViewActions.scrollTo<EventListAdapter.ViewHolder>(
@@ -158,6 +154,44 @@ class EventActivityTest : KoinTest {
                 isDisplayed()
             )
         )
+    }
+
+    @Test
+    fun test_press_back_button_when_in_detail() {
+        getEventListUseCaseOutput = getDataSuccess()
+        loadKoinModules(
+            module {
+                single<GetEventListUseCase>(override = true) { getEventListUseCase }
+            }
+        )
+        ActivityScenario.launch(EventActivity::class.java)
+        waitViewAppear(onView(withText(title)))
+        onView(withId(R.id.eventListRv)).perform(
+            RecyclerViewActions.scrollTo<EventListAdapter.ViewHolder>(
+                withChild(withText(title))
+            )
+        )
+        onView(withText(title)).perform(click())
+        pressBack()
+        onView(withId(R.id.eventListRv)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun test_press_back_button_when_in_event_list() {
+        getEventListUseCaseOutput = getDataSuccess()
+        loadKoinModules(
+            module {
+                single<GetEventListUseCase>(override = true) { getEventListUseCase }
+            }
+        )
+        ActivityScenario.launch(EventActivity::class.java)
+        waitViewAppear(onView(withText(title)))
+        try {
+            pressBack()
+            throw RuntimeException("Não deveria chegar aqui")
+        } catch (e: NoActivityResumedException) {
+            // Passou no teste
+        }
     }
 
     private fun waitViewAppear(viewInteraction: ViewInteraction) {

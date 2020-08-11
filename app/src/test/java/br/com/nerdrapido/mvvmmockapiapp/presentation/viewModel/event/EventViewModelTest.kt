@@ -6,9 +6,11 @@ import androidx.lifecycle.Observer
 import androidx.test.core.app.ApplicationProvider
 import br.com.nerdrapido.mvvmmockapiapp.di.MainModule
 import br.com.nerdrapido.mvvmmockapiapp.presentation.enums.ViewStateEnum
+import br.com.nerdrapido.mvvmmockapiapp.presentation.model.CheckIn
 import br.com.nerdrapido.mvvmmockapiapp.presentation.model.Event
 import br.com.nerdrapido.mvvmmockapiapp.testShared.MockServiceInterceptorWithException
 import br.com.nerdrapido.mvvmmockapiapp.testShared.MockServiceInterceptorWithString
+import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import org.junit.After
@@ -49,6 +51,9 @@ class EventViewModelTest : KoinTest {
 
     @Mock
     lateinit var stateObserver: Observer<ViewStateEnum>
+
+    @Mock
+    lateinit var checkInObserver: Observer<Boolean>
 
     val viewModel: EventViewModel by inject()
 
@@ -160,6 +165,67 @@ class EventViewModelTest : KoinTest {
                 dataObserver,
                 Mockito.timeout(10000).atLeast(0)
             ).onChanged(ArgumentMatchers.anyList())
+        }
+    }
+
+    @Test
+    fun `test post check-in success`() {
+
+        loadKoinModules(
+            module {
+                single<Interceptor>(override = true) {
+                    MockServiceInterceptorWithString(
+                        "{}",
+                        HttpURLConnection.HTTP_OK
+                    )
+                }
+            }
+        )
+
+        runBlocking {
+
+            viewModel.getViewState().observeForever(stateObserver)
+            viewModel.getEventCheckIn().observeForever(checkInObserver)
+            viewModel.onCheckIn(
+                CheckIn(
+                    RemoteModelMock.checkInEventId,
+                    RemoteModelMock.checkInName,
+                    RemoteModelMock.checkInEmail
+                )
+            )
+            verify(
+                checkInObserver,
+                Mockito.timeout(10000).atLeast(0)
+            ).onChanged(true)
+        }
+    }
+
+    @Test
+    fun `test post check-in failure`() {
+
+        loadKoinModules(
+            module {
+                single<Interceptor>(override = true) {
+                    MockServiceInterceptorWithException(IOException())
+                }
+            }
+        )
+
+        runBlocking {
+
+            viewModel.getViewState().observeForever(stateObserver)
+            viewModel.getEventCheckIn().observeForever(checkInObserver)
+            viewModel.onCheckIn(
+                CheckIn(
+                    RemoteModelMock.checkInEventId,
+                    RemoteModelMock.checkInName,
+                    RemoteModelMock.checkInEmail
+                )
+            )
+            verify(
+                checkInObserver,
+                Mockito.timeout(10000).atLeast(0)
+            ).onChanged(false)
         }
     }
 }

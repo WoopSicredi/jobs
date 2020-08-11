@@ -61,7 +61,7 @@ class EventActivity : FragmentActivity() {
         @Suppress("UNCHECKED_CAST")
         setContentView(R.layout.activity_event)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        eventContainerVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL;
+        eventContainerVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         eventContainerVp.adapter = EventFragmentPagerAdapter(this)
         registerObservers()
     }
@@ -72,13 +72,13 @@ class EventActivity : FragmentActivity() {
     @Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
     private fun registerObservers() {
         viewModel.getViewState().observe(this, Observer {
-            when (it) {
-                ViewStateEnum.LOADING -> eventPb.show()
-                ViewStateEnum.SUCCESS -> eventPb.hide()
-                else -> {
-                    eventPb.hide()
-                    showApiErrorResponse()
-                }
+            if (it == ViewStateEnum.LOADING) {
+                eventPb.show()
+            } else {
+                eventPb.hide()
+            }
+            if (it == ViewStateEnum.FAILED) {
+                showApiErrorResponse()
             }
         })
         viewModel.getEventSelected().observe(this, Observer {

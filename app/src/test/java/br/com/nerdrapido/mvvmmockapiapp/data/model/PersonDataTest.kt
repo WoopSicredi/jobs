@@ -1,7 +1,7 @@
 package br.com.nerdrapido.mvvmmockapiapp.data.model
 
 import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.eventId
-import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.name
+import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.personName
 import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.personId
 import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.picture
 import org.junit.Assert
@@ -18,19 +18,19 @@ class PersonDataTest : KoinTest {
 
     @Test
     fun `test people hydratation`() {
-        val peopleResponse = PersonData(personId, eventId, name, picture)
+        val peopleResponse = PersonData(personId, eventId, personName, picture)
         Assert.assertEquals(personId, peopleResponse.id)
         Assert.assertEquals(eventId, peopleResponse.eventId)
-        Assert.assertEquals(name, peopleResponse.name)
+        Assert.assertEquals(personName, peopleResponse.name)
         Assert.assertEquals(picture, peopleResponse.picture)
     }
 
     @Test
     fun `test people hydratation with null picture`() {
-        val peopleResponse = PersonData(personId, eventId, name)
+        val peopleResponse = PersonData(personId, eventId, personName)
         Assert.assertEquals(personId, peopleResponse.id)
         Assert.assertEquals(eventId, peopleResponse.eventId)
-        Assert.assertEquals(name, peopleResponse.name)
+        Assert.assertEquals(personName, peopleResponse.name)
         Assert.assertNull(peopleResponse.picture)
     }
 }

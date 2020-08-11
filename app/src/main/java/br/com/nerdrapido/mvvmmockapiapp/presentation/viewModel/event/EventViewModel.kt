@@ -3,12 +3,17 @@ package br.com.nerdrapido.mvvmmockapiapp.presentation.viewModel.event
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import br.com.nerdrapido.mvvmmockapiapp.data.model.CheckInData
 import br.com.nerdrapido.mvvmmockapiapp.data.model.DataWrapper
 import br.com.nerdrapido.mvvmmockapiapp.data.model.EventData
+import br.com.nerdrapido.mvvmmockapiapp.domain.useCase.eventCheckIn.PostEventCheckInUseCase
+import br.com.nerdrapido.mvvmmockapiapp.domain.useCase.eventCheckIn.PostEventCheckInUseCaseInput
 import br.com.nerdrapido.mvvmmockapiapp.domain.useCase.eventList.GetEventListUseCase
 import br.com.nerdrapido.mvvmmockapiapp.domain.useCase.eventList.GetEventListUseCaseInput
 import br.com.nerdrapido.mvvmmockapiapp.presentation.enums.ViewStateEnum
+import br.com.nerdrapido.mvvmmockapiapp.presentation.mapper.checkIn.CheckInMapper
 import br.com.nerdrapido.mvvmmockapiapp.presentation.mapper.event.EventModelMapper
+import br.com.nerdrapido.mvvmmockapiapp.presentation.model.CheckIn
 import br.com.nerdrapido.mvvmmockapiapp.presentation.model.Event
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -19,7 +24,9 @@ import timber.log.Timber
  */
 class EventViewModel(
     private val getEventListUseCase: GetEventListUseCase,
-    private val eventModelMapper: EventModelMapper
+    private val postEventCheckInUseCase: PostEventCheckInUseCase,
+    private val eventModelMapper: EventModelMapper,
+    private val checkInMapper: CheckInMapper
 ) : ViewModel() {
 
     private val eventList: MutableLiveData<List<Event>> by lazy {
@@ -29,6 +36,8 @@ class EventViewModel(
     }
 
     private val eventSelected = MutableLiveData<Event>()
+
+    private val eventCheckIn = MutableLiveData<Boolean>()
 
     private val viewState = MutableLiveData<ViewStateEnum>(ViewStateEnum.LOADING)
 
@@ -44,12 +53,30 @@ class EventViewModel(
         return viewState
     }
 
+    fun getEventCheckIn(): LiveData<Boolean> {
+        return eventCheckIn
+    }
+
     fun onTryAgainClick() {
         fetchEventList()
     }
 
-    fun onCheckIn() {
-
+    fun onCheckIn(checkIn: CheckIn) {
+        viewState.postValue(ViewStateEnum.LOADING)
+        GlobalScope.launch {
+            when (val checkInData = postEventCheckInUseCase.execute(
+                PostEventCheckInUseCaseInput(
+                    checkInMapper.mapModelToData(checkIn)
+                )
+            )) {
+                is DataWrapper.Success<Boolean> -> {
+                    viewState.postValue(ViewStateEnum.SUCCESS)
+                    eventCheckIn.postValue(checkInData.value!!)
+                }
+                else -> viewState.postValue(ViewStateEnum.FAILED)
+            }
+            viewState.postValue(ViewStateEnum.SUCCESS)
+        }
     }
 
     fun onEventItemCLick(event: Event) {

@@ -42,9 +42,10 @@ class EventListFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        v?.let {
+        // v nunca é nula
+        v!!.let {
             val viewHolder = it.tag as EventListAdapter.ViewHolder
-            viewModel.onEventItemCLick(viewHolder.event)
+            viewModel.onEventItemCLick(viewHolder.getEvent())
         }
     }
 }

@@ -43,9 +43,11 @@ class EventListAdapter(
     class ViewHolder(itemView: View, private val viewHelper: ViewHelper) :
         RecyclerView.ViewHolder(itemView) {
 
-        lateinit var event: Event
+        private lateinit var event: Event
 
         private var onItemClickListener: View.OnClickListener? = null
+
+        fun getEvent(): Event = event
 
         fun setItemClickListener(clickListener: View.OnClickListener) {
             onItemClickListener = clickListener
