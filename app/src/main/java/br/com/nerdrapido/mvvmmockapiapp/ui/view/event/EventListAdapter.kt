@@ -1,4 +1,4 @@
-package br.com.nerdrapido.mvvmmockapiapp.ui.view.eventList
+package br.com.nerdrapido.mvvmmockapiapp.ui.view.event
 
 import android.view.LayoutInflater
 import android.view.View
@@ -12,13 +12,18 @@ import kotlinx.android.synthetic.main.item_event_list.view.*
 /**
  * Created By FELIPE GUSBERTI @ 09/08/2020
  */
-class EventListAdapter(private var items: List<Event>) :
+class EventListAdapter(
+    private var items: List<Event>,
+    private val onItemClickListener: View.OnClickListener
+) :
     RecyclerView.Adapter<EventListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.item_event_list, parent, false)
-        return ViewHolder(view)
+        val viewHolder = ViewHolder(view)
+        viewHolder.setItemClickListener(onItemClickListener)
+        return viewHolder
     }
 
     override fun getItemCount(): Int {
@@ -36,6 +41,12 @@ class EventListAdapter(private var items: List<Event>) :
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+        private var onItemClickListener: View.OnClickListener? = null
+
+        fun setItemClickListener(clickListener: View.OnClickListener) {
+            onItemClickListener = clickListener
+        }
+
         fun bind(eventData: Event) {
             itemView.listTitleTv.text = eventData.title
             itemView.listDateTv.text =
@@ -47,6 +58,8 @@ class EventListAdapter(private var items: List<Event>) :
                 .placeholder(R.drawable.img_progress)
                 .error(R.drawable.ic_broken_image)
                 .into(itemView.eventListImageIv)
+            itemView.tag = this
+            itemView.setOnClickListener(onItemClickListener)
         }
     }
 

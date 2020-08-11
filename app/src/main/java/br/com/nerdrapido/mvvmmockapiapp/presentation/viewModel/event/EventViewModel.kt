@@ -1,4 +1,4 @@
-package br.com.nerdrapido.mvvmmockapiapp.presentation.viewModel.eventList
+package br.com.nerdrapido.mvvmmockapiapp.presentation.viewModel.event
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,16 +12,17 @@ import br.com.nerdrapido.mvvmmockapiapp.presentation.mapper.event.EventModelMapp
 import br.com.nerdrapido.mvvmmockapiapp.presentation.model.Event
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 /**
  * Created By FELIPE GUSBERTI @ 09/08/2020
  */
-class EventListViewModel(
+class EventViewModel(
     private val getEventListUseCase: GetEventListUseCase,
     private val eventModelMapper: EventModelMapper
 ) : ViewModel() {
 
-    private val eventList : MutableLiveData<List<Event>> by lazy {
+    private val eventList: MutableLiveData<List<Event>> by lazy {
         MutableLiveData<List<Event>>().also {
             fetchEventList()
         }
@@ -29,11 +30,11 @@ class EventListViewModel(
 
     private val viewState = MutableLiveData<ViewStateEnum>(ViewStateEnum.LOADING)
 
-    fun getEventList() : LiveData<List<Event>> {
+    fun getEventList(): LiveData<List<Event>> {
         return eventList
     }
 
-    fun getViewState() : LiveData<ViewStateEnum> {
+    fun getViewState(): LiveData<ViewStateEnum> {
         return viewState
     }
 
@@ -42,6 +43,7 @@ class EventListViewModel(
     }
 
     private fun fetchEventList() {
+        Timber.d("fetchEventList")
         viewState.postValue(ViewStateEnum.LOADING)
         GlobalScope.launch {
             // Nunca vai cair no "else"

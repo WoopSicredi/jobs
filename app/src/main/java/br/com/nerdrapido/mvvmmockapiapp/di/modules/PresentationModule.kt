@@ -6,7 +6,7 @@ import br.com.nerdrapido.mvvmmockapiapp.presentation.mapper.event.EventModelMapp
 import br.com.nerdrapido.mvvmmockapiapp.presentation.mapper.event.EventModelMapperImpl
 import br.com.nerdrapido.mvvmmockapiapp.presentation.mapper.person.PersonModelMapper
 import br.com.nerdrapido.mvvmmockapiapp.presentation.mapper.person.PersonModelMapperImpl
-import br.com.nerdrapido.mvvmmockapiapp.presentation.viewModel.eventList.EventListViewModel
+import br.com.nerdrapido.mvvmmockapiapp.presentation.viewModel.event.EventViewModel
 import org.koin.dsl.module
 
 /**
@@ -23,6 +23,6 @@ object PresentationModule {
         single<PersonModelMapper> { PersonModelMapperImpl() }
         single<CupomModelMapper> { CupomModelMapperImpl() }
         single<EventModelMapper> { EventModelMapperImpl(get(), get()) }
-        factory { EventListViewModel(get(), get()) }
+        factory { EventViewModel(get(), get()) }
     }
 }

@@ -1,30 +1,27 @@
-package br.com.nerdrapido.mvvmmockapiapp.ui.view.eventList
+package br.com.nerdrapido.mvvmmockapiapp.ui.view.event
 
 import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.os.PersistableBundle
-import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.widget.ViewPager2
 import br.com.nerdrapido.mvvmmockapiapp.R
 import br.com.nerdrapido.mvvmmockapiapp.presentation.enums.ViewStateEnum
-import br.com.nerdrapido.mvvmmockapiapp.presentation.viewModel.eventList.EventListViewModel
-import kotlinx.android.synthetic.main.activity_event_list.*
+import br.com.nerdrapido.mvvmmockapiapp.presentation.viewModel.event.EventViewModel
+import kotlinx.android.synthetic.main.activity_event.*
 import org.koin.android.viewmodel.ext.android.viewModel
+
 
 /**
  * Created By FELIPE GUSBERTI @ 09/08/2020
  */
-class EventListActivity : AppCompatActivity() {
+class EventActivity : FragmentActivity() {
 
-    @VisibleForTesting
-    val viewModel: EventListViewModel by viewModel()
-
-    private val adapter = EventListAdapter(emptyList())
+    private val viewModel: EventViewModel by viewModel()
 
     /**
      * Diálogo genérico para apresentação de erros
@@ -62,10 +59,10 @@ class EventListActivity : AppCompatActivity() {
     @Suppress("DEPRECATION")
     private fun onCreateCall() {
         @Suppress("UNCHECKED_CAST")
-        setContentView(R.layout.activity_event_list)
+        setContentView(R.layout.activity_event)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        eventListRv.adapter = adapter
-        eventListRv.layoutManager = LinearLayoutManager(this)
+        eventContainerVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL;
+        eventContainerVp.adapter = EventFragmentPagerAdapter(this)
         registerObservers()
     }
 
@@ -74,13 +71,12 @@ class EventListActivity : AppCompatActivity() {
      */
     @Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
     private fun registerObservers() {
-        viewModel.getEventList().observe(this, Observer { adapter.setItems(it) })
         viewModel.getViewState().observe(this, Observer {
             when (it) {
-                ViewStateEnum.LOADING -> eventListPb.show()
-                ViewStateEnum.SUCCESS -> eventListPb.hide()
+                ViewStateEnum.LOADING -> eventPb.show()
+                ViewStateEnum.SUCCESS -> eventPb.hide()
                 ViewStateEnum.FAILED -> {
-                    eventListPb.hide()
+                    eventPb.hide()
                     showApiErrorResponse()
                 }
             }

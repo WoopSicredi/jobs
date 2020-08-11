@@ -1,4 +1,4 @@
-package br.com.nerdrapido.mvvmmockapiapp.presentation.viewModel.eventList
+package br.com.nerdrapido.mvvmmockapiapp.presentation.viewModel.event
 
 import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
@@ -26,7 +26,6 @@ import org.koin.test.inject
 import org.mockito.ArgumentMatchers
 import org.mockito.Mock
 import org.mockito.Mockito
-import org.mockito.Mockito.anyList
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 import org.robolectric.RobolectricTestRunner
@@ -37,7 +36,7 @@ import java.net.HttpURLConnection
  * Created By FELIPE GUSBERTI @ 09/08/2020
  */
 @RunWith(RobolectricTestRunner::class)
-class EventListViewModelTest : KoinTest {
+class EventViewModelTest : KoinTest {
 
     private val context = ApplicationProvider.getApplicationContext<Application>()
 
@@ -51,7 +50,7 @@ class EventListViewModelTest : KoinTest {
     @Mock
     lateinit var stateObserver: Observer<ViewStateEnum>
 
-    val viewModel: EventListViewModel by inject()
+    val viewModel: EventViewModel by inject()
 
     @Before
     fun setUp() {

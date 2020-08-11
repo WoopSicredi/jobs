@@ -15,18 +15,14 @@ import br.com.nerdrapido.mvvmmockapiapp.domain.useCase.eventList.GetEventListUse
 import br.com.nerdrapido.mvvmmockapiapp.remote.model.EventResponse
 import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.eventListJson
 import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.title
-import br.com.nerdrapido.mvvmmockapiapp.ui.view.eventList.EventListActivity
-import br.com.nerdrapido.mvvmmockapiapp.ui.view.eventList.EventListAdapter
+import br.com.nerdrapido.mvvmmockapiapp.ui.view.event.EventActivity
+import br.com.nerdrapido.mvvmmockapiapp.ui.view.event.EventListAdapter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.coroutines.runBlocking
-import org.junit.After
-import org.junit.Before
 import org.junit.Test
 import org.junit.internal.runners.JUnit4ClassRunner
 import org.junit.runner.RunWith
 import org.koin.core.context.loadKoinModules
-import org.koin.core.context.stopKoin
 import org.koin.dsl.module
 import org.koin.test.KoinTest
 import org.koin.test.inject
@@ -37,7 +33,7 @@ import java.lang.reflect.Type
  * Created By FELIPE GUSBERTI @ 09/08/2020
  */
 @RunWith(JUnit4ClassRunner::class)
-class EventListActivityTest : KoinTest {
+class EventActivityTest : KoinTest {
 
     private val eventDataMapper: EventDataMapper by inject()
 
@@ -61,8 +57,8 @@ class EventListActivityTest : KoinTest {
         getEventListUseCaseOutput =
             DataWrapper.Success(eventDataMapper.mapRemoteToDataList(jsonRemote))
 
-        val scenario: ActivityScenario<EventListActivity> =
-            ActivityScenario.launch(EventListActivity::class.java)
+        val scenario: ActivityScenario<EventActivity> =
+            ActivityScenario.launch(EventActivity::class.java)
 
         scenario.onActivity {
 
@@ -100,8 +96,8 @@ class EventListActivityTest : KoinTest {
         )
         getEventListUseCaseOutput =
             DataWrapper.NetworkError(IOException("test_EventListActivity_api_error"))
-        val scenario: ActivityScenario<EventListActivity> =
-            ActivityScenario.launch(EventListActivity::class.java)
+        val scenario: ActivityScenario<EventActivity> =
+            ActivityScenario.launch(EventActivity::class.java)
 
         scenario.onActivity {
 
