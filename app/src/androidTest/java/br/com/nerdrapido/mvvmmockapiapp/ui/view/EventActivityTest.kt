@@ -5,7 +5,7 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.contrib.RecyclerViewActions.scrollTo
+import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import br.com.nerdrapido.mvvmmockapiapp.R
 import br.com.nerdrapido.mvvmmockapiapp.data.mapper.event.EventDataMapper
@@ -14,12 +14,15 @@ import br.com.nerdrapido.mvvmmockapiapp.data.model.EventData
 import br.com.nerdrapido.mvvmmockapiapp.domain.useCase.eventList.GetEventListUseCase
 import br.com.nerdrapido.mvvmmockapiapp.domain.useCase.eventList.GetEventListUseCaseInput
 import br.com.nerdrapido.mvvmmockapiapp.remote.model.EventResponse
+import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.description
 import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.eventListJson
+import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.price
 import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.title
 import br.com.nerdrapido.mvvmmockapiapp.ui.view.event.EventActivity
 import br.com.nerdrapido.mvvmmockapiapp.ui.view.event.EventListAdapter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import org.hamcrest.CoreMatchers.allOf
 import org.junit.Test
 import org.junit.internal.runners.JUnit4ClassRunner
 import org.junit.runner.RunWith
@@ -63,7 +66,7 @@ class EventActivityTest : KoinTest {
         onView(withId(R.id.eventListRv)).check(matches(isDisplayed()))
         waitViewAppear(onView(withText(title)))
         onView(withId(R.id.eventListRv)).perform(
-            scrollTo<EventListAdapter.ViewHolder>(
+            RecyclerViewActions.scrollTo<EventListAdapter.ViewHolder>(
                 withChild(withText(title))
             )
         )
@@ -95,7 +98,7 @@ class EventActivityTest : KoinTest {
         onView(withText("Tentar novamente")).perform(click())
         waitViewAppear(onView(withId(R.id.eventListRv)))
         onView(withId(R.id.eventListRv)).perform(
-            scrollTo<EventListAdapter.ViewHolder>(
+            RecyclerViewActions.scrollTo<EventListAdapter.ViewHolder>(
                 withChild(withText(title))
             )
         )
@@ -117,12 +120,34 @@ class EventActivityTest : KoinTest {
         scenario.onActivity {}
         waitViewAppear(onView(withText(title)))
         onView(withId(R.id.eventListRv)).perform(
-            scrollTo<EventListAdapter.ViewHolder>(
+            RecyclerViewActions.scrollTo<EventListAdapter.ViewHolder>(
                 withChild(withText(title))
             )
         )
         onView(withText(valor)).perform(click())
         onView(withId(R.id.eventCoverIv)).check(matches(isDisplayed()))
+        onView(allOf(withText(title), withId(R.id.infoTv))).check(
+            matches(
+                isDisplayed()
+            )
+        )
+        onView(
+            allOf(withText(description), withId(R.id.infoTv))
+        ).check(
+            matches(
+                isDisplayingAtLeast(10)
+            )
+        )
+        onView(
+            allOf(
+                withText(price.toString()),
+                withId(R.id.infoTv)
+            )
+        ).check(
+            matches(
+                isDisplayed()
+            )
+        )
     }
 
     private fun waitViewAppear(viewInteraction: ViewInteraction) {

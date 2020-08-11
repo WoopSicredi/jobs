@@ -20,16 +20,45 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tabIndicatorColor="@color/colorAccent" />
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/detailVp"
+        <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tabPager">
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
-        </androidx.viewpager.widget.ViewPager>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="32dp"
+                android:paddingRight="32dp">
+
+                <TextView
+                    android:id="@+id/detailInfoTitleTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="8dp"
+                    android:text="@string/datasheet"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/detailInfoContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detailInfoTitleTv">
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -64,34 +93,27 @@
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <!--Book title placeholder meant to keep animation-->
-                <View
-                    android:id="@+id/titlePlaceHolder"
-                    android:layout_width="10dp"
-                    android:layout_height="32dp"
-                    app:layout_constraintBottom_toTopOf="@+id/overview"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/eventCoverIv" />
-
-
-                <TextView
-                    android:id="@+id/overview"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/overviewTv"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:ellipsize="end"
                     android:maxLines="4"
+                    android:paddingLeft="32dp"
+                    android:paddingTop="8dp"
+                    android:paddingRight="32dp"
+                    android:paddingBottom="8dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/titlePlaceHolder" />
+                    app:layout_constraintTop_toBottomOf="@+id/eventCoverIv" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/addVoucherBt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/overview"
-                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/overviewTv"
                     tools:ignore="RtlHardcoded" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

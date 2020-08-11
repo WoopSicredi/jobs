@@ -1,9 +1,16 @@
 <resources>
     <string name="app_name">MVVM Mock API App</string>
+    <string name="datasheet">Informações</string>
+    <string name="not_informed">Não informado</string>
     <string name="item_event_list_date">Data: %s</string>
     <string name="item_event_list_price">Valor: R$ %.2f</string>
     <string name="activity_error_positive_button">Tentar novamente</string>
     <string name="activity_error_message_api_title">Erro!</string>
     <string name="activity_error_message_api_message">Houve um erro ao carregar o conteúdo.</string>
+    <string name="fragment_event_detail_overview">%s: %s</string>
+    <string name="fragment_event_detail_title">Título</string>
+    <string name="fragment_event_detail_description">Descrição do evento</string>
+    <string name="fragment_event_detail_valor">Valor</string>
+    <string name="view_info_title">%s: </string>
 
 </resources>
