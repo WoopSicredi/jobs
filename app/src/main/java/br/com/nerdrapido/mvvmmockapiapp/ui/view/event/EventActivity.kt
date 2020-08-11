@@ -75,13 +75,25 @@ class EventActivity : FragmentActivity() {
             when (it) {
                 ViewStateEnum.LOADING -> eventPb.show()
                 ViewStateEnum.SUCCESS -> eventPb.hide()
-                ViewStateEnum.FAILED -> {
+                else -> {
                     eventPb.hide()
                     showApiErrorResponse()
                 }
             }
         })
+        viewModel.getEventSelected().observe(this, Observer {
+            eventContainerVp.currentItem = 1
+        })
     }
+
+    override fun onBackPressed() {
+        if (eventContainerVp.currentItem == 0) {
+            super.onBackPressed()
+        } else {
+            eventContainerVp.currentItem = eventContainerVp.currentItem - 1
+        }
+    }
+
 
     /**
      * Mostra diálogo com erro de carregamento da API.

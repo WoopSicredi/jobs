@@ -12,15 +12,15 @@ class EventFragmentPagerAdapter(fragmentActivity: FragmentActivity) :
 
 
     companion object {
-        const val NUM_PAGES = 1
+        const val NUM_PAGES = 2
     }
 
     override fun getItemCount(): Int = NUM_PAGES
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> EventListFragment.newInstance()
-            else -> EventListFragment.newInstance()
+            0 -> EventListFragment()
+            else -> EventDetailFragment()
         }
     }
 }

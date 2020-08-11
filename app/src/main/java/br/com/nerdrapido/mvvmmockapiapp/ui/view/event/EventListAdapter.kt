@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.nerdrapido.mvvmmockapiapp.R
 import br.com.nerdrapido.mvvmmockapiapp.presentation.model.Event
-import com.bumptech.glide.Glide
+import br.com.nerdrapido.mvvmmockapiapp.ui.helper.ViewHelper
 import kotlinx.android.synthetic.main.item_event_list.view.*
 
 /**
@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.item_event_list.view.*
  */
 class EventListAdapter(
     private var items: List<Event>,
+    private val viewHelper: ViewHelper,
     private val onItemClickListener: View.OnClickListener
 ) :
     RecyclerView.Adapter<EventListAdapter.ViewHolder>() {
@@ -21,7 +22,7 @@ class EventListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.item_event_list, parent, false)
-        val viewHolder = ViewHolder(view)
+        val viewHolder = ViewHolder(view, viewHelper)
         viewHolder.setItemClickListener(onItemClickListener)
         return viewHolder
     }
@@ -39,7 +40,10 @@ class EventListAdapter(
         notifyDataSetChanged()
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View, private val viewHelper: ViewHelper) :
+        RecyclerView.ViewHolder(itemView) {
+
+        lateinit var event: Event
 
         private var onItemClickListener: View.OnClickListener? = null
 
@@ -47,17 +51,14 @@ class EventListAdapter(
             onItemClickListener = clickListener
         }
 
-        fun bind(eventData: Event) {
-            itemView.listTitleTv.text = eventData.title
+        fun bind(eventBind: Event) {
+            event = eventBind
+            itemView.listTitleTv.text = eventBind.title
             itemView.listDateTv.text =
-                itemView.resources.getString(R.string.item_event_list_date, eventData.date)
+                itemView.resources.getString(R.string.item_event_list_date, event.date)
             itemView.listPriceTv.text =
-                itemView.resources.getString(R.string.item_event_list_price, eventData.price)
-            Glide.with(itemView.context.applicationContext)
-                .load(eventData.image)
-                .placeholder(R.drawable.img_progress)
-                .error(R.drawable.ic_broken_image)
-                .into(itemView.eventListImageIv)
+                itemView.resources.getString(R.string.item_event_list_price, event.price)
+            viewHelper.loadImageUrlIntoView(eventBind.image, itemView.eventListImageIv)
             itemView.tag = this
             itemView.setOnClickListener(onItemClickListener)
         }

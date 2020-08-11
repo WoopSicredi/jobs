@@ -28,10 +28,16 @@ class EventViewModel(
         }
     }
 
+    private val eventSelected = MutableLiveData<Event>()
+
     private val viewState = MutableLiveData<ViewStateEnum>(ViewStateEnum.LOADING)
 
     fun getEventList(): LiveData<List<Event>> {
         return eventList
+    }
+
+    fun getEventSelected(): LiveData<Event> {
+        return eventSelected
     }
 
     fun getViewState(): LiveData<ViewStateEnum> {
@@ -40,6 +46,10 @@ class EventViewModel(
 
     fun onTryAgainClick() {
         fetchEventList()
+    }
+
+    fun onEventItemCLick(event: Event) {
+        eventSelected.postValue(event)
     }
 
     private fun fetchEventList() {
