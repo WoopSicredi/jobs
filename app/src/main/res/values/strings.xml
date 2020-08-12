@@ -5,17 +5,23 @@
     <string name="item_event_list_date">Data: %s</string>
     <string name="item_event_list_price">Valor: R$ %.2f</string>
     <string name="activity_error_positive_button">Tentar novamente</string>
+    <string name="activity_success">OK</string>
     <string name="activity_error_message_api_title">Erro!</string>
     <string name="activity_error_message_api_message">Houve um erro ao carregar o conteúdo.</string>
+    <string name="activity_checkin_success_dialog_title">Parabéns!</string>
+    <string name="activity_checkin_success_dialog_message">Check-in efetuado com sucesso.</string>
     <string name="fragment_event_detail_overview">%s: %s</string>
     <string name="fragment_event_detail_title">Título</string>
     <string name="fragment_event_detail_description">Descrição do evento</string>
     <string name="fragment_event_detail_valor">Valor</string>
     <string name="btn_fragment_event_detail_check_in_btn">Check-in</string>
-    <string name="view_info_title">%s: </string>
+    <string name="btn_fragment_event_detail_check_in_btn_already_checked">Já inscrito</string>
+    <string name="view_info_title">%s:\u0020</string>
     <string name="fragment_event_check_in_title">Realizar check-in</string>
     <string name="fragment_event_check_in_name">Informe o seu nome completo</string>
     <string name="fragment_event_check_in_email">Informe o seu e-mail</string>
     <string name="fragment_event_check_in_button">Efetuar o check-in</string>
+    <string name="share">Compartilhar</string>
+    <string name="share_event_body">Encontrei este evento pelo %s e achei que você teria interesse!\n\n%s\n\n%s\n\nLocal: <a>http://maps.google.com/maps?saddr=%f.10,%f.10</a></string>
 
 </resources>

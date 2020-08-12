@@ -263,8 +263,11 @@ class EventActivityTest : KoinTest {
         )
             .check(matches(isCompletelyDisplayed()))
             .perform(click())
+        val checkinString = "Check-in efetuado com sucesso."
+        waitViewAppear(onView(withText(checkinString)))
+        onView(withText(checkinString)).check(matches(isDisplayed()))
+        onView(withText("OK")).perform(click())
         onView(withId(R.id.eventCoverIv)).check(matches(isDisplayed()))
-
     }
 
     @Test

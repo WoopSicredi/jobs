@@ -27,12 +27,25 @@ class EventActivity : FragmentActivity() {
      * Diálogo genérico para apresentação de erros
      */
     private val errorDialog: AlertDialog by lazy {
-        return@lazy AlertDialog.Builder(this, R.style.ThemeOverlay_MaterialComponents_Dialog)
+        return@lazy AlertDialog.Builder(this, R.style.Theme_MaterialComponents_Dialog_Alert)
             .setPositiveButton(
                 R.string.activity_error_positive_button
             ) { dialogInterface: DialogInterface, _: Int ->
                 dialogInterface.dismiss()
                 viewModel.onTryAgainClick()
+            }
+            .create()
+    }
+
+    /**
+     * Diálogo genérico para apresentação de erros
+     */
+    private val checkInSuccessDialog: AlertDialog by lazy {
+        return@lazy AlertDialog.Builder(this, R.style.Theme_MaterialComponents_Dialog)
+            .setPositiveButton(
+                R.string.activity_success
+            ) { dialogInterface: DialogInterface, _: Int ->
+                dialogInterface.dismiss()
             }
             .create()
     }
@@ -90,6 +103,9 @@ class EventActivity : FragmentActivity() {
         })
         viewModel.getEventCheckInSuccess().observe(this, Observer {
             if (it) {
+                checkInSuccessDialog.setTitle(getString(R.string.activity_checkin_success_dialog_title))
+                checkInSuccessDialog.setMessage(getString(R.string.activity_checkin_success_dialog_message))
+                checkInSuccessDialog.show()
                 eventContainerVp.currentItem = 1
             }
         })
