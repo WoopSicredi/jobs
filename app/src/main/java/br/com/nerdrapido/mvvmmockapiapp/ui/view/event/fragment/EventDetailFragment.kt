@@ -1,4 +1,4 @@
-package br.com.nerdrapido.mvvmmockapiapp.ui.view.event
+package br.com.nerdrapido.mvvmmockapiapp.ui.view.event.fragment
 
 import android.content.Context
 import android.os.Bundle
@@ -39,7 +39,7 @@ class EventDetailFragment : Fragment() {
             hydrateEvent(it)
         })
         checkInBt.setOnClickListener {
-            TODO("ação do checkin")
+            viewModel.onCheckInWanted()
         }
         checkInBt.text = getString(R.string.btn_fragment_event_detail_check_in_btn)
     }

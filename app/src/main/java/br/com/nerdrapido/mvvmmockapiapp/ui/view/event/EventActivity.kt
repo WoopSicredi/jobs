@@ -62,6 +62,7 @@ class EventActivity : FragmentActivity() {
         setContentView(R.layout.activity_event)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         eventContainerVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+        eventContainerVp.isUserInputEnabled = false
         eventContainerVp.adapter = EventFragmentPagerAdapter(this)
         registerObservers()
     }
@@ -84,6 +85,14 @@ class EventActivity : FragmentActivity() {
         viewModel.getEventSelected().observe(this, Observer {
             eventContainerVp.currentItem = 1
         })
+        viewModel.getEventCheckInWanted().observe(this, Observer {
+            eventContainerVp.currentItem = 2
+        })
+        viewModel.getEventCheckInSuccess().observe(this, Observer {
+            if (it) {
+                eventContainerVp.currentItem = 1
+            }
+        })
     }
 
     override fun onBackPressed() {
@@ -93,7 +102,6 @@ class EventActivity : FragmentActivity() {
             eventContainerVp.currentItem = eventContainerVp.currentItem - 1
         }
     }
-
 
     /**
      * Mostra diálogo com erro de carregamento da API.

@@ -1,4 +1,4 @@
-package br.com.nerdrapido.mvvmmockapiapp.ui.view.event
+package br.com.nerdrapido.mvvmmockapiapp.ui.view.event.fragment
 
 import android.view.LayoutInflater
 import android.view.View
@@ -22,7 +22,11 @@ class EventListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.item_event_list, parent, false)
-        val viewHolder = ViewHolder(view, viewHelper)
+        val viewHolder =
+            ViewHolder(
+                view,
+                viewHelper
+            )
         viewHolder.setItemClickListener(onItemClickListener)
         return viewHolder
     }

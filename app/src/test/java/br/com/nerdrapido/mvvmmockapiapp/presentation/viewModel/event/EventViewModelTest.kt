@@ -4,15 +4,22 @@ import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import androidx.test.core.app.ApplicationProvider
+import br.com.nerdrapido.mvvmmockapiapp.data.mapper.event.EventDataMapper
+import br.com.nerdrapido.mvvmmockapiapp.data.model.DataWrapper
+import br.com.nerdrapido.mvvmmockapiapp.data.model.EventData
 import br.com.nerdrapido.mvvmmockapiapp.di.MainModule
+import br.com.nerdrapido.mvvmmockapiapp.domain.useCase.eventCheckIn.PostEventCheckInUseCase
+import br.com.nerdrapido.mvvmmockapiapp.domain.useCase.eventCheckIn.PostEventCheckInUseCaseInput
+import br.com.nerdrapido.mvvmmockapiapp.domain.useCase.eventList.GetEventListUseCase
+import br.com.nerdrapido.mvvmmockapiapp.domain.useCase.eventList.GetEventListUseCaseInput
 import br.com.nerdrapido.mvvmmockapiapp.presentation.enums.ViewStateEnum
-import br.com.nerdrapido.mvvmmockapiapp.presentation.model.CheckIn
+import br.com.nerdrapido.mvvmmockapiapp.presentation.mapper.event.EventModelMapper
 import br.com.nerdrapido.mvvmmockapiapp.presentation.model.Event
-import br.com.nerdrapido.mvvmmockapiapp.testShared.MockServiceInterceptorWithException
-import br.com.nerdrapido.mvvmmockapiapp.testShared.MockServiceInterceptorWithString
+import br.com.nerdrapido.mvvmmockapiapp.remote.model.EventResponse
 import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.runBlocking
-import okhttp3.Interceptor
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -31,8 +38,7 @@ import org.mockito.Mockito
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 import org.robolectric.RobolectricTestRunner
-import java.io.IOException
-import java.net.HttpURLConnection
+import java.lang.reflect.Type
 
 /**
  * Created By FELIPE GUSBERTI @ 09/08/2020
@@ -42,6 +48,9 @@ class EventViewModelTest : KoinTest {
 
     private val context = ApplicationProvider.getApplicationContext<Application>()
 
+    private val eventDataMapper: EventDataMapper by inject()
+
+    private val eventMapper: EventModelMapper by inject()
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
@@ -55,6 +64,21 @@ class EventViewModelTest : KoinTest {
     @Mock
     lateinit var checkInObserver: Observer<Boolean>
 
+    private lateinit var getEventListUseCaseOutput: DataWrapper<List<EventData>>
+
+    private lateinit var postEventCheckInUseCaseOutput: DataWrapper<Boolean>
+
+    private val getEventListUseCase = object : GetEventListUseCase {
+        override suspend fun execute(input: GetEventListUseCaseInput): DataWrapper<List<EventData>> {
+            return getEventListUseCaseOutput
+        }
+    }
+
+    private val postEventCheckInUseCase = object : PostEventCheckInUseCase {
+        override suspend fun execute(input: PostEventCheckInUseCaseInput): DataWrapper<Boolean> =
+            postEventCheckInUseCaseOutput
+    }
+
     val viewModel: EventViewModel by inject()
 
     @Before
@@ -66,166 +90,139 @@ class EventViewModelTest : KoinTest {
                 MainModule.module
             )
         }
+        loadKoinModules(
+            module {
+                single<GetEventListUseCase>(override = true) { getEventListUseCase }
+                single<PostEventCheckInUseCase>(override = true) { postEventCheckInUseCase }
+            }
+        )
     }
 
     @After
     fun tearDown() {
         stopKoin()
-        viewModel.getEventList().removeObserver { }
-        viewModel.getViewState().removeObserver { }
     }
-
 
     @Test
     fun `test fetch data success`() {
-        loadKoinModules(
-            module {
-                single<Interceptor>(override = true) {
-                    MockServiceInterceptorWithString(
-                        "[]",
-                        HttpURLConnection.HTTP_OK
-                    )
-                }
-            }
-        )
+        getEventListUseCaseOutput = DataWrapper.Success(emptyList())
 
         runBlocking {
             viewModel.getEventList().observeForever(dataObserver)
             viewModel.getViewState().observeForever(stateObserver)
             verify(
-                stateObserver,
-                Mockito.timeout(10000)
-            ).onChanged(ViewStateEnum.LOADING)
-            verify(
-                stateObserver,
-                Mockito.timeout(10000)
-            ).onChanged(ViewStateEnum.SUCCESS)
-            verify(
                 dataObserver,
-                Mockito.timeout(10000)
+                Mockito.timeout(1000)
             ).onChanged(ArgumentMatchers.anyList())
         }
     }
 
     @Test
     fun `test fetch data body error`() {
-        loadKoinModules(
-            module {
-                single<Interceptor>(override = true) {
-                    MockServiceInterceptorWithString(
-                        "{}",
-                        HttpURLConnection.HTTP_OK
-                    )
-                }
-            }
-        )
+        getEventListUseCaseOutput = DataWrapper.GenericError(Throwable())
 
         runBlocking {
             viewModel.getEventList().observeForever(dataObserver)
             viewModel.getViewState().observeForever(stateObserver)
             verify(
                 stateObserver,
-                Mockito.timeout(10000)
+                Mockito.timeout(1000)
             ).onChanged(ViewStateEnum.LOADING)
             verify(
                 stateObserver,
-                Mockito.timeout(10000)
+                Mockito.timeout(1000)
             ).onChanged(ViewStateEnum.FAILED)
             verify(
                 dataObserver,
-                Mockito.timeout(10000).atLeast(0)
+                Mockito.timeout(1000).atLeast(0)
             ).onChanged(ArgumentMatchers.anyList())
         }
     }
 
     @Test
     fun `test fetch data failure`() {
-        loadKoinModules(
-            module {
-                single<Interceptor>(override = true) {
-                    MockServiceInterceptorWithException(
-                        IOException()
-                    )
-                }
-            }
-        )
+        getEventListUseCaseOutput = DataWrapper.NetworkError(Throwable())
 
         runBlocking {
             viewModel.getEventList().observeForever(dataObserver)
             viewModel.getViewState().observeForever(stateObserver)
             verify(
                 stateObserver,
-                Mockito.timeout(10000)
+                Mockito.timeout(1000)
             ).onChanged(ViewStateEnum.LOADING)
             verify(
                 stateObserver,
-                Mockito.timeout(10000)
+                Mockito.timeout(1000)
             ).onChanged(ViewStateEnum.FAILED)
             verify(
                 dataObserver,
-                Mockito.timeout(10000).atLeast(0)
+                Mockito.timeout(1000).atLeast(0)
             ).onChanged(ArgumentMatchers.anyList())
         }
     }
 
     @Test
     fun `test post check-in success`() {
-
-        loadKoinModules(
-            module {
-                single<Interceptor>(override = true) {
-                    MockServiceInterceptorWithString(
-                        "{}",
-                        HttpURLConnection.HTTP_OK
-                    )
-                }
-            }
-        )
+        getEventListUseCaseOutput = getDataSuccess()
+        postEventCheckInUseCaseOutput = DataWrapper.Success(true)
 
         runBlocking {
-
-            viewModel.getViewState().observeForever(stateObserver)
-            viewModel.getEventCheckIn().observeForever(checkInObserver)
-            viewModel.onCheckIn(
-                CheckIn(
-                    RemoteModelMock.checkInEventId,
-                    RemoteModelMock.checkInName,
-                    RemoteModelMock.checkInEmail
-                )
+            viewModel.onEventItemCLick(
+                eventMapper.mapDataToModel((getDataSuccess() as DataWrapper.Success).value[0])
             )
-            verify(
-                checkInObserver,
-                Mockito.timeout(10000).atLeast(0)
-            ).onChanged(true)
+            viewModel.getViewState().observeForever(stateObserver)
+            viewModel.getEventCheckInSuccess().observeForever(checkInObserver)
+            viewModel.onCheckInRequested(
+                RemoteModelMock.checkInName,
+                RemoteModelMock.checkInEmail
+            )
+            verify(checkInObserver, Mockito.timeout(1000)).onChanged(true)
+        }
+    }
+
+    @Test
+    fun `test post check-in with unlikely null event`() {
+        getEventListUseCaseOutput = getDataSuccess()
+        postEventCheckInUseCaseOutput = DataWrapper.Success(true)
+
+        runBlocking {
+            viewModel.getViewState().observeForever(stateObserver)
+            viewModel.getEventCheckInSuccess().observeForever(checkInObserver)
+            viewModel.onCheckInRequested(
+                RemoteModelMock.checkInName,
+                RemoteModelMock.checkInEmail
+            )
+            verify(stateObserver, Mockito.timeout(1000)).onChanged(ViewStateEnum.FAILED)
         }
     }
 
     @Test
     fun `test post check-in failure`() {
-
-        loadKoinModules(
-            module {
-                single<Interceptor>(override = true) {
-                    MockServiceInterceptorWithException(IOException())
-                }
-            }
-        )
+        getEventListUseCaseOutput = getDataSuccess()
+        postEventCheckInUseCaseOutput = DataWrapper.NetworkError(Throwable())
 
         runBlocking {
-
-            viewModel.getViewState().observeForever(stateObserver)
-            viewModel.getEventCheckIn().observeForever(checkInObserver)
-            viewModel.onCheckIn(
-                CheckIn(
-                    RemoteModelMock.checkInEventId,
-                    RemoteModelMock.checkInName,
-                    RemoteModelMock.checkInEmail
-                )
+            viewModel.onEventItemCLick(
+                eventMapper.mapDataToModel((getDataSuccess() as DataWrapper.Success).value[0])
             )
-            verify(
-                checkInObserver,
-                Mockito.timeout(10000).atLeast(0)
-            ).onChanged(false)
+            viewModel.getViewState().observeForever(stateObserver)
+            viewModel.getEventCheckInSuccess().observeForever(checkInObserver)
+            viewModel.onCheckInRequested(
+                RemoteModelMock.checkInName,
+                RemoteModelMock.checkInEmail
+            )
+            verify(checkInObserver, Mockito.timeout(1000)).onChanged(false)
+            verify(stateObserver, Mockito.timeout(1000)).onChanged(ViewStateEnum.FAILED)
         }
+    }
+
+    private fun getDataSuccess(): DataWrapper<List<EventData>> {
+        val type: Type = object : TypeToken<List<EventResponse>>() {}.type
+        val remote = Gson().fromJson<List<EventResponse>>(RemoteModelMock.eventListJson, type)
+        return DataWrapper.Success(
+            eventDataMapper.mapRemoteToDataList(
+                remote
+            )
+        )
     }
 }

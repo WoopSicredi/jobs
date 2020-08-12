@@ -1,4 +1,4 @@
-package br.com.nerdrapido.mvvmmockapiapp.ui.view.event
+package br.com.nerdrapido.mvvmmockapiapp.ui.view.event.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,7 +23,12 @@ class EventListFragment : Fragment(), View.OnClickListener {
 
     private val viewHelper: ViewHelper by inject()
 
-    private val adapter = EventListAdapter(emptyList(), viewHelper, this)
+    private val adapter =
+        EventListAdapter(
+            emptyList(),
+            viewHelper,
+            this
+        )
 
     override fun onCreateView(
         inflater: LayoutInflater,

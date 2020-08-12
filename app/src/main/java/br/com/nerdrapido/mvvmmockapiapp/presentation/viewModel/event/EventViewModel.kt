@@ -3,7 +3,6 @@ package br.com.nerdrapido.mvvmmockapiapp.presentation.viewModel.event
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import br.com.nerdrapido.mvvmmockapiapp.data.model.CheckInData
 import br.com.nerdrapido.mvvmmockapiapp.data.model.DataWrapper
 import br.com.nerdrapido.mvvmmockapiapp.data.model.EventData
 import br.com.nerdrapido.mvvmmockapiapp.domain.useCase.eventCheckIn.PostEventCheckInUseCase
@@ -37,7 +36,11 @@ class EventViewModel(
 
     private val eventSelected = MutableLiveData<Event>()
 
-    private val eventCheckIn = MutableLiveData<Boolean>()
+    private val eventCheckInSuccess = MutableLiveData<Boolean>()
+
+    private val eventCheckInWanted = MutableLiveData<Boolean>()
+
+    private val eventCheckInNotValid = MutableLiveData<FieldRuleEnum>()
 
     private val viewState = MutableLiveData<ViewStateEnum>(ViewStateEnum.LOADING)
 
@@ -53,16 +56,41 @@ class EventViewModel(
         return viewState
     }
 
-    fun getEventCheckIn(): LiveData<Boolean> {
-        return eventCheckIn
+    fun getEventCheckInSuccess(): LiveData<Boolean> {
+        return eventCheckInSuccess
+    }
+
+    fun getEventCheckInWanted(): LiveData<Boolean> {
+        return eventCheckInWanted
+    }
+
+    fun getEventCheckInNotValid(): LiveData<FieldRuleEnum> {
+        return eventCheckInNotValid
     }
 
     fun onTryAgainClick() {
         fetchEventList()
     }
 
-    fun onCheckIn(checkIn: CheckIn) {
+    fun onCheckInWanted() {
+        eventCheckInWanted.postValue(true)
+    }
+
+    fun onCheckInRequested(name: String, email: String) {
         viewState.postValue(ViewStateEnum.LOADING)
+        val event = eventSelected.value
+        if (event == null) {
+            // Se evento está nulo ocorreu um erro inesperado
+            viewState.postValue(ViewStateEnum.FAILED)
+            return
+        }
+        val checkIn = CheckIn(event.id, name, email)
+        val valid = checkInIsValid(checkIn)
+        if (valid != FieldRuleEnum.VALID) {
+            eventCheckInNotValid.postValue(valid)
+            viewState.postValue(ViewStateEnum.SUCCESS)
+            return
+        }
         GlobalScope.launch {
             when (val checkInData = postEventCheckInUseCase.execute(
                 PostEventCheckInUseCaseInput(
@@ -71,12 +99,24 @@ class EventViewModel(
             )) {
                 is DataWrapper.Success<Boolean> -> {
                     viewState.postValue(ViewStateEnum.SUCCESS)
-                    eventCheckIn.postValue(checkInData.value!!)
+                    eventCheckInSuccess.postValue(checkInData.value!!)
                 }
-                else -> viewState.postValue(ViewStateEnum.FAILED)
+                else -> {
+                    eventCheckInSuccess.postValue(false)
+                    viewState.postValue(ViewStateEnum.FAILED)
+                }
             }
-            viewState.postValue(ViewStateEnum.SUCCESS)
         }
+    }
+
+    private fun checkInIsValid(checkIn: CheckIn): FieldRuleEnum {
+        if (checkIn.name.isBlank()) {
+            return FieldRuleEnum.NAME_MISSING
+        }
+        if (checkIn.email.isBlank()) {
+            return FieldRuleEnum.EMAIL_MISSING
+        }
+        return FieldRuleEnum.VALID
     }
 
     fun onEventItemCLick(event: Event) {
@@ -96,5 +136,11 @@ class EventViewModel(
                 else -> viewState.postValue(ViewStateEnum.FAILED)
             }
         }
+    }
+
+    enum class FieldRuleEnum {
+        NAME_MISSING,
+        EMAIL_MISSING,
+        VALID
     }
 }

@@ -6,6 +6,7 @@ import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.NoActivityResumedException
 import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -13,15 +14,19 @@ import br.com.nerdrapido.mvvmmockapiapp.R
 import br.com.nerdrapido.mvvmmockapiapp.data.mapper.event.EventDataMapper
 import br.com.nerdrapido.mvvmmockapiapp.data.model.DataWrapper
 import br.com.nerdrapido.mvvmmockapiapp.data.model.EventData
+import br.com.nerdrapido.mvvmmockapiapp.domain.useCase.eventCheckIn.PostEventCheckInUseCase
+import br.com.nerdrapido.mvvmmockapiapp.domain.useCase.eventCheckIn.PostEventCheckInUseCaseInput
 import br.com.nerdrapido.mvvmmockapiapp.domain.useCase.eventList.GetEventListUseCase
 import br.com.nerdrapido.mvvmmockapiapp.domain.useCase.eventList.GetEventListUseCaseInput
 import br.com.nerdrapido.mvvmmockapiapp.remote.model.EventResponse
+import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.checkInEmail
+import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.checkInName
 import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.description
 import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.eventListJson
 import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.price
 import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.title
 import br.com.nerdrapido.mvvmmockapiapp.ui.view.event.EventActivity
-import br.com.nerdrapido.mvvmmockapiapp.ui.view.event.EventListAdapter
+import br.com.nerdrapido.mvvmmockapiapp.ui.view.event.fragment.EventListAdapter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import org.hamcrest.CoreMatchers.allOf
@@ -48,10 +53,17 @@ class EventActivityTest : KoinTest {
 
     private lateinit var getEventListUseCaseOutput: DataWrapper<List<EventData>>
 
+    private lateinit var postEventCheckInUseCaseOutput: DataWrapper<Boolean>
+
     private val getEventListUseCase = object : GetEventListUseCase {
         override suspend fun execute(input: GetEventListUseCaseInput): DataWrapper<List<EventData>> {
             return getEventListUseCaseOutput
         }
+    }
+
+    private val postEventCheckInUseCase = object : PostEventCheckInUseCase {
+        override suspend fun execute(input: PostEventCheckInUseCaseInput): DataWrapper<Boolean> =
+            postEventCheckInUseCaseOutput
     }
 
     @Test
@@ -104,7 +116,7 @@ class EventActivityTest : KoinTest {
     }
 
     @Test
-    fun test_if_fragment_event_activity_is_called_when_item_is_clicked() {
+    fun test_if_fragment_event_detail_is_called_when_item_is_clicked() {
         getEventListUseCaseOutput = getDataSuccess()
 
         loadKoinModules(
@@ -192,6 +204,127 @@ class EventActivityTest : KoinTest {
         } catch (e: NoActivityResumedException) {
             // Passou no teste
         }
+    }
+
+    @Test
+    fun test_perform_check_in() {
+        getEventListUseCaseOutput = getDataSuccess()
+        postEventCheckInUseCaseOutput = DataWrapper.Success(true)
+        loadKoinModules(
+            module {
+                single<GetEventListUseCase>(override = true) { getEventListUseCase }
+                single<PostEventCheckInUseCase>(override = true) { postEventCheckInUseCase }
+            }
+        )
+
+        ActivityScenario.launch(EventActivity::class.java)
+        waitViewAppear(onView(withText(title)))
+        onView(withId(R.id.eventListRv)).perform(
+            RecyclerViewActions.scrollTo<EventListAdapter.ViewHolder>(
+                withChild(withText(title))
+            )
+        )
+        onView(withText(valor)).perform(click())
+        onView(
+            allOf(
+                withText("Check-in"),
+                withId(R.id.checkInBt)
+            )
+        ).perform(click())
+        onView(
+            allOf(
+                withText("Realizar check-in"),
+                withId(R.id.fagrmentEventCheckinTitleTv)
+            )
+        ).check(matches(isCompletelyDisplayed()))
+        onView(
+            allOf(
+                withText("Informe o seu nome completo"),
+                withId(R.id.fragmentEventCheckInNameTv)
+            )
+        ).check(matches(isCompletelyDisplayed()))
+        onView(
+            allOf(
+                withText("Informe o seu e-mail"),
+                withId(R.id.fragmentEventCheckInEmailTv)
+            )
+        ).check(matches(isCompletelyDisplayed()))
+        onView(
+            allOf(withId(R.id.fragmentEventCheckInNameEt))
+        ).perform(typeText(checkInName))
+        onView(
+            allOf(withId(R.id.fragmentEventCheckInEmailEt))
+        ).perform(typeText(checkInEmail))
+        onView(
+            allOf(
+                withText("Efetuar o check-in"),
+                withId(R.id.fragmentEventCheckInBt)
+            )
+        )
+            .check(matches(isCompletelyDisplayed()))
+            .perform(click())
+        onView(withId(R.id.eventCoverIv)).check(matches(isDisplayed()))
+
+    }
+
+    @Test
+    fun test_perform_invalid_check_in() {
+        getEventListUseCaseOutput = getDataSuccess()
+        postEventCheckInUseCaseOutput = DataWrapper.Success(true)
+        loadKoinModules(
+            module {
+                single<GetEventListUseCase>(override = true) { getEventListUseCase }
+                single<PostEventCheckInUseCase>(override = true) { postEventCheckInUseCase }
+            }
+        )
+
+        ActivityScenario.launch(EventActivity::class.java)
+        waitViewAppear(onView(withText(title)))
+        onView(withId(R.id.eventListRv)).perform(
+            RecyclerViewActions.scrollTo<EventListAdapter.ViewHolder>(
+                withChild(withText(title))
+            )
+        )
+        onView(withText(valor)).perform(click())
+        onView(withId(R.id.checkInBt)).perform(click())
+        onView(withId(R.id.fragmentEventCheckInBt)).perform(click())
+            .check(matches(isCompletelyDisplayed()))
+        onView(withId(R.id.fragmentEventCheckInNameEt)).perform(typeText(checkInName))
+        onView(withId(R.id.fragmentEventCheckInBt)).perform(click())
+            .check(matches(isCompletelyDisplayed()))
+    }
+
+    @Test
+    fun test_perform_error_check_in() {
+        getEventListUseCaseOutput = getDataSuccess()
+        postEventCheckInUseCaseOutput =
+            DataWrapper.NetworkError(IOException("test_perform_error_check_in"))
+        loadKoinModules(
+            module {
+                single<GetEventListUseCase>(override = true) { getEventListUseCase }
+                single<PostEventCheckInUseCase>(override = true) { postEventCheckInUseCase }
+            }
+        )
+
+        ActivityScenario.launch(EventActivity::class.java)
+        waitViewAppear(onView(withText(title)))
+        onView(withId(R.id.eventListRv)).perform(
+            RecyclerViewActions.scrollTo<EventListAdapter.ViewHolder>(
+                withChild(withText(title))
+            )
+        )
+        onView(withText(valor)).perform(click())
+        onView(withId(R.id.checkInBt)).perform(click())
+        onView(
+            withId(R.id.fragmentEventCheckInNameEt)
+        ).perform(typeText(checkInName))
+        onView(
+            withId(R.id.fragmentEventCheckInEmailEt)
+        ).perform(typeText(checkInEmail))
+        onView(withId(R.id.fragmentEventCheckInBt)).perform(click())
+        waitViewAppear(onView(withText("Houve um erro ao carregar o conteúdo.")))
+        onView(withText("Erro!")).check(matches(isDisplayed()))
+        onView(withText("Tentar novamente")).check(matches(isDisplayed()))
     }
 
     private fun waitViewAppear(viewInteraction: ViewInteraction) {

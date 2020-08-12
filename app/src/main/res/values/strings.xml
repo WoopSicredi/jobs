@@ -13,5 +13,9 @@
     <string name="fragment_event_detail_valor">Valor</string>
     <string name="btn_fragment_event_detail_check_in_btn">Check-in</string>
     <string name="view_info_title">%s: </string>
+    <string name="fragment_event_check_in_title">Realizar check-in</string>
+    <string name="fragment_event_check_in_name">Informe o seu nome completo</string>
+    <string name="fragment_event_check_in_email">Informe o seu e-mail</string>
+    <string name="fragment_event_check_in_button">Efetuar o check-in</string>
 
 </resources>
