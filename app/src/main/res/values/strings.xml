@@ -2,14 +2,17 @@
     <string name="app_name">MVVM Mock API App</string>
     <string name="datasheet">Informações</string>
     <string name="not_informed">Não informado</string>
+    <string name="required">Obrigatório</string>
     <string name="item_event_list_date">Data: %s</string>
     <string name="item_event_list_price">Valor: R$ %.2f</string>
+    <string name="item_event_list_money">R$ %.2f</string>
     <string name="activity_error_positive_button">Tentar novamente</string>
     <string name="activity_success">OK</string>
     <string name="activity_error_message_api_title">Erro!</string>
     <string name="activity_error_message_api_message">Houve um erro ao carregar o conteúdo.</string>
     <string name="activity_checkin_success_dialog_title">Parabéns!</string>
     <string name="activity_checkin_success_dialog_message">Check-in efetuado com sucesso.</string>
+    <string name="fragment_event_list_title">Eventos</string>
     <string name="fragment_event_detail_overview">%s: %s</string>
     <string name="fragment_event_detail_title">Título</string>
     <string name="fragment_event_detail_description">Descrição do evento</string>
@@ -23,5 +26,6 @@
     <string name="fragment_event_check_in_button">Efetuar o check-in</string>
     <string name="share">Compartilhar</string>
     <string name="share_event_body">Encontrei este evento pelo %s e achei que você teria interesse!\n\n%s\n\n%s\n\nLocal: <a>http://maps.google.com/maps?saddr=%f.10,%f.10</a></string>
+    <string name="fragment_checkin_event_info_summary_title">Resumo</string>
 
 </resources>

@@ -1,6 +1,5 @@
 package br.com.nerdrapido.mvvmmockapiapp.ui.view.event.fragment
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,9 +12,6 @@ import br.com.nerdrapido.mvvmmockapiapp.R
 import br.com.nerdrapido.mvvmmockapiapp.presentation.model.Event
 import br.com.nerdrapido.mvvmmockapiapp.presentation.viewModel.event.EventViewModel
 import br.com.nerdrapido.mvvmmockapiapp.ui.helper.ViewHelper
-import br.com.nerdrapido.mvvmmockapiapp.ui.viewComponent.ItemInfoView
-import br.com.nerdrapido.mvvmmockapiapp.ui.viewComponent.ItemInfoViewMultiline
-import br.com.nerdrapido.mvvmmockapiapp.ui.viewComponent.ItemInfoViewSingleLine
 import kotlinx.android.synthetic.main.fragment_event_detail.*
 import org.koin.android.ext.android.inject
 
@@ -54,6 +50,8 @@ class EventDetailFragment : Fragment() {
         checkInBt.setOnClickListener {
             viewModel.onCheckInWanted()
         }
+        toolbar.setNavigationOnClickListener { viewModel.onBackPressed() }
+
     }
 
     private fun setOptionsMenu() {
@@ -93,45 +91,30 @@ class EventDetailFragment : Fragment() {
         // aqui é feita a mágica para que o titulo da toolbar se adapte ao conteúdo.
         // A margem do título fica atrelada ao tamanho da overview do livro e é animada no scroll
         overviewTv.addOnLayoutChangeListener { _, _, top, _, _, _, _, _, _ ->
-            collapsingToolbar.expandedTitleMarginBottom = checkInBt.bottom - top
+            collapsingToolbar.expandedTitleMarginBottom = titleOffsetPlaceholder.bottom - top
         }
         detailInfoContainer.removeAllViews()
-        addInfoView(
+        viewHelper.addInfoView(
             requireContext(),
             getString(R.string.fragment_event_detail_title),
-            event.title
+            event.title,
+            detailInfoContainer
         )
-        addInfoView(
+        viewHelper.addInfoView(
             requireContext(),
             getString(R.string.fragment_event_detail_valor),
-            event.price.toString()
+            getString(R.string.item_event_list_money, event.price),
+            detailInfoContainer
+
         )
-        addInfoView(
+        viewHelper.addInfoView(
             requireContext(),
             getString(R.string.fragment_event_detail_description),
             event.description,
+            detailInfoContainer,
             true
         )
     }
 
-    /**
-     * Adiciona uma [ItemInfoView] com a informação passad nos parâmetros.
-     *
-     * @param title é o título da informação.
-     * @param info é a informação em si.
-     * @param multiline se true é criado uam [ItemInfoViewMultiline] se falso
-     * [ItemInfoViewSingleLine]
-     */
-    private fun addInfoView(
-        context: Context,
-        title: String,
-        info: String,
-        multiline: Boolean = false
-    ) {
-        val infoView: ItemInfoView =
-            if (multiline) ItemInfoViewMultiline(context) else ItemInfoViewSingleLine(context)
-        infoView.setTitle(title)
-        infoView.setInfo(info)
-        detailInfoContainer.addView(infoView as View)
-    }
+
 }

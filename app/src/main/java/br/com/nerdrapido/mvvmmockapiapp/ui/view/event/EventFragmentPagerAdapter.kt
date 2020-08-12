@@ -13,7 +13,6 @@ import br.com.nerdrapido.mvvmmockapiapp.ui.view.event.fragment.EventListFragment
 class EventFragmentPagerAdapter(fragmentActivity: FragmentActivity) :
     FragmentStateAdapter(fragmentActivity) {
 
-
     companion object {
         const val NUM_PAGES = 3
     }

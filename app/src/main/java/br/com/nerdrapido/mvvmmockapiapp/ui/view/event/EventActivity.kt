@@ -3,10 +3,13 @@ package br.com.nerdrapido.mvvmmockapiapp.ui.view.event
 import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.content.pm.ActivityInfo
+import android.os.Build
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.view.Window
+import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.FragmentActivity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
 import br.com.nerdrapido.mvvmmockapiapp.R
@@ -19,7 +22,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 /**
  * Created By FELIPE GUSBERTI @ 09/08/2020
  */
-class EventActivity : FragmentActivity() {
+class EventActivity : AppCompatActivity() {
 
     private val viewModel: EventViewModel by viewModel()
 
@@ -27,7 +30,7 @@ class EventActivity : FragmentActivity() {
      * Diálogo genérico para apresentação de erros
      */
     private val errorDialog: AlertDialog by lazy {
-        return@lazy AlertDialog.Builder(this, R.style.Theme_MaterialComponents_Dialog_Alert)
+        return@lazy AlertDialog.Builder(this, R.style.Theme_AppCompat_DayNight_Dialog)
             .setPositiveButton(
                 R.string.activity_error_positive_button
             ) { dialogInterface: DialogInterface, _: Int ->
@@ -41,7 +44,7 @@ class EventActivity : FragmentActivity() {
      * Diálogo genérico para apresentação de erros
      */
     private val checkInSuccessDialog: AlertDialog by lazy {
-        return@lazy AlertDialog.Builder(this, R.style.Theme_MaterialComponents_Dialog)
+        return@lazy AlertDialog.Builder(this, R.style.Theme_AppCompat_DayNight_Dialog)
             .setPositiveButton(
                 R.string.activity_success
             ) { dialogInterface: DialogInterface, _: Int ->
@@ -74,6 +77,12 @@ class EventActivity : FragmentActivity() {
         @Suppress("UNCHECKED_CAST")
         setContentView(R.layout.activity_event)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val window: Window = window
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.navigationBarColor = resources.getColor(R.color.colorPrimaryDark)
+        }
+
         eventContainerVp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         eventContainerVp.isUserInputEnabled = false
         eventContainerVp.adapter = EventFragmentPagerAdapter(this)
@@ -109,14 +118,17 @@ class EventActivity : FragmentActivity() {
                 eventContainerVp.currentItem = 1
             }
         })
+        viewModel.getBackPressed().observe(this, Observer {
+            if (eventContainerVp.currentItem == 0) {
+                super.onBackPressed()
+            } else {
+                eventContainerVp.currentItem = eventContainerVp.currentItem - 1
+            }
+        })
     }
 
     override fun onBackPressed() {
-        if (eventContainerVp.currentItem == 0) {
-            super.onBackPressed()
-        } else {
-            eventContainerVp.currentItem = eventContainerVp.currentItem - 1
-        }
+        viewModel.onBackPressed()
     }
 
     /**

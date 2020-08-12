@@ -4,58 +4,119 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/fagrmentEventCheckinTitleTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/fragment_event_check_in_title"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:theme="@style/Theme.AppCompat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:title="@string/fragment_event_check_in_title" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/fragmentEventCheckInNameTv"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/fragment_event_check_in_name"
-        app:layout_constraintTop_toBottomOf="@+id/fagrmentEventCheckinTitleTv"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/fragmentEventCheckInNameEt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentEventCheckInNameTv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/fragment_padding">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/fragmentEventCheckInEmailTv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/fragment_event_check_in_email"
-        android:inputType="textPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentEventCheckInNameEt"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/fragmentEventCheckInTitleTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_checkin_event_info_summary_title"
+                android:textSize="@dimen/text_title_size"
+                android:paddingVertical="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/checkInInfoContainer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/fragmentEventCheckInEmailEt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentEventCheckInNameEt"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+            <LinearLayout
+                android:id="@+id/checkInInfoContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/form_field_margin"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/fragmentEventCheckInNameTv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragmentEventCheckInTitleTv">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/fragmentEventCheckInBt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/fragment_event_check_in_button"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentEventCheckInEmailEt"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/fragmentEventCheckInNameTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/form_field_margin"
+                android:text="@string/fragment_event_check_in_name"
+                app:layout_constraintBottom_toTopOf="@+id/fragmentEventCheckInNameEt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkInInfoContainer" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/fragmentEventCheckInNameEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/form_field_margin"
+                app:layout_constraintBottom_toTopOf="@+id/fragmentEventCheckInEmailTv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragmentEventCheckInNameTv" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/fragmentEventCheckInEmailTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/form_field_margin"
+                android:inputType="textPersonName"
+                android:text="@string/fragment_event_check_in_email"
+                app:layout_constraintBottom_toTopOf="@+id/fragmentEventCheckInEmailEt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragmentEventCheckInNameEt" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/fragmentEventCheckInEmailEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/form_field_margin"
+                android:inputType="textEmailAddress"
+                app:layout_constraintBottom_toTopOf="@+id/fragmentEventCheckInBt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragmentEventCheckInEmailTv" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/fragmentEventCheckInBt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00FFFFFF"
+                android:textAllCaps="false"
+                android:padding="@dimen/button_padding"
+                android:text="@string/fragment_event_check_in_button"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/text_button_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragmentEventCheckInEmailEt" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

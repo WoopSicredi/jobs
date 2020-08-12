@@ -2,4 +2,10 @@
 <resources>
     <dimen name="item_list_padding">16dp</dimen>
     <dimen name="item_list_text_margin">8dp</dimen>
+    <dimen name="button_padding">16dp</dimen>
+    <dimen name="bottom_margin">24dp</dimen>
+    <dimen name="fragment_padding">24dp</dimen>
+    <dimen name="form_field_margin">24dp</dimen>
+    <dimen name="text_title_size">20sp</dimen>
+    <dimen name="text_button_size">16sp</dimen>
 </resources>

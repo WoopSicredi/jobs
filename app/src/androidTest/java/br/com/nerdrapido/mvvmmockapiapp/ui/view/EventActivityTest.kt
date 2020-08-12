@@ -23,7 +23,6 @@ import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.checkInEmail
 import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.checkInName
 import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.description
 import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.eventListJson
-import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.price
 import br.com.nerdrapido.mvvmmockapiapp.testShared.RemoteModelMock.title
 import br.com.nerdrapido.mvvmmockapiapp.ui.view.event.EventActivity
 import br.com.nerdrapido.mvvmmockapiapp.ui.view.event.fragment.EventListAdapter
@@ -158,7 +157,7 @@ class EventActivityTest : KoinTest {
         )
         onView(
             allOf(
-                withText(price.toString()),
+                withText("R$ 19,99"),
                 withId(R.id.infoTv)
             )
         ).check(
@@ -233,8 +232,8 @@ class EventActivityTest : KoinTest {
         ).perform(click())
         onView(
             allOf(
-                withText("Realizar check-in"),
-                withId(R.id.fagrmentEventCheckinTitleTv)
+                withText("Resumo"),
+                withId(R.id.fragmentEventCheckInTitleTv)
             )
         ).check(matches(isCompletelyDisplayed()))
         onView(
@@ -261,7 +260,7 @@ class EventActivityTest : KoinTest {
                 withId(R.id.fragmentEventCheckInBt)
             )
         )
-            .check(matches(isCompletelyDisplayed()))
+            .check(matches(isDisplayed()))
             .perform(click())
         val checkinString = "Check-in efetuado com sucesso."
         waitViewAppear(onView(withText(checkinString)))
@@ -291,10 +290,10 @@ class EventActivityTest : KoinTest {
         onView(withText(valor)).perform(click())
         onView(withId(R.id.checkInBt)).perform(click())
         onView(withId(R.id.fragmentEventCheckInBt)).perform(click())
-            .check(matches(isCompletelyDisplayed()))
+            .check(matches(isDisplayed()))
         onView(withId(R.id.fragmentEventCheckInNameEt)).perform(typeText(checkInName))
         onView(withId(R.id.fragmentEventCheckInBt)).perform(click())
-            .check(matches(isCompletelyDisplayed()))
+            .check(matches(isDisplayed()))
     }
 
     @Test

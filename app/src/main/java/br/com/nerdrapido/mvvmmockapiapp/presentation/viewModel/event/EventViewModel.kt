@@ -40,6 +40,8 @@ class EventViewModel(
 
     private val eventCheckInWanted = MutableLiveData<Boolean>()
 
+    private val backPressed = MutableLiveData<Boolean>()
+
     private val eventCheckInNotValid = MutableLiveData<FieldRuleEnum>()
 
     private val viewState = MutableLiveData<ViewStateEnum>(ViewStateEnum.LOADING)
@@ -66,6 +68,10 @@ class EventViewModel(
 
     fun getEventCheckInNotValid(): LiveData<FieldRuleEnum> {
         return eventCheckInNotValid
+    }
+
+    fun getBackPressed() :LiveData<Boolean> {
+        return backPressed
     }
 
     fun onTryAgainClick() {
@@ -121,6 +127,10 @@ class EventViewModel(
 
     fun onEventItemCLick(event: Event) {
         eventSelected.postValue(event)
+    }
+
+    fun onBackPressed() {
+        backPressed.postValue(true)
     }
 
     private fun fetchEventList() {
