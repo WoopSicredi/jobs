@@ -1,57 +1,46 @@
-# Transformação Digital
+# MVVM Mock API App
 
-Estamos buscando pessoas inspiradas por tecnologia e inovação, capazes e engajadas para construir juntos uma plataforma digital cooperativa para o futuro.
+### Aplicativo de fundamentação de teoria e prática de programação Android baseado em uma mock API de obtenção de vouchers
 
-## Sobre Nós
+* Arquitetura MVVM
+* Utilizado prática TDD com testes unitários e instrumentados (JUnit e Espresso)
+* Cobertura do Jacoco https://drive.google.com/file/d/15QdBlFGMpk1pon8EYxOT--ZKrZYvLwDh/view?usp=sharing
+Rodar task jacocoTestReportClean do gradle para verificar (Exige android físico para o espresso e podem ocorrer problemas em alguns aparelhos)
 
-Somos uma das maiores instituições financeiras cooperativas do país e uma das melhores empresas para trabalhar no Brasil. Isso mostra que, aqui, os números não são o mais importante. Somos uma organização cooperativa feita de pessoas e para pessoas.​
+#### Próximos passos
+* Exibir mais informações do evento
+* Exibir lista de participantes
+* Exibir cupons e descontos
 
-Aqui, todos tem voz e participam das decisões. Mas não é só isso que nos faz diferentes das instituições financeiras comuns. Acreditamos no relacionamento para gerar crescimento, no cuidado com o bem-estar das pessoas no presente e no seu desenvolvimento para o futuro. Sabemos que, juntos, todos ganhamos.
+#### Com mais tempo poderia avançar mais, mas prezando pela qualidade, dentro da minha rotina foi até onde pude ir
+#### Tenho uma amortra de UI mais complexa desenvolvida por mim em https://github.com/fwgusberti/movie-db-app/releases/tag/1.0.0 (necessário cadastro no MovieDb https://www.themoviedb.org/?language=pt-BR)
 
-Faça parte dessa história. Aqui, seu trabalho é reconhecido e faz a diferença para a vida de milhares de Associados.
+## Bibliotecas
 
-## Conheça os nossos pilares
+### Aplicação
 
-#### DESIGN
+#### Implementação do Timber para logs
+* https://github.com/JakeWharton/timber
+* https://medium.com/android-dev-br/dominando-seus-logs-com-o-timber-8e9730b2090b
 
-Não basta parecer simples. Tem que ser simples. Encantar nossos usuários a cada interação.
+#### Implementação do retrofit para a comunicação com a API
+* https://square.github.io/retrofit/
+* https://vickychijwani.me/retrofit-vs-volley/
 
-#### ENGAJAMENTO
+#### Implementação do Gson para a tradução de json
+* https://github.com/google/gson
 
-Construímos experiências surpreendentes e relevantes para a vida das pessoas. Garantir a satisfação dos usuários é o que nos move.
+#### Implementação do Glide para otenção e cache de URL de imagens
+* https://bumptech.github.io/glide/
 
-#### AGILIDADE
+#### Implementação do  Coroutines para trabalho assíncrono
+* https://kotlinlang.org/docs/reference/coroutines-overview.html
+* https://developer.android.com/kotlin/coroutines
 
-Criamos rápido. Lançamos rápido. Aprendemos e resolvemos rápido. Melhoramos sempre.
+#### Implementação do Koin para injeção de dependências
+* https://insert-koin.io/
+* https://github.com/InsertKoinIO/koin
+* https://medium.com/collabcode/inje%C3%A7%C3%A3o-de-depend%C3%AAncia-no-kotlin-com-koin-4d093f80cb63
 
-## Atitudes que valorizamos!
-
-#### SIMPLICIDADE
-
-Focamos no que realmente importa.
-
-#### FOCO NO USUÁRIO
-
-O usuário é sempre o centro de tudo.
-
-#### EMPREENDEDORISMO
-
-Somos visionários e sonhadores. 
-Acreditamos e realizamos.
-
-#### INOVAÇÃO
-
-Somos curiosos e queremos criar novas tendências.
-
-#### COLABORAÇÃO
-
-Somos uma cooperativa.
-Fazemos juntos para fazer a diferença.
-
-#### APRENDIZAGEM
-
-Não sabemos tudo.
-Mas tudo o que sabemos é compartilhado.
-
-## Vagas
-https://sicredi.gupy.io
+#### Implementação do Okhttplogger para logar conteúdo de requisições web
+* https://square.github.io/okhttp/interceptors/
