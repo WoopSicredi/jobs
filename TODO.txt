@@ -1,1 +1,10 @@
-Test
+- Backend API Docs??
+- Better animation and transitions
+- Create and split common components like buttons
+- better setup for Auth ex: simulate JWT
+- Automated testing
+- Better routing Auth Guard
+- Configure Eslint
+- Configure SourceMaps
+- Improve Theming options
+    - Dark theme?
