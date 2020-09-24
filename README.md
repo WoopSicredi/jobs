@@ -1,57 +1,58 @@
-# Transformação Digital
+# Framework e tecnologia utilizadas no projeto
 
-Estamos buscando pessoas inspiradas por tecnologia e inovação, capazes e engajadas para construir juntos uma plataforma digital cooperativa para o futuro.
+Neste projeto utilizei as seguintes tecnologias:
 
-## Sobre Nós
+* React
+* Typescript
+* Webpack
+* JJS
 
-Somos uma das maiores instituições financeiras cooperativas do país e uma das melhores empresas para trabalhar no Brasil. Isso mostra que, aqui, os números não são o mais importante. Somos uma organização cooperativa feita de pessoas e para pessoas.​
+## React
+React é uma biblioteca JavaScript que facilita o desenvolvimento da interface de usuário. A grande vantagem de usar este tipo de tecnologia é a sua facilidade para criar componentes reutilizáveis e velocidade de desenvolvimento. 
 
-Aqui, todos tem voz e participam das decisões. Mas não é só isso que nos faz diferentes das instituições financeiras comuns. Acreditamos no relacionamento para gerar crescimento, no cuidado com o bem-estar das pessoas no presente e no seu desenvolvimento para o futuro. Sabemos que, juntos, todos ganhamos.
+## Typescript
+Typescript estende a linguagem Javascript adicionando tipagem para manipulação das estruturas de dados e introduzindo uma etapa de compilação/transpilação de código. A vantagem de utilizar typescript é que ele permite detecção de erros de programação através da etapa de compilação e isso facilita muito a gestão de grandes projetos. Outra utilidade para o Typescript é que ele tem recurso nativo para transpilar expressões JSX para código javascript. (JSX são maneiras de descrever elementos de interface de usuário através de código javascript ao invés de html). Mais uma vantagem desta tecnologia é que ela é capas de transpilar código javascript de versões mais recentes como por exemplo EcmaScript 6 para versões antigas como EcmaScript 5 (Compatível com Navegadores antigos).
 
-Faça parte dessa história. Aqui, seu trabalho é reconhecido e faz a diferença para a vida de milhares de Associados.
+## Webpack
+Webpack é um empacotador de código ou apenas "build system". Através de um arquivo de configuração, esta tecnológica analisa e empacota o código fonte do projeto em um formato pronto para aplicação em produção. 
 
-## Conheça os nossos pilares
+## JJS
+JJS é uma tecnologia para estilizar componentes HTML através de JavaScript. Esta tecnologia resolve automaticamente conflitos de nomenclatura de classes CSS e permite descrever e reutilizar estilos usando JavaScript. É muito semelhante a tecnologias como Sass, a diferença é que ao invés de utilizar uma linguagem diferentes é possível fazer tudo usando JavaScript. 
 
-#### DESIGN
+# Project setup, compile e run
+Os passos para baixar e executar o projeto são os seguintes: 
 
-Não basta parecer simples. Tem que ser simples. Encantar nossos usuários a cada interação.
+0. Instalar [NodeJS e NPM](https://nodejs.org/en/download/)
+1. Clonar o projeto usando o comando ```git clone "url do projeto"```
+2. Abrir um terminal no diretório do projeto e instalar os pacotes node ``npm install``
+3. Para rodar o ambiente de desenvolvimento:
+  - ``npm run dev``
+4. Para criar um pacote de produção:
+  - ``npm run prod``
 
-#### ENGAJAMENTO
+# Estrutura do projeto
 
-Construímos experiências surpreendentes e relevantes para a vida das pessoas. Garantir a satisfação dos usuários é o que nos move.
+O projeto tem a seguinte estrutura:
 
-#### AGILIDADE
+```
+| Assets (Diretório para arquivos estáticos como HTML, SVG, Imagens, etc.)
+| dist (Diretório onde é gerado os arquivos de compilação do Webpack)
+| docs (Usado apenas para o GitHub Pages)
+| src (Diretório com todo o código fonte)
+ \
+  | components (Componentes reutilizáveis do React)
+  | services (código fonte referente a integração como por exemplo, chamadas API para um servidor Backend)
+  | util (Códigos comuns reutilizáveis)
+  | view (Cada arquivo é uma tala diferente do sistema)
+ /
+| Raiz do projeto (Arquivos de configuração e README)
+```
 
-Criamos rápido. Lançamos rápido. Aprendemos e resolvemos rápido. Melhoramos sempre.
-
-## Atitudes que valorizamos!
-
-#### SIMPLICIDADE
-
-Focamos no que realmente importa.
-
-#### FOCO NO USUÁRIO
-
-O usuário é sempre o centro de tudo.
-
-#### EMPREENDEDORISMO
-
-Somos visionários e sonhadores. 
-Acreditamos e realizamos.
-
-#### INOVAÇÃO
-
-Somos curiosos e queremos criar novas tendências.
-
-#### COLABORAÇÃO
-
-Somos uma cooperativa.
-Fazemos juntos para fazer a diferença.
-
-#### APRENDIZAGEM
-
-Não sabemos tudo.
-Mas tudo o que sabemos é compartilhado.
-
-## Vagas
-https://sicredi.gupy.io
+# Funcionalidades 
+- Login (Fake) 
+- Tela de listagem de dragões (Tela principal) 
+- Edição de dragões é feita na própria tela de listagem 
+- Tela de criação de dragões 
+- Tela de detalhe dos dragões 
+- Botão para remover dragões na própria listagem 
+- Menu global de fácil acesso no header 
