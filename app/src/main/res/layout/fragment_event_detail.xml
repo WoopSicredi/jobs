@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:shimmer="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="br.com.angelorobson.templatemvi.model.domains.Event" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/content_detail"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingBottom="32dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_post_image"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:adjustViewBounds="false"
+                android:background="@color/color_gray_light"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{item.image}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_place_holder" />
+
+            <ProgressBar
+                android:id="@+id/event_detail_progress_horizontal"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="14dp"
+                android:text="@{item.title}"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_post_image"
+                tools:text="Titulo" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_clock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:src="@drawable/ic_calendar"
+                app:layout_constraintStart_toStartOf="@id/tv_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:ellipsize="end"
+                android:maxLines="4"
+                android:textColor="@color/color_gray_dark"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_clock"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_clock"
+                app:layout_constraintTop_toTopOf="@+id/iv_clock"
+                app:longToDate="@{item.date}"
+                tools:text="8 de Novembro 18:30" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_ticket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_ticket"
+                app:layout_constraintStart_toStartOf="@id/iv_clock"
+                app:layout_constraintTop_toBottomOf="@+id/iv_clock" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:ellipsize="end"
+                android:maxLines="4"
+                android:textColor="@color/color_gray_dark"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_ticket"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_ticket"
+                app:layout_constraintTop_toTopOf="@+id/iv_ticket"
+                app:toMoneyFormat="@{item.price}"
+                tools:text="R$ 59,90" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_subtitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="14dp"
+                android:text="@{item.description}"
+                android:textColor="@color/color_gray_dark"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@id/tv_price"
+                app:layout_constraintStart_toStartOf="@id/iv_ticket"
+                app:layout_constraintTop_toBottomOf="@+id/tv_price"
+                tools:text="Subtitulo" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+</layout>

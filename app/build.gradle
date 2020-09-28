@@ -1,0 +1,128 @@
+apply plugin: 'com.android.application'
+apply plugin: 'androidx.navigation.safeargs'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        applicationId "br.com.angelorobson.templatemvi"
+        minSdkVersion 17
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+
+        testInstrumentationRunner "br.com.angelorobson.templatemvi.AndroidTestRunner"
+    }
+
+    testBuildType 'instrumented'
+
+
+    buildTypes {
+        instrumented {
+            initWith debug
+            applicationIdSuffix ".instrumented"
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+
+    dataBinding {
+        enabled true
+    }
+
+}
+
+androidExtensions {
+    experimental = true
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+    implementation "androidx.appcompat:appcompat:$androidXAppCompatVersion"
+    implementation "androidx.core:core-ktx:$androidXVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
+
+
+    implementation "com.google.android.material:material:$materialVersion"
+
+    implementation "io.reactivex.rxjava2:rxjava:$rxjavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxandroidVersion"
+    implementation "com.jakewharton.rxbinding3:rxbinding:$rxbindingVersion"
+
+    implementation "com.spotify.mobius:mobius-core:$mobiusVersion"
+    implementation "com.spotify.mobius:mobius-rx2:$mobiusVersion"
+    implementation "com.spotify.mobius:mobius-android:$mobiusVersion"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    testImplementation "com.spotify.mobius:mobius-test:$mobiusVersion"
+
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+
+
+    implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
+    implementation "com.squareup.moshi:moshi:$moshiVersion"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
+
+    implementation "com.jakewharton.threetenabp:threetenabp:$threetenabpVersion"
+
+    implementation "android.arch.paging:runtime:$pagingVersion"
+    implementation "android.arch.paging:rxjava2:$pagingVersion"
+    implementation "br.com.simplepass:loading-button-android:$loadingButtonVersion"
+
+
+    testImplementation "junit:junit:$junitVersion"
+
+    // Optional -- Mockito framework
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    androidTestImplementation "org.mockito:mockito-android:$mockitoAndroidVersion"
+
+    kapt "com.android.databinding:compiler:$androidGradlePluginVersion"
+
+    androidTestImplementation "androidx.test:runner:$testRunnerVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+    androidTestImplementation "androidx.test:rules:$rulesVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$espressoIntentsVersion"
+
+    instrumentedImplementation "androidx.test:core:$testingVersion"
+    instrumentedImplementation "androidx.fragment:fragment-testing:$fragmentVersion"
+    instrumentedImplementation "com.squareup.okhttp3:mockwebserver:$mockWebServerVersion"
+
+
+    kaptAndroidTest "com.google.dagger:dagger-compiler:$daggerVersion"
+
+    testImplementation "io.mockk:mockk:$ioMockVersion"
+}

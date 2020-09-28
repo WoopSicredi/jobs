@@ -1,0 +1,55 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+
+    <style name="TitleTextView">
+        <item name="android:gravity">left</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:textColor">@color/colorTitle</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="DescriptionTextView">
+        <item name="android:gravity">left</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="UserNameTextView">
+        <item name="android:gravity">left</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/colorTitle</item>
+    </style>
+
+    <style name="CountTextView">
+        <item name="android:drawablePadding">4dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorOrange</item>
+        <item name="android:drawableTint">@color/colorOrange</item>
+        <item name="android:textStyle">bold</item>
+
+        android:drawablePadding="4dp"
+        android:textColor="@color/colorOrange"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:drawableTint="@color/colorOrange"
+    </style>
+
+</resources>
