@@ -1,57 +1,43 @@
-# Transformação Digital
+### Informações gerais sobre o Projeto
+-  Suporte a mudanças de orientação das telas sem perder estado
+-  O projeto foi elaborado utilizando o padrão arquitetural MVI (Model-View-Intent).
+-  O projeto possui testes unitários.
+-  O projeto possui testes de interface.
+-  O projeto do teste foi criado com base em um template feito por mim no meu Github, a intenção do template é deixar toda a estrutura pronta para ganhar tempo na criação de um novo projeto e evitar o processo demorado e repetitivo quando tiver que criar um do zero.
 
-Estamos buscando pessoas inspiradas por tecnologia e inovação, capazes e engajadas para construir juntos uma plataforma digital cooperativa para o futuro.
+### Motivos para escolher este padrão arquitetural
+ - Fluxo de dados unidirecional e cíclico.
+ - Um estado consistente durante o ciclo de vida das Views.
+ - Modelos imutáveis ​​que fornecem comportamento confiável e segurança de threads em aplicativos grandes.
 
-## Sobre Nós
 
-Somos uma das maiores instituições financeiras cooperativas do país e uma das melhores empresas para trabalhar no Brasil. Isso mostra que, aqui, os números não são o mais importante. Somos uma organização cooperativa feita de pessoas e para pessoas.​
+### Linguagem utilizada:
+   - Kotlin
 
-Aqui, todos tem voz e participam das decisões. Mas não é só isso que nos faz diferentes das instituições financeiras comuns. Acreditamos no relacionamento para gerar crescimento, no cuidado com o bem-estar das pessoas no presente e no seu desenvolvimento para o futuro. Sabemos que, juntos, todos ganhamos.
 
-Faça parte dessa história. Aqui, seu trabalho é reconhecido e faz a diferença para a vida de milhares de Associados.
+###  Bibliotecas utilizadas na implementação:
+   - Mobius Spotify (Uma biblioteca criada pela equipe do Spoty com uma estrutura reativa funcional para gerenciar a evolução do estado e efeitos colaterais, com complementos para conectar-se às UIs do Android e ao RxJava Observables. Ele enfatiza a separação de preocupações, a testabilidade e o isolamento de partes com estado do código.)
+   - rxbinding3 (Para converter os widgets em observables)
+   - Dagger 2 (Para injentar as dependências)
+   - ViewModels (Trabalhar a lógica de negócio)
+   - Jetpack navigation
+   - Room database
+   - Databinding (Para evitar boilerplate e manter um código mais limpo)
+   - Safe Args
+   - Retrofit2: moshi-converter, adapter-rxjava2
+   - RxJava2
+   - Glide
+   - AndroidX
+   - RxJava (RxKotlin)
+   - Material Design 2.0
 
-## Conheça os nossos pilares
+### Bibliotecas utilizadas para testes:
+   - Espresso
+   - JUnit
+   - MockWebServer (Para simular a api criando um servidor local)
 
-#### DESIGN
+### Como rodar os testes de interface
+   - Para rodar os testes de interface, mude a build variants para intrumented.
 
-Não basta parecer simples. Tem que ser simples. Encantar nossos usuários a cada interação.
-
-#### ENGAJAMENTO
-
-Construímos experiências surpreendentes e relevantes para a vida das pessoas. Garantir a satisfação dos usuários é o que nos move.
-
-#### AGILIDADE
-
-Criamos rápido. Lançamos rápido. Aprendemos e resolvemos rápido. Melhoramos sempre.
-
-## Atitudes que valorizamos!
-
-#### SIMPLICIDADE
-
-Focamos no que realmente importa.
-
-#### FOCO NO USUÁRIO
-
-O usuário é sempre o centro de tudo.
-
-#### EMPREENDEDORISMO
-
-Somos visionários e sonhadores. 
-Acreditamos e realizamos.
-
-#### INOVAÇÃO
-
-Somos curiosos e queremos criar novas tendências.
-
-#### COLABORAÇÃO
-
-Somos uma cooperativa.
-Fazemos juntos para fazer a diferença.
-
-#### APRENDIZAGEM
-
-Não sabemos tudo.
-Mas tudo o que sabemos é compartilhado.
-
-## Vagas
-https://sicredi.gupy.io
+### O que gostaria de ter feito mais e não fiz por causa do tempo
+  - Gostaria de ter trabalhado mais nos testes das views, criado as ações.

@@ -1,0 +1,42 @@
+{
+  "people": [
+    {
+      "picture": "https://images.pexels.com/photos/1292306/pexels-photo-1292306.jpeg",
+      "name": "Alexandre Pires",
+      "eventId": "1",
+      "id": "1"
+    },
+    {
+      "picture": "https://images.pexels.com/photos/1310522/pexels-photo-1310522.jpeg",
+      "name": "Jéssica Souza",
+      "eventId": "1",
+      "id": "2"
+    },
+    {
+      "picture": "https://images.pexels.com/photos/542282/pexels-photo-542282.jpeg",
+      "name": "Boanerges Oliveira",
+      "eventId": "1",
+      "id": "6"
+    },
+    {
+      "picture": "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg",
+      "name": "Felipe Smith",
+      "eventId": "1",
+      "id": "7"
+    },
+    {
+      "picture": "https://images.pexels.com/photos/1334945/pexels-photo-1334945.jpeg",
+      "name": "Paulo Santos",
+      "eventId": "1",
+      "id": "11"
+    }
+  ],
+  "date": 1534784400000,
+  "description": "O Patas Dadas estará na Redenção, nesse domingo, com cães para adoção e produtos à venda!\n\nNa ocasião, teremos bottons, bloquinhos e camisetas!\n\nTraga seu Pet, os amigos e o chima, e venha aproveitar esse dia de sol com a gente e com alguns de nossos peludinhos - que estarão prontinhos para ganhar o ♥ de um humano bem legal pra chamar de seu. \n\nAceitaremos todos os tipos de doação:\n- guias e coleiras em bom estado\n- ração (as que mais precisamos no momento são sênior e filhote)\n- roupinhas \n- cobertas \n- remédios dentro do prazo de validade",
+  "image": "http://lproweb.procempa.com.br/pmpa/prefpoa/seda_news/usu_img/Papel%20de%20Parede.png",
+  "longitude": -51.2146267,
+  "latitude": -30.0392981,
+  "price": 29.99,
+  "title": "Feira de adoção de animais na Redenção",
+  "id": "1"
+}

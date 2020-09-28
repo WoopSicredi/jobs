@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">TemplateMVI</string>
+
+    <!--    Return message from treatments with external calls-->
+    <string name="unauthorized">Incorrect email or password.</string>
+    <string name="rate_limit_exceeded">rate limit exceeded</string>
+    <string name="internal_error">An internal server error has occurred.</string>
+    <string name="socket_timout_error">Request time out, please try again.</string>
+    <string name="no_internet_connection_error">No Internet Connection. Please, Confirm your phone\'s internet connection.</string>
+    <string name="unknown_error">Unknown error, contact the app developer</string>
+
+    <!-- Repositories Screen -->
+    <string name="repository_title">Github JavaPop</string>
+    <string name="loren_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque risus tellus, volutpat in neque in, semper interdum tortor. Nullam non ultricies diam. Vivamus ut magna venenatis, fringilla est rhoncus, dictum risus. Quisque quis metus faucibus, tincidunt dolor non, luctus metus. Donec id erat vulputate, fringilla purus quis, pulvinar ante. Donec vitae consectetur dolor. Proin hendrerit enim eu nulla tempus, quis fermentum dui blandit. Sed faucibus id quam tincidunt luctus. Vivamus ac elit vitae purus egestas tincidunt. In ut viverra orci. Nam ut velit lorem. Etiam eu ex non nibh maximus malesuada eget eu libero. Phasellus commodo eleifend lacus, et aliquam nulla tincidunt a. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque a volutpat tellus.</string>
+
+    <string name="try_again">Try again</string>
+    <string name="events">Eventos</string>
+    <string name="event_detail">Detalhes do Evento</string>
+    <string name="check_in">Check in</string>
+    <string name="txt_check_in">Check in</string>
+    <string name="txt_name">Nome</string>
+    <string name="txt_email">E-mail</string>
+    <string name="txt_confirm">Confirmar</string>
+    <string name="insert_your_email">Insira seu email</string>
+    <string name="insert_your_name">Insira seu nome</string>
+    <string name="check_in_success">Check in feito com sucesso!</string>
+
+</resources>
