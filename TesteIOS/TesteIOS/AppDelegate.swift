@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = ViewController()
+        window?.rootViewController = setupInitialView()
         window?.makeKeyAndVisible()
         return true
     }
@@ -64,6 +64,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
+    }
+    
+    private func setupInitialView() -> UINavigationController {
+        let eventController = EventViewController()
+        eventController.title = "Eventos"
+        return UINavigationController(rootViewController: eventController)
     }
 
 }
