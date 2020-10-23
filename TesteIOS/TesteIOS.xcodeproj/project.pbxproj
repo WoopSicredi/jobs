@@ -24,6 +24,8 @@
 		D77BB4FA25430A1D0095C4FD /* CharacterSet+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77BB4F925430A1D0095C4FD /* CharacterSet+Extensions.swift */; };
 		D77BB4FF25430AA40095C4FD /* URLRequest+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77BB4FE25430AA40095C4FD /* URLRequest+Extensions.swift */; };
 		D77BB50625430DB00095C4FD /* EventProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77BB50525430DB00095C4FD /* EventProvider.swift */; };
+		D77BB50E254312DB0095C4FD /* EventClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77BB50D254312DB0095C4FD /* EventClient.swift */; };
+		D7B78B8D254344E300A7FF00 /* CheckinResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B78B8C254344E300A7FF00 /* CheckinResult.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +69,8 @@
 		D77BB4F925430A1D0095C4FD /* CharacterSet+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterSet+Extensions.swift"; sourceTree = "<group>"; };
 		D77BB4FE25430AA40095C4FD /* URLRequest+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Extensions.swift"; sourceTree = "<group>"; };
 		D77BB50525430DB00095C4FD /* EventProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventProvider.swift; sourceTree = "<group>"; };
+		D77BB50D254312DB0095C4FD /* EventClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventClient.swift; sourceTree = "<group>"; };
+		D7B78B8C254344E300A7FF00 /* CheckinResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinResult.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +153,7 @@
 		D77BB4BC2543031A0095C4FD /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				D7B78B8B2543447000A7FF00 /* FetchResult */,
 				D77BB50325430C550095C4FD /* Services */,
 				D77BB4D8254306030095C4FD /* Helpers */,
 				D77BB4BD254303C70095C4FD /* Entities */,
@@ -207,8 +212,17 @@
 			isa = PBXGroup;
 			children = (
 				D77BB50525430DB00095C4FD /* EventProvider.swift */,
+				D77BB50D254312DB0095C4FD /* EventClient.swift */,
 			);
 			path = Event;
+			sourceTree = "<group>";
+		};
+		D7B78B8B2543447000A7FF00 /* FetchResult */ = {
+			isa = PBXGroup;
+			children = (
+				D7B78B8C254344E300A7FF00 /* CheckinResult.swift */,
+			);
+			path = FetchResult;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -347,9 +361,11 @@
 				D77BB4BF254303E40095C4FD /* Person.swift in Sources */,
 				D77BB4FA25430A1D0095C4FD /* CharacterSet+Extensions.swift in Sources */,
 				D77BB47B2542FE410095C4FD /* AppDelegate.swift in Sources */,
+				D77BB50E254312DB0095C4FD /* EventClient.swift in Sources */,
 				D77BB4C42543042A0095C4FD /* Event.swift in Sources */,
 				D77BB4F2254309E30095C4FD /* Dictionary+Extensions.swift in Sources */,
 				D77BB4FF25430AA40095C4FD /* URLRequest+Extensions.swift in Sources */,
+				D7B78B8D254344E300A7FF00 /* CheckinResult.swift in Sources */,
 				D77BB4DB2543061F0095C4FD /* Descriptable.swift in Sources */,
 				D77BB4C9254304F90095C4FD /* APIError.swift in Sources */,
 				D77BB50625430DB00095C4FD /* EventProvider.swift in Sources */,

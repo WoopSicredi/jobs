@@ -10,16 +10,13 @@ import Foundation
 struct Event: Codable {
     let people: [Person]
     let date: Int
-    let resultDescription: String
+    let description: String
     let image: String
     let longitude, latitude, price: Double
     let title, id: String
 
     enum CodingKeys: String, CodingKey {
-        case people, date
-        case resultDescription = "description"
-        case image, longitude, latitude, price, title, id
+        case image, longitude, latitude, price, title, id, people, date, description
     }
+    
 }
-
-typealias requestResult = [Event]
