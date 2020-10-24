@@ -23,17 +23,18 @@ class EventViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.prefersLargeTitles = true
         self.view = eventView
-        configureController()
-        creatingBuinds()
+                creatingBuinds()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        configureController()
         viewModel.getAllEvents()
     }
     
     private func configureController() {
-        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationItem.largeTitleDisplayMode = .always
     }
     
     private func creatingBuinds() {
@@ -70,5 +71,10 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }
         return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedeEventID = viewModel.eventCellViewModels[indexPath.row].eventID
+        let controller = EventDetailsViewController()
+        self.navigationController?.pushViewController(controller, animated: true)
     }
 }

@@ -16,6 +16,10 @@ class EventCellViewModel {
         return event.title
     }
     
+    public var eventID: String {
+        return event.id
+    }
+    
     public var imageURL: String {
         return event.image
     }
