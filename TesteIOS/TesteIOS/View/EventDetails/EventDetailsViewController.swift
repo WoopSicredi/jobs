@@ -38,6 +38,10 @@ class EventDetailsViewController: UIViewController {
 }
 
 extension EventDetailsViewController: UITableViewDataSource, UITableViewDelegate {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
@@ -47,6 +51,8 @@ extension EventDetailsViewController: UITableViewDataSource, UITableViewDelegate
             guard let cell = tableView.dequeueReusableCell(withIdentifier: PeopleTableViewCell.reuseIdentifier, for: indexPath) as?  PeopleTableViewCell else {
                 return UITableViewCell()
             }
+            cell.collectionView.delegate = self
+            cell.collectionView.dataSource = self
             return cell
         } else {
             return UITableViewCell()
@@ -55,7 +61,7 @@ extension EventDetailsViewController: UITableViewDataSource, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return 240
+            return 192
         } else {
             return 0
         }
@@ -69,3 +75,22 @@ extension EventDetailsViewController: UITableViewDataSource, UITableViewDelegate
         }
     }
 }
+
+extension EventDetailsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 40
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PersonCollectionViewCell.reuseIdentifier, for: indexPath) as? PersonCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 12, left: 12, bottom: 0, right: 0)
+    }
+    
+}
+

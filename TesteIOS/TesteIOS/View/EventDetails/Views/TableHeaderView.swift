@@ -13,7 +13,6 @@ class TableHeaderView: UIView {
         let imageView = UIImageView()
         imageView.backgroundColor = .gray
         imageView.contentMode = .scaleAspectFill
-        //imageView.image = UIImage(named: "errorImage")
         imageView.clipsToBounds = true
         return imageView
     }()
@@ -34,14 +33,13 @@ class TableHeaderView: UIView {
     public lazy var priceLabel: UILabel = {
         let label = UILabel()
         let size: CGFloat = 80
-        label.textColor = UIColor.white
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 17)
         label.frame = CGRect(x : 50.0, y : 50.0, width : size, height :  size)
         label.layer.cornerRadius = size / 2
         label.layer.borderWidth = 3.0
-        label.layer.backgroundColor = UIColor.orange.cgColor
-        label.layer.borderColor = UIColor.orange.cgColor
+        label.layer.backgroundColor = UIColor.white.cgColor
+        label.layer.borderColor = UIColor.white.cgColor
 
         return label
     }()

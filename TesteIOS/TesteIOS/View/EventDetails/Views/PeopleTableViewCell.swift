@@ -12,7 +12,11 @@ class PeopleTableViewCell: UITableViewCell {
     public lazy var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        flowLayout.itemSize = CGSize(width: UIScreen.main.bounds.width/3 - 6, height: 180)
+        flowLayout.minimumLineSpacing = 12
+        let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 180), collectionViewLayout: flowLayout)
+        collectionView.alwaysBounceHorizontal = true
+        collectionView.register(PersonCollectionViewCell.self, forCellWithReuseIdentifier: PersonCollectionViewCell.reuseIdentifier)
         return collectionView
     }()
     
@@ -29,16 +33,19 @@ class PeopleTableViewCell: UITableViewCell {
 
 extension PeopleTableViewCell: ViewCode {
     func buildViewHierarchy() {
-        addSubview(collectionView)
+        contentView.addSubview(collectionView)
     }
     
     func setupConstraints() {
-        collectionView
-            .anchor(top: topAnchor)
-            .anchor(leading: leadingAnchor)
-            .anchor(trailing: trailingAnchor)
-            .anchor(bottom: safeAreaLayoutGuide.bottomAnchor)
+        if let superView = collectionView.superview {
+            collectionView
+                .anchor(top: superView.topAnchor)
+                .anchor(leading: superView.leadingAnchor)
+                .anchor(trailing: superView.trailingAnchor)
+                .anchor(bottom: superView.bottomAnchor)
+        }
     }
+    
     func setupAdditionalConfigurantion() {
         backgroundColor = .white
         collectionView.backgroundColor = .white
