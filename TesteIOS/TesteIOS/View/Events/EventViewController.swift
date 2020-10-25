@@ -56,20 +56,7 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
         }
         cell.titleLabel.text = cellViewModel.title
         cell.priceLabel.text = cellViewModel.price
-        DispatchQueue.global(qos: .background).async {
-            cellViewModel.downloadImagefromEventURL { result in
-                switch result {
-                case .success(let data):
-                    DispatchQueue.main.async {
-                        cell.banerImageView.image = UIImage(data: data)
-                    }
-                case .failure:
-                    DispatchQueue.main.async {
-                        cell.banerImageView.image = UIImage(named: "errorImage")
-                    }
-                }
-            }
-        }
+        cell.banerImageView.downloadImageFrom(url: cellViewModel.imageURL)
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

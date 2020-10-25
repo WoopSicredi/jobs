@@ -40,6 +40,19 @@ class EventTableViewCell: UITableViewCell {
         super.init(coder: coder)
         self.setupView()
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.banerImageView.image = nil
+        self.titleLabel.text = nil
+        self.priceLabel.text = nil
+    }
+    
+    deinit {
+        self.banerImageView.image = nil
+        self.titleLabel.text = nil
+        self.priceLabel.text = nil
+    }
 }
 
 extension EventTableViewCell: ViewCode {
