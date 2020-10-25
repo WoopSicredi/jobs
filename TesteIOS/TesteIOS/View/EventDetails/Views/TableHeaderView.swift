@@ -26,7 +26,6 @@ class TableHeaderView: UIView {
     public lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.text = "caralho"
         label.lineBreakMode = .byWordWrapping
         label.font = UIFont.systemFont(ofSize: 22, weight: .semibold)
         return label
@@ -34,8 +33,16 @@ class TableHeaderView: UIView {
     
     public lazy var priceLabel: UILabel = {
         let label = UILabel()
-        label.text = "caralho"
+        let size: CGFloat = 80
+        label.textColor = UIColor.white
         label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 17)
+        label.frame = CGRect(x : 50.0, y : 50.0, width : size, height :  size)
+        label.layer.cornerRadius = size / 2
+        label.layer.borderWidth = 3.0
+        label.layer.backgroundColor = UIColor.orange.cgColor
+        label.layer.borderColor = UIColor.orange.cgColor
+
         return label
     }()
     
@@ -43,7 +50,6 @@ class TableHeaderView: UIView {
         let label = UILabel()
         label.isUserInteractionEnabled = true
         label.numberOfLines = 2
-        label.text = "Forcing navigation to a specific view as a response to an external event has always been a common action in iOS development. Deep links to our app, taps on push notifications, Home Screen quick actions, in-app modals triggered by our backend are common examples that showcase the need to land on a specific screen in our app."
         label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         return label
     }()
@@ -89,14 +95,15 @@ extension TableHeaderView: ViewCode {
             .anchor(width: widthAnchor, multiplier: 0.6)
 
         priceLabel
-            .anchor(top: banerImageView.bottomAnchor, padding: 12)
-            .anchor(leading: titleLabel.trailingAnchor, padding: 12)
-            .anchor(trailing: safeAreaLayoutGuide.trailingAnchor, padding: 12)
-
+            .anchor(top: banerImageView.bottomAnchor, padding: -80/2)
+            .anchor(trailing: trailingAnchor, padding: 24)
+            .anchor(heightConstant: 80)
+            .anchor(widthConstant: 80)
+            
         descriptionLabel
             .anchor(top: titleLabel.bottomAnchor, padding: 12)
             .anchor(leading: safeAreaLayoutGuide.leadingAnchor, padding: 12)
             .anchor(trailing: safeAreaLayoutGuide.trailingAnchor, padding: 12)
-            .anchor(bottom: bottomAnchor, padding: 12)
+            .anchor(bottom: bottomAnchor, padding: 24)
     }
 }

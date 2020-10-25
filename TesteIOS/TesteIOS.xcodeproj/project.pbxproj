@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D70C6DAF2544E6AB00E12495 /* PeopleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70C6DAE2544E6AB00E12495 /* PeopleTableViewCell.swift */; };
 		D77BB47B2542FE410095C4FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77BB47A2542FE410095C4FD /* AppDelegate.swift */; };
 		D77BB47F2542FE410095C4FD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77BB47E2542FE410095C4FD /* ViewController.swift */; };
 		D77BB4852542FE410095C4FD /* TesteIOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D77BB4832542FE410095C4FD /* TesteIOS.xcdatamodeld */; };
@@ -57,6 +58,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D70C6DAE2544E6AB00E12495 /* PeopleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleTableViewCell.swift; sourceTree = "<group>"; };
 		D77BB4772542FE410095C4FD /* TesteIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TesteIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D77BB47A2542FE410095C4FD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D77BB47E2542FE410095C4FD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -342,6 +344,7 @@
 			children = (
 				D7B78BE025436B7D00A7FF00 /* EventDetailsView.swift */,
 				D7B78BE825436EB100A7FF00 /* TableHeaderView.swift */,
+				D70C6DAE2544E6AB00E12495 /* PeopleTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -483,6 +486,7 @@
 				D77BB4CE2543053C0095C4FD /* APIClient.swift in Sources */,
 				D77BB4852542FE410095C4FD /* TesteIOS.xcdatamodeld in Sources */,
 				D7B78BAA2543479C00A7FF00 /* EventViewController.swift in Sources */,
+				D70C6DAF2544E6AB00E12495 /* PeopleTableViewCell.swift in Sources */,
 				D77BB4BF254303E40095C4FD /* Person.swift in Sources */,
 				D7B78BE125436B7D00A7FF00 /* EventDetailsView.swift in Sources */,
 				D77BB4FA25430A1D0095C4FD /* CharacterSet+Extensions.swift in Sources */,

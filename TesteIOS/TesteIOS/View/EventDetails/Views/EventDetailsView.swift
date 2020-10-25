@@ -23,7 +23,8 @@ class EventDetailsView: UIView {
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(EventTableViewCell.self, forCellReuseIdentifier: EventTableViewCell.reuseIdentifier)
+        tableView.tableFooterView = UIView()
+        tableView.register(PeopleTableViewCell.self, forCellReuseIdentifier: PeopleTableViewCell.reuseIdentifier)
         return tableView
     }()
     
