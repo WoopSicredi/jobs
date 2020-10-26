@@ -35,6 +35,7 @@ class EventViewController: UIViewController {
     
     private func configureController() {
         navigationController?.navigationItem.largeTitleDisplayMode = .always
+        navigationController?.navigationBar.backgroundColor = .backgroundColor
     }
     
     private func creatingBuinds() {

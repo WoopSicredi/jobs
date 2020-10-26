@@ -38,7 +38,7 @@ class CheckinButton: UIButton {
         layer.cornerRadius = 8
         layer.borderWidth = 0
         contentHorizontalAlignment = .center
-        setTitleColor(UIColor.black, for: .normal)
+        setTitleColor(UIColor.white, for: .normal)
         backgroundColor = .actionColor
     }
 }

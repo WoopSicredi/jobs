@@ -38,8 +38,9 @@ class TableHeaderView: UIView {
         label.frame = CGRect(x : 50.0, y : 50.0, width : size, height :  size)
         label.layer.cornerRadius = size / 2
         label.layer.borderWidth = 3.0
-        label.layer.backgroundColor = UIColor.white.cgColor
-        label.layer.borderColor = UIColor.white.cgColor
+        label.textColor = .white
+        label.layer.backgroundColor = UIColor.actionColor.cgColor
+        label.layer.borderColor = UIColor.actionColor.cgColor
 
         return label
     }()

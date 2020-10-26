@@ -41,6 +41,6 @@ extension EventsView: ViewCode {
     }
     
     func setupAdditionalConfigurantion() {
-        backgroundColor = .white
+        backgroundColor = .backgroundColor
     }
 }

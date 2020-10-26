@@ -40,6 +40,7 @@ class EventDetailsViewController: UIViewController {
     
     private func configureController() {
         self.navigationItem.largeTitleDisplayMode = .never
+        self.navigationController?.navigationBar.tintColor = .actionColor
     }
     
     private func creatingBuinds() {
