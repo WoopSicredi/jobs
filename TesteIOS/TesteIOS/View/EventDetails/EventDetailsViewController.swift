@@ -20,6 +20,7 @@ class EventDetailsViewController: UIViewController {
         let view = EventDetailsView()
         view.tableView.delegate = self
         view.tableView.dataSource = self
+        view.toolBar.checkinButton.addTarget(self, action: #selector(didTapCheckinButton(_:)), for: .touchUpInside)
         return view
     }()
     
@@ -54,9 +55,17 @@ class EventDetailsViewController: UIViewController {
             self?.eventDetailsView.tableView.reloadData()
         }
         
+        viewModel.errorLoadingDataClosure = { [weak self] error in
+            self?.showAlert("Erro", message: error.localizedDescription, button: "Ok", handler: nil)
+        }
+        
         viewModel.isLoadingClosure = { [weak self] loading in
             self?.eventDetailsView.isLoading = loading
         }
+    }
+    
+    @objc func didTapCheckinButton(_ button: UIButton) {
+        
     }
 }
 

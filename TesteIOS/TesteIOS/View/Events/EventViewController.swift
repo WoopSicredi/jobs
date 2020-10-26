@@ -46,6 +46,10 @@ class EventViewController: UIViewController {
         viewModel.isLoadingClosure = { [weak self] loading in
             self?.eventView.isLoading = loading
         }
+        
+        viewModel.errorLoadingDataClosure = { [weak self] error in
+            self?.showAlert("Erro", message: error.localizedDescription, button: "Ok", handler: nil)
+        }
     }
 }
 
