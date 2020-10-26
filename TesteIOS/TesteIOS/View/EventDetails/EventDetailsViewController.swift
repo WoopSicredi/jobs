@@ -62,10 +62,22 @@ class EventDetailsViewController: UIViewController {
         viewModel.isLoadingClosure = { [weak self] loading in
             self?.eventDetailsView.isLoading = loading
         }
+        
+        viewModel.checkInCode = { [weak self] code in
+            if code == "200" {
+                self?.showAlert("Sucesso", message: "Usuário fez o checkin com sucesso nesse evento", button: "Ok", handler: nil)
+            } else {
+                self?.showAlert("Não deu bom!", message: "Algo de errado aconteceu e o usuário não foi capaz de fazer o checkin", button: "Ok", handler: nil)
+            }
+        }
     }
     
     @objc func didTapCheckinButton(_ button: UIButton) {
-        
+        guard let id = eventID else {
+            self.showAlert("Erro", message: "Não foi possível obter o ID do evento", button: "Ok", handler: nil)
+            return
+        }
+        viewModel.checkIn(eventID: id, user: "Levy Cristian", email: "\(UUID().uuidString)@gmail.com")
     }
 }
 
