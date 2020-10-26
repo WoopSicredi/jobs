@@ -13,6 +13,9 @@
 		D71B177725463D7100D65006 /* EventDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B177625463D7100D65006 /* EventDetailsViewModel.swift */; };
 		D71B177C25463F8A00D65006 /* PersonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B177B25463F8A00D65006 /* PersonViewModel.swift */; };
 		D71B17812546514000D65006 /* UIImage+CompressImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B17802546514000D65006 /* UIImage+CompressImage.swift */; };
+		D71B17882546538900D65006 /* CheckinButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B17872546538900D65006 /* CheckinButton.swift */; };
+		D71B178D254656E200D65006 /* CustomToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B178C254656E200D65006 /* CustomToolBar.swift */; };
+		D71B1792254659DE00D65006 /* UIColor+AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B1791254659DE00D65006 /* UIColor+AppColor.swift */; };
 		D77BB47B2542FE410095C4FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77BB47A2542FE410095C4FD /* AppDelegate.swift */; };
 		D77BB47F2542FE410095C4FD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77BB47E2542FE410095C4FD /* ViewController.swift */; };
 		D77BB4852542FE410095C4FD /* TesteIOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D77BB4832542FE410095C4FD /* TesteIOS.xcdatamodeld */; };
@@ -69,6 +72,9 @@
 		D71B177625463D7100D65006 /* EventDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsViewModel.swift; sourceTree = "<group>"; };
 		D71B177B25463F8A00D65006 /* PersonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonViewModel.swift; sourceTree = "<group>"; };
 		D71B17802546514000D65006 /* UIImage+CompressImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+CompressImage.swift"; sourceTree = "<group>"; };
+		D71B17872546538900D65006 /* CheckinButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinButton.swift; sourceTree = "<group>"; };
+		D71B178C254656E200D65006 /* CustomToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToolBar.swift; sourceTree = "<group>"; };
+		D71B1791254659DE00D65006 /* UIColor+AppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+AppColor.swift"; sourceTree = "<group>"; };
 		D77BB4772542FE410095C4FD /* TesteIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TesteIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D77BB47A2542FE410095C4FD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D77BB47E2542FE410095C4FD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -314,6 +320,7 @@
 				D7B78BA32543470A00A7FF00 /* UIView+Autolayout.swift */,
 				D71B17702546362700D65006 /* UIImageView+ImageURL.swift */,
 				D71B17802546514000D65006 /* UIImage+CompressImage.swift */,
+				D71B1791254659DE00D65006 /* UIColor+AppColor.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -339,6 +346,8 @@
 		D7B78BC92543626200A7FF00 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				D71B17872546538900D65006 /* CheckinButton.swift */,
+				D71B178C254656E200D65006 /* CustomToolBar.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -515,6 +524,7 @@
 				D77BB4FA25430A1D0095C4FD /* CharacterSet+Extensions.swift in Sources */,
 				D77BB47B2542FE410095C4FD /* AppDelegate.swift in Sources */,
 				D7B78BC52543542F00A7FF00 /* EventCellViewModel.swift in Sources */,
+				D71B1792254659DE00D65006 /* UIColor+AppColor.swift in Sources */,
 				D71B177725463D7100D65006 /* EventDetailsViewModel.swift in Sources */,
 				D77BB50E254312DB0095C4FD /* EventClient.swift in Sources */,
 				D7B78BD825436AB300A7FF00 /* EventDetailsViewController.swift in Sources */,
@@ -526,12 +536,14 @@
 				D77BB4FF25430AA40095C4FD /* URLRequest+Extensions.swift in Sources */,
 				D7B78B8D254344E300A7FF00 /* CheckinResult.swift in Sources */,
 				D77BB4DB2543061F0095C4FD /* Descriptable.swift in Sources */,
+				D71B17882546538900D65006 /* CheckinButton.swift in Sources */,
 				D7B78B972543469800A7FF00 /* Identifiable.swift in Sources */,
 				D77BB4C9254304F90095C4FD /* APIError.swift in Sources */,
 				D7B78BBB25434C0B00A7FF00 /* EventTableViewCell.swift in Sources */,
 				D7B78B9F254346C900A7FF00 /* ViewCode.swift in Sources */,
 				D71B177C25463F8A00D65006 /* PersonViewModel.swift in Sources */,
 				D77BB50625430DB00095C4FD /* EventProvider.swift in Sources */,
+				D71B178D254656E200D65006 /* CustomToolBar.swift in Sources */,
 				D71B17712546362700D65006 /* UIImageView+ImageURL.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

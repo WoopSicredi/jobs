@@ -39,7 +39,7 @@ class EventDetailsViewController: UIViewController {
     }
     
     private func configureController() {
-        navigationItem.largeTitleDisplayMode = .never
+        self.navigationItem.largeTitleDisplayMode = .never
     }
     
     private func creatingBuinds() {

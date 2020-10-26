@@ -28,6 +28,11 @@ class EventDetailsView: UIView {
         return tableView
     }()
     
+    lazy var toolBar: CustomToolBar = {
+        let toolBar = CustomToolBar()
+        return toolBar
+    }()
+    
     func sizeHeaderToFit() {
         tableView.tableHeaderView = tableHeaderView
         
@@ -70,6 +75,7 @@ class EventDetailsView: UIView {
 extension EventDetailsView: ViewCode {
     func buildViewHierarchy() {
         addSubview(tableView)
+        addSubview(toolBar)
     }
     
     func setupConstraints() {
@@ -77,7 +83,13 @@ extension EventDetailsView: ViewCode {
             .anchor(top: topAnchor)
             .anchor(leading: leadingAnchor)
             .anchor(trailing: trailingAnchor)
+        
+        toolBar
+            .anchor(top: tableView.bottomAnchor)
+            .anchor(leading: leadingAnchor)
+            .anchor(trailing: trailingAnchor)
             .anchor(bottom: safeAreaLayoutGuide.bottomAnchor)
+            .anchor(heightConstant: 62)
     }
     
     func setupAdditionalConfigurantion() {
