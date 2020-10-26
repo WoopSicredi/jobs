@@ -8,12 +8,29 @@
 import UIKit
 
 class EventsView: UIView {
-
+    
+    var isLoading: Bool = false {
+        willSet(newValue) {
+            if newValue {
+                loadingView.isHidden = false
+                loadingView.activyIndicator.startAnimating()
+            } else {
+                loadingView.isHidden = true
+                loadingView.activyIndicator.stopAnimating()
+            }
+        }
+    }
+    
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(EventTableViewCell.self, forCellReuseIdentifier: EventTableViewCell.reuseIdentifier)
         tableView.tableFooterView = UIView()
         return tableView
+    }()
+    
+    private lazy var loadingView: LoadingView = {
+        let loadingView = LoadingView()
+        return loadingView
     }()
     
     override init(frame: CGRect) {
@@ -30,6 +47,7 @@ class EventsView: UIView {
 extension EventsView: ViewCode {
     func buildViewHierarchy() {
         addSubview(tableView)
+        addSubview(loadingView)
     }
     
     func setupConstraints() {
@@ -38,6 +56,12 @@ extension EventsView: ViewCode {
             .anchor(leading: leadingAnchor)
             .anchor(trailing: trailingAnchor)
             .anchor(bottom: safeAreaLayoutGuide.bottomAnchor)
+        
+        loadingView
+            .anchor(top: topAnchor)
+            .anchor(leading: leadingAnchor)
+            .anchor(trailing: trailingAnchor)
+            .anchor(bottom: bottomAnchor)
     }
     
     func setupAdditionalConfigurantion() {

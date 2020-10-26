@@ -53,8 +53,11 @@ class EventDetailsViewController: UIViewController {
             
             self?.eventDetailsView.tableView.reloadData()
         }
+        
+        viewModel.isLoadingClosure = { [weak self] loading in
+            self?.eventDetailsView.isLoading = loading
+        }
     }
-
 }
 
 extension EventDetailsViewController: UITableViewDataSource, UITableViewDelegate {

@@ -42,6 +42,10 @@ class EventViewController: UIViewController {
         viewModel.reloadTableViewClosure = { [weak self] in
             self?.eventView.tableView.reloadData()
         }
+        
+        viewModel.isLoadingClosure = { [weak self] loading in
+            self?.eventView.isLoading = loading
+        }
     }
 }
 

@@ -9,6 +9,18 @@ import UIKit
 
 class EventDetailsView: UIView {
     
+    var isLoading: Bool = false {
+        willSet(newValue) {
+            if newValue {
+                loadingView.isHidden = false
+                loadingView.activyIndicator.startAnimating()
+            } else {
+                loadingView.isHidden = true
+                loadingView.activyIndicator.stopAnimating()
+            }
+        }
+    }
+    
     lazy var tapGesture: UITapGestureRecognizer = {
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTapOnDescription(_:)))
         tap.numberOfTouchesRequired = 1
@@ -26,6 +38,11 @@ class EventDetailsView: UIView {
         tableView.tableFooterView = UIView()
         tableView.register(PeopleTableViewCell.self, forCellReuseIdentifier: PeopleTableViewCell.reuseIdentifier)
         return tableView
+    }()
+    
+    private lazy var loadingView: LoadingView = {
+        let loadingView = LoadingView()
+        return loadingView
     }()
     
     lazy var toolBar: CustomToolBar = {
@@ -76,6 +93,8 @@ extension EventDetailsView: ViewCode {
     func buildViewHierarchy() {
         addSubview(tableView)
         addSubview(toolBar)
+        addSubview(loadingView)
+
     }
     
     func setupConstraints() {
@@ -90,6 +109,12 @@ extension EventDetailsView: ViewCode {
             .anchor(trailing: trailingAnchor)
             .anchor(bottom: safeAreaLayoutGuide.bottomAnchor)
             .anchor(heightConstant: 62)
+        
+        loadingView
+            .anchor(top: topAnchor)
+            .anchor(leading: leadingAnchor)
+            .anchor(trailing: trailingAnchor)
+            .anchor(bottom: bottomAnchor)
     }
     
     func setupAdditionalConfigurantion() {

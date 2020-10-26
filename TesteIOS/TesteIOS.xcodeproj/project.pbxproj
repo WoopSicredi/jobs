@@ -16,6 +16,8 @@
 		D71B17882546538900D65006 /* CheckinButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B17872546538900D65006 /* CheckinButton.swift */; };
 		D71B178D254656E200D65006 /* CustomToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B178C254656E200D65006 /* CustomToolBar.swift */; };
 		D71B1792254659DE00D65006 /* UIColor+AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B1791254659DE00D65006 /* UIColor+AppColor.swift */; };
+		D71B179725465F5900D65006 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B179625465F5900D65006 /* LoadingView.swift */; };
+		D71B179C254664F500D65006 /* UIViewController+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B179B254664F500D65006 /* UIViewController+Alerts.swift */; };
 		D77BB47B2542FE410095C4FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77BB47A2542FE410095C4FD /* AppDelegate.swift */; };
 		D77BB47F2542FE410095C4FD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77BB47E2542FE410095C4FD /* ViewController.swift */; };
 		D77BB4852542FE410095C4FD /* TesteIOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D77BB4832542FE410095C4FD /* TesteIOS.xcdatamodeld */; };
@@ -75,6 +77,8 @@
 		D71B17872546538900D65006 /* CheckinButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinButton.swift; sourceTree = "<group>"; };
 		D71B178C254656E200D65006 /* CustomToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToolBar.swift; sourceTree = "<group>"; };
 		D71B1791254659DE00D65006 /* UIColor+AppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+AppColor.swift"; sourceTree = "<group>"; };
+		D71B179625465F5900D65006 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		D71B179B254664F500D65006 /* UIViewController+Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alerts.swift"; sourceTree = "<group>"; };
 		D77BB4772542FE410095C4FD /* TesteIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TesteIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D77BB47A2542FE410095C4FD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D77BB47E2542FE410095C4FD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -321,6 +325,7 @@
 				D71B17702546362700D65006 /* UIImageView+ImageURL.swift */,
 				D71B17802546514000D65006 /* UIImage+CompressImage.swift */,
 				D71B1791254659DE00D65006 /* UIColor+AppColor.swift */,
+				D71B179B254664F500D65006 /* UIViewController+Alerts.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -348,6 +353,7 @@
 			children = (
 				D71B17872546538900D65006 /* CheckinButton.swift */,
 				D71B178C254656E200D65006 /* CustomToolBar.swift */,
+				D71B179625465F5900D65006 /* LoadingView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -525,8 +531,10 @@
 				D77BB47B2542FE410095C4FD /* AppDelegate.swift in Sources */,
 				D7B78BC52543542F00A7FF00 /* EventCellViewModel.swift in Sources */,
 				D71B1792254659DE00D65006 /* UIColor+AppColor.swift in Sources */,
+				D71B179C254664F500D65006 /* UIViewController+Alerts.swift in Sources */,
 				D71B177725463D7100D65006 /* EventDetailsViewModel.swift in Sources */,
 				D77BB50E254312DB0095C4FD /* EventClient.swift in Sources */,
+				D71B179725465F5900D65006 /* LoadingView.swift in Sources */,
 				D7B78BD825436AB300A7FF00 /* EventDetailsViewController.swift in Sources */,
 				D71B17812546514000D65006 /* UIImage+CompressImage.swift in Sources */,
 				D77BB4C42543042A0095C4FD /* Event.swift in Sources */,

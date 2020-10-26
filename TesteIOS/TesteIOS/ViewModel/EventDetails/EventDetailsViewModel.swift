@@ -9,12 +9,14 @@ import Foundation
 
 class EventDetailsViewModel {
     // MARK: - Typealias
+    public typealias BooleanClosure = ((Bool) -> Void)
     public typealias EventClosure = (Event) -> Void
     public typealias ErrorClousure = ((APIError) -> Void)
 
     // MARK: - Binding closures
     public var errorLoadingDataClosure: ErrorClousure?
     public var reloadViewClosure: EventClosure?
+    public var isLoadingClosure: BooleanClosure?
     
     // MARK: - Control Variables
     private var event: Event? {
@@ -37,14 +39,17 @@ class EventDetailsViewModel {
     }
     
     public func getEventDetails(eventID: String) {
+        isLoadingClosure?(true)
         EventClient().getEventBy(eventID: eventID) { [weak self] result in
             switch result {
             case .success(let event):
+                self?.isLoadingClosure?(false)
                 guard let event = event else {
                     return
                 }
                 self?.event = event
             case .failure(let error):
+                self?.isLoadingClosure?(false)
                 self?.errorLoadingDataClosure?(error)
             }
         }
