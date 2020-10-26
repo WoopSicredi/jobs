@@ -25,7 +25,7 @@ class EventViewController: UIViewController {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = true
         self.view = eventView
-                creatingBuinds()
+        creatingBuinds()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,6 +62,7 @@ extension EventViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedeEventID = viewModel.eventCellViewModels[indexPath.row].eventID
         let controller = EventDetailsViewController()
+        controller.eventID = selectedeEventID
         self.navigationController?.pushViewController(controller, animated: true)
     }
 }

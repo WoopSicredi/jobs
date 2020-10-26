@@ -8,6 +8,13 @@
 import UIKit
 
 class EventDetailsViewController: UIViewController {
+    
+    var eventID: String?
+    
+    lazy var viewModel: EventDetailsViewModel = {
+        let viewModel = EventDetailsViewModel(eventID: self.eventID)
+        return viewModel
+    }()
 
     lazy var eventDetailsView: EventDetailsView = {
         let view = EventDetailsView()
@@ -19,7 +26,7 @@ class EventDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view = eventDetailsView
-        // Do any additional setup after loading the view.
+        creatingBuinds()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,6 +40,18 @@ class EventDetailsViewController: UIViewController {
     
     private func configureController() {
         navigationItem.largeTitleDisplayMode = .never
+    }
+    
+    private func creatingBuinds() {
+        viewModel.reloadViewClosure = { [weak self] event in
+            let header = self?.eventDetailsView.tableHeaderView
+            header?.banerImageView.downloadImageFrom(url: event.image)
+            header?.titleLabel.text = event.title
+            header?.priceLabel.text = "R$\(event.price)"
+            header?.descriptionLabel.text = event.description
+            
+            self?.eventDetailsView.tableView.reloadData()
+        }
     }
 
 }
@@ -53,6 +72,7 @@ extension EventDetailsViewController: UITableViewDataSource, UITableViewDelegate
             }
             cell.collectionView.delegate = self
             cell.collectionView.dataSource = self
+            cell.collectionView.reloadData()
             return cell
         } else {
             return UITableViewCell()
@@ -78,18 +98,21 @@ extension EventDetailsViewController: UITableViewDataSource, UITableViewDelegate
 
 extension EventDetailsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 40
+        return viewModel.personViewModels.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PersonCollectionViewCell.reuseIdentifier, for: indexPath) as? PersonCollectionViewCell else {
             return UICollectionViewCell()
         }
+        let cellViewModel = viewModel.personViewModels[indexPath.row]
+        cell.nameLabel.text = cellViewModel.name
+        cell.pictureImageView.downloadImageFrom(url: cellViewModel.prictureURL)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 12, left: 12, bottom: 0, right: 0)
+        return UIEdgeInsets(top: 12, left: 12, bottom: 0, right: 12)
     }
     
 }

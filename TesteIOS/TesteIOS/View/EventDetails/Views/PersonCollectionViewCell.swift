@@ -36,6 +36,17 @@ class PersonCollectionViewCell: UICollectionViewCell {
         super.init(coder: coder)
         self.setupView()
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.pictureImageView.image = nil
+        self.nameLabel.text = nil
+    }
+    
+    deinit {
+        self.pictureImageView.image = nil
+        self.nameLabel.text = nil
+    }
 }
 
 extension PersonCollectionViewCell: ViewCode {

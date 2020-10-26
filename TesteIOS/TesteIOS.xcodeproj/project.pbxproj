@@ -10,6 +10,9 @@
 		D70C6DAF2544E6AB00E12495 /* PeopleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70C6DAE2544E6AB00E12495 /* PeopleTableViewCell.swift */; };
 		D71B176B2544FF0800D65006 /* PersonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B176A2544FF0800D65006 /* PersonCollectionViewCell.swift */; };
 		D71B17712546362700D65006 /* UIImageView+ImageURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B17702546362700D65006 /* UIImageView+ImageURL.swift */; };
+		D71B177725463D7100D65006 /* EventDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B177625463D7100D65006 /* EventDetailsViewModel.swift */; };
+		D71B177C25463F8A00D65006 /* PersonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B177B25463F8A00D65006 /* PersonViewModel.swift */; };
+		D71B17812546514000D65006 /* UIImage+CompressImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71B17802546514000D65006 /* UIImage+CompressImage.swift */; };
 		D77BB47B2542FE410095C4FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77BB47A2542FE410095C4FD /* AppDelegate.swift */; };
 		D77BB47F2542FE410095C4FD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77BB47E2542FE410095C4FD /* ViewController.swift */; };
 		D77BB4852542FE410095C4FD /* TesteIOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D77BB4832542FE410095C4FD /* TesteIOS.xcdatamodeld */; };
@@ -63,6 +66,9 @@
 		D70C6DAE2544E6AB00E12495 /* PeopleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleTableViewCell.swift; sourceTree = "<group>"; };
 		D71B176A2544FF0800D65006 /* PersonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCollectionViewCell.swift; sourceTree = "<group>"; };
 		D71B17702546362700D65006 /* UIImageView+ImageURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+ImageURL.swift"; sourceTree = "<group>"; };
+		D71B177625463D7100D65006 /* EventDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsViewModel.swift; sourceTree = "<group>"; };
+		D71B177B25463F8A00D65006 /* PersonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonViewModel.swift; sourceTree = "<group>"; };
+		D71B17802546514000D65006 /* UIImage+CompressImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+CompressImage.swift"; sourceTree = "<group>"; };
 		D77BB4772542FE410095C4FD /* TesteIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TesteIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D77BB47A2542FE410095C4FD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D77BB47E2542FE410095C4FD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -126,6 +132,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D71B177525463D4E00D65006 /* EventDetails */ = {
+			isa = PBXGroup;
+			children = (
+				D71B177625463D7100D65006 /* EventDetailsViewModel.swift */,
+				D71B177B25463F8A00D65006 /* PersonViewModel.swift */,
+			);
+			path = EventDetails;
+			sourceTree = "<group>";
+		};
 		D77BB46E2542FE410095C4FD = {
 			isa = PBXGroup;
 			children = (
@@ -269,6 +284,7 @@
 		D7B78B92254345D200A7FF00 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				D71B177525463D4E00D65006 /* EventDetails */,
 				D7B78BD525436A1700A7FF00 /* Events */,
 			);
 			path = ViewModel;
@@ -297,6 +313,7 @@
 			children = (
 				D7B78BA32543470A00A7FF00 /* UIView+Autolayout.swift */,
 				D71B17702546362700D65006 /* UIImageView+ImageURL.swift */,
+				D71B17802546514000D65006 /* UIImage+CompressImage.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -498,8 +515,10 @@
 				D77BB4FA25430A1D0095C4FD /* CharacterSet+Extensions.swift in Sources */,
 				D77BB47B2542FE410095C4FD /* AppDelegate.swift in Sources */,
 				D7B78BC52543542F00A7FF00 /* EventCellViewModel.swift in Sources */,
+				D71B177725463D7100D65006 /* EventDetailsViewModel.swift in Sources */,
 				D77BB50E254312DB0095C4FD /* EventClient.swift in Sources */,
 				D7B78BD825436AB300A7FF00 /* EventDetailsViewController.swift in Sources */,
+				D71B17812546514000D65006 /* UIImage+CompressImage.swift in Sources */,
 				D77BB4C42543042A0095C4FD /* Event.swift in Sources */,
 				D7B78BB3254347D800A7FF00 /* EventsView.swift in Sources */,
 				D77BB4F2254309E30095C4FD /* Dictionary+Extensions.swift in Sources */,
@@ -511,6 +530,7 @@
 				D77BB4C9254304F90095C4FD /* APIError.swift in Sources */,
 				D7B78BBB25434C0B00A7FF00 /* EventTableViewCell.swift in Sources */,
 				D7B78B9F254346C900A7FF00 /* ViewCode.swift in Sources */,
+				D71B177C25463F8A00D65006 /* PersonViewModel.swift in Sources */,
 				D77BB50625430DB00095C4FD /* EventProvider.swift in Sources */,
 				D71B17712546362700D65006 /* UIImageView+ImageURL.swift in Sources */,
 			);
