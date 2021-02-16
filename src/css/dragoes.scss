@@ -22,6 +22,7 @@ td {
 th {
     padding-bottom: $table-padding;
     color: $frame-text-color;
+    text-align: left;
 }
 
 tr:nth-child(even) {
