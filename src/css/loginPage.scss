@@ -1,0 +1,84 @@
+@import "variables";
+
+#login-page {
+    color: $frame-text-color;
+
+    h2 {
+        color: white;
+        margin-bottom: 2rem;
+        margin-right: 0;
+    }
+    .form-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        .input-group {
+            position: relative;
+            input {
+                width: 100%;
+                margin-right: 3rem;
+                border: none;
+                border-radius: $border-radius 0 0 $border-radius;
+                padding: $padding-input;
+            }
+
+            .input-icon {
+                position: absolute;
+                display: flex;
+                font-size: 1.5rem;
+                justify-content: center;
+                align-items: center;
+                color: $frame-color;
+                height: 100%;
+                right: 0;
+                background-color: $background-color;
+                width: 3rem;
+                border-radius: 0 $border-radius $border-radius 0;
+            }
+        }
+    }
+
+    .btn-login,
+    .btn-signup {
+        // width: 100%;
+        margin-top: 2.5rem;
+        padding: $padding-input 2rem;
+        border-radius: 50rem;
+        color: $text-black;
+        font-weight: 600;
+        &:focus {
+            box-shadow: 0 0 0 0.2rem lighten($success-button, 15%);
+        }
+    }
+
+    .btn-login {
+        background: $success-button;
+        border-color: $success-button;
+        color: white;
+    }
+
+    .btn-signup {
+        background-color: transparent;
+        color: $success-button;
+        border: none;
+        margin-top: 1rem;
+    }
+
+    .btn-wrapper {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: space-around;
+    }
+}
+
+.error-text {
+    color: red;
+}

@@ -1,0 +1,17 @@
+@import "variables";
+
+.go-back {
+    margin-bottom: 1rem;
+
+    a {
+        color: $frame-text-color !important;
+        text-decoration: underline;
+    }
+}
+
+.details-text {
+    color: white;
+    b {
+        color: $frame-text-color;
+    }
+}
