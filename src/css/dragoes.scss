@@ -1,0 +1,133 @@
+@import "variables";
+
+form {
+    padding: 0rem 2rem;
+}
+
+table {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border-collapse: collapse;
+    color: white;
+}
+thead {
+    border-bottom: 1px solid $frame-text-color;
+}
+
+td {
+    padding-top: $table-padding;
+    padding-bottom: $table-padding;
+}
+
+th {
+    padding-bottom: $table-padding;
+    color: $frame-text-color;
+}
+
+tr:nth-child(even) {
+    background-color: lighten($frame-color, 5%);
+}
+
+.info-icon {
+    svg {
+        font-size: 1.25rem;
+    }
+}
+
+.first-row {
+    width: 2rem;
+    text-align: center;
+}
+
+.icon-text svg {
+    color: $frame-text-color !important;
+    transition: 0.1s ease-in-out all;
+
+    &:hover {
+        color: darken($frame-text-color, 15%) !important;
+        cursor: pointer;
+    }
+}
+
+.icon-save svg {
+    color: $success-button !important;
+}
+.tooltip-icon {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip-icon .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: $success-button;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip-icon .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: $success-button transparent transparent transparent;
+}
+
+.tooltip-icon:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+.table-mobile {
+    .icon-td {
+        align-items: initial;
+    }
+    tr:nth-child(even) {
+        background-color: transparent;
+    }
+
+    tr:nth-child(odd) {
+        background-color: lighten($frame-color, 5%);
+    }
+    .first-col {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .dragon-name {
+        font-size: 1.25rem;
+    }
+
+    .dragon-infos {
+        font-weight: 300;
+        color: $frame-text-color;
+        padding-top: .25rem;
+        padding-bottom: .25rem;
+    }
+
+    .list-label {
+        font-weight: 300;
+        margin-bottom: .25rem
+    }
+    .list-input {
+        margin-bottom: .5rem;
+        border: none;
+        border-radius: $border-radius;
+        padding: .5rem;
+        width: 100%;
+    }
+}

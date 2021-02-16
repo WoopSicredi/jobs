@@ -1,0 +1,26 @@
+@import "variables";
+
+#edit-page {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1.5rem;
+}
+
+.btn-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+h2 {
+    color: white;
+    margin-right: 3rem;
+}
+
+.btn {
+    border-radius: 50px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+

@@ -1,0 +1,31 @@
+@import "variables";
+
+
+.input-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.add-group {
+    display: flex;
+    flex-direction: column;
+
+    label {
+        color: $frame-text-color
+    }
+
+    input {
+        width: 100%;
+        border: none;
+        border-radius: $border-radius;
+        padding: $padding-input;
+    }
+}
+
+.save-btn {
+    margin-top: 1.5rem;
+    color: white;
+    background-color: $success-button;
+    float: right;
+}
