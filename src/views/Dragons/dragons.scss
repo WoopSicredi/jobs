@@ -1,0 +1,55 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
+@import "../../assets/scss/responsible";
+
+.dragons {
+    @include pageWidth;
+    margin-bottom: 40px;
+    table {
+        min-width: 100%;
+        margin-top: 40px;
+        thead {
+            tr {
+                th {
+                    text-align: start;
+                    padding: $gap;
+                    @include sm {
+                        padding: 5px;
+                    }
+                }
+            }
+        }
+        tbody {
+            tr {
+                background-color: $bg;
+                td {
+                    padding: $gap;
+                    @include sm {
+                        padding: 5px;
+                        font-size: 0.8em;
+                    }
+                    img {
+                        max-height: 24px;
+                        margin-left: $gap;
+                        @include sm {
+                            margin-left: 10px;
+                            max-width: 20px;
+                        }
+                    }
+                    &:nth-child(2),
+                    &:last-of-type {
+                        @include sm {
+                            width: 25%;
+                        }
+                    }
+                    &:last-child {
+                        display: flex;
+                        a {
+                            width: 40%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

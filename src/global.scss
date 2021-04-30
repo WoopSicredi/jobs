@@ -1,0 +1,55 @@
+@import "./assets/scss/variables";
+@import "./assets/scss/mixins";
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+p {
+  margin: 0;
+}
+
+.button {
+  @include button
+}
+
+.modal {
+  &.open {
+    display: flex;
+  }
+  display: none;
+  background-color: rgba($color: #000000, $alpha: 0.5);
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  &-box {
+    background-color: white;
+    position: relative;
+    padding: 10px 20px;
+    border-radius: $border-radius;
+    box-shadow: 0 0 10px 0px rgba($color: #000000, $alpha: 0.2);
+    &--close {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-content: center;
+      height: 50px;
+      h4 {
+        margin: auto 0;
+      }
+      img {
+        cursor: pointer;
+        width: 24px;
+      }
+    }
+  }
+}

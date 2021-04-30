@@ -1,0 +1,51 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
+
+.login {
+    background-color: $bg;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: $gap;
+    &-box {
+        background-color: lighten($bg, 100%);
+        padding: $gap;
+        border-radius: $border-radius;
+        @include boxShadow;
+        width: 280px;
+        &--title {
+            margin: 5px 0 20px;
+            text-align: center;
+        }
+        &--group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+            input {
+                padding: $input-button-pad;
+                border: 1px solid;
+                border-radius: $border-radius;
+            }
+            label {
+                font-size: 0.8em;
+            }
+            button {
+                @include button;
+            }
+        }
+    }
+    &-info {
+        width: 280px;
+        background-color: lighten($bg, 5%);
+        padding: $gap;
+        border-radius: $border-radius;
+        @include boxShadow;
+        p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+    }
+}

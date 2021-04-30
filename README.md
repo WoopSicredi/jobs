@@ -1,57 +1,19 @@
-# Transformação Digital
+# Dragons
 
-Estamos buscando pessoas inspiradas por tecnologia e inovação, capazes e engajadas para construir juntos uma plataforma digital cooperativa para o futuro.
+## Available Scripts
+In the project directory, you can run:
+### `yarn start`
 
-## Sobre Nós
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-Somos uma das maiores instituições financeiras cooperativas do país e uma das melhores empresas para trabalhar no Brasil. Isso mostra que, aqui, os números não são o mais importante. Somos uma organização cooperativa feita de pessoas e para pessoas.​
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-Aqui, todos tem voz e participam das decisões. Mas não é só isso que nos faz diferentes das instituições financeiras comuns. Acreditamos no relacionamento para gerar crescimento, no cuidado com o bem-estar das pessoas no presente e no seu desenvolvimento para o futuro. Sabemos que, juntos, todos ganhamos.
+### `yarn build`
 
-Faça parte dessa história. Aqui, seu trabalho é reconhecido e faz a diferença para a vida de milhares de Associados.
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-## Conheça os nossos pilares
-
-#### DESIGN
-
-Não basta parecer simples. Tem que ser simples. Encantar nossos usuários a cada interação.
-
-#### ENGAJAMENTO
-
-Construímos experiências surpreendentes e relevantes para a vida das pessoas. Garantir a satisfação dos usuários é o que nos move.
-
-#### AGILIDADE
-
-Criamos rápido. Lançamos rápido. Aprendemos e resolvemos rápido. Melhoramos sempre.
-
-## Atitudes que valorizamos!
-
-#### SIMPLICIDADE
-
-Focamos no que realmente importa.
-
-#### FOCO NO USUÁRIO
-
-O usuário é sempre o centro de tudo.
-
-#### EMPREENDEDORISMO
-
-Somos visionários e sonhadores. 
-Acreditamos e realizamos.
-
-#### INOVAÇÃO
-
-Somos curiosos e queremos criar novas tendências.
-
-#### COLABORAÇÃO
-
-Somos uma cooperativa.
-Fazemos juntos para fazer a diferença.
-
-#### APRENDIZAGEM
-
-Não sabemos tudo.
-Mas tudo o que sabemos é compartilhado.
-
-## Vagas
-https://sicredi.gupy.io
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
