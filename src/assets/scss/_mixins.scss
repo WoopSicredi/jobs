@@ -1,0 +1,36 @@
+@import "./variables";
+@import "./responsible";
+
+@mixin pageWidth {
+    margin: 0 auto;
+    @include md {
+        max-width: 1200px;
+        max-width: 1200px;
+        padding: 0 15px;
+    }
+    @include sm {
+        max-width: 100%;
+        padding: 0 15px;
+    }
+}
+
+@mixin boxShadow {
+    box-shadow: 0 0 10px 0px darken($bg, 5%);
+}
+
+@mixin button {
+    padding: $input-button-pad;
+    background-color: $primary;
+    border: 1px solid $primary;
+    border-radius: $border-radius;
+    color: $bg;
+    font-weight: bold;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background ease 200ms;
+    text-decoration: none;
+    &:hover {
+        background-color: transparent;
+        color: $primary;
+    }
+}

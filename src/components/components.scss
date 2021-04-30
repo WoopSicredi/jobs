@@ -1,0 +1,31 @@
+@import '../assets/scss/variables';
+@import '../assets/scss/mixins';
+
+.pageHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    a {
+        @include button;
+    }
+}
+
+.form {
+    min-width: 450px;
+    &-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+        input, textarea {
+            padding: $input-button-pad;
+            border: 1px solid;
+            border-radius: $border-radius;
+        }
+        label {
+            font-size: 0.8em;
+        }
+        button {
+            @include button;
+        }
+    }
+}
