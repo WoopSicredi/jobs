@@ -1,0 +1,33 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  min-height: 100%;
+  .form-login {
+    width: 300px;
+    background: #f1f1f1;
+    padding: 20px;
+    border: 1px solid #dedede;
+    border-radius: 5px;
+    .form-login-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin-bottom: 20px;
+      .logo {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 15px;
+      }
+      .title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 15px;
+      }
+    }
+  }
+}
