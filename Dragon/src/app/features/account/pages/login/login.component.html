@@ -7,14 +7,16 @@
       <h1 class="title">Green Dragon</h1>
     </div>
     <div class="form-login-body">
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" autocomplete="none">
-        <extended-input [labelText]="'E-mail'">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" autocomplete="off">
+        <extended-input [labelText]="'E-mail'" [field]="f.email">
           <input type="email" class="form-control" id="email" formControlName="email" placeholder="Digite o e-mail"
-            autocomplete="none">
+            autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
+          <show-errors [field]="f.email"></show-errors>
         </extended-input>
-        <extended-input [labelText]="'Senha'">
-          <input type="password" autocomplete="none" class="form-control" id="password" formControlName="password"
-            placeholder="Digite a senha">
+        <extended-input [labelText]="'Senha'" [field]="f.password">
+          <input type="password" class="form-control" id="password" formControlName="password"
+            placeholder="Digite a senha" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
+          <show-errors [field]="f.password"></show-errors>
         </extended-input>
         <div class="form-group">
           <button type="submit" class="btn btn-action">Entrar</button>

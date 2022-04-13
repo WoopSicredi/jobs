@@ -4,17 +4,16 @@ import { LoginComponent } from "./pages/login/login.component";
 import { RegisterComponent } from "./pages/register/register.component";
 import { RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { ExtendedInputComponent } from "src/app/shared/components/extended-input/extended-input.component";
 
 const routes = [{ path: "login", component: LoginComponent }];
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent, ExtendedInputComponent],
+  declarations: [LoginComponent, RegisterComponent],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forChild(routes),
   ],
 })
 export class AccountModule {}

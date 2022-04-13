@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { AbstractControl, AbstractControlDirective } from "@angular/forms";
+import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
+import { FormControl } from "@angular/forms";
 
 @Component({
   selector: "show-errors",
@@ -8,37 +8,39 @@ import { AbstractControl, AbstractControlDirective } from "@angular/forms";
 })
 export class ShowErrorsComponent {
   private static readonly errorMessages = {
-    required: () => "This field is required",
-    minlength: (params) =>
-      "The min number of characters is " + params.requiredLength,
-    maxlength: (params) =>
-      "The max allowed number of characters is " + params.requiredLength,
-    pattern: (params) => "The required pattern is: " + params.requiredPattern,
-    years: (params) => params.message,
-    countryCity: (params) => params.message,
-    uniqueName: (params) => params.message,
-    telephoneNumbers: (params) => params.message,
-    telephoneNumber: (params) => params.message,
+    required: () => "Este campo é obrigatório.",
+    email: () => "O e-mail informado é inválido.",
+    minlength: (params: any): string =>
+      "O número mínimo de caracteres é " + params.requiredLength,
+    maxlength: (params: any): string =>
+      "O número máximo permitido de caracteres é " + params.requiredLength,
+    pattern: (params: any): string =>
+      "O padrão necessário é: " + params.requiredPattern,
+    years: (params: any): string => params.message,
+    countryCity: (params: any): string => params.message,
+    uniqueName: (params: any): string => params.message,
+    telephoneNumbers: (params: any): string => params.message,
+    telephoneNumber: (params: any): string => params.message,
   };
 
   @Input()
-  private control: AbstractControlDirective | AbstractControl;
+  private field: FormControl;
 
   shouldShowErrors(): boolean {
     return (
-      this.control &&
-      this.control.errors &&
-      (this.control.dirty || this.control.touched)
+      this.field &&
+      this.field.errors &&
+      (this.field.dirty || this.field.touched)
     );
   }
 
   listOfErrors(): string[] {
-    return Object.keys(this.control.errors).map((field) =>
-      this.getMessage(field, this.control.errors[field])
+    return Object.keys(this.field.errors).map((error: string) =>
+      this.getMessage(error)
     );
   }
 
-  private getMessage(type: string, params: any) {
-    return ShowErrorsComponent.errorMessages[type](params);
+  private getMessage(error: string) {
+    return ShowErrorsComponent.errorMessages[error]();
   }
 }

@@ -3,6 +3,11 @@
   flex-direction: column;
   align-items: flex-start;
   margin-bottom: 15px;
+  &.has-error {
+    input {
+      border-color: var(--color-heartbeat) !important;
+    }
+  }
   label {
     font-size: 14px;
     font-weight: bold;
@@ -14,7 +19,7 @@
     padding: 0.5rem;
     border: 1px solid #dedede;
     border-radius: 3px;
-    background-color: transparent !important;
+    background-color: white !important;
     z-index: 1;
     &:focus {
       outline: none;

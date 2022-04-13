@@ -1,0 +1,17 @@
+<h1 class="title">{{this.id ? 'Cadastrar' : 'Atualizar'}} Dragão</h1>
+
+<form [formGroup]="dragonForm" (ngSubmit)="onSubmit()" autocomplete="off">
+  <extended-input [labelText]="'Nome'" [field]="f.name">
+    <input type="email" class="form-control" id="email" formControlName="email" placeholder="Digite o e-mail"
+      autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
+    <show-errors [field]="f.email"></show-errors>
+  </extended-input>
+  <extended-input [labelText]="'Senha'" [field]="f.password">
+    <input type="password" class="form-control" id="password" formControlName="password" placeholder="Digite a senha"
+      autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
+    <show-errors [field]="f.password"></show-errors>
+  </extended-input>
+  <div class="form-group">
+    <button type="submit" class="btn btn-action">Entrar</button>
+  </div>
+</form>

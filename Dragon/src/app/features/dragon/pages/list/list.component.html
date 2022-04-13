@@ -1,0 +1,38 @@
+<h1 class="title">Dragões</h1>
+
+<table class="styled-table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Nome</th>
+      <th>Tipo</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let dragon of dragons">
+      <td>{{ dragon.id }}</td>
+      <td>{{ dragon.name }}</td>
+      <td>{{ dragon.type }}</td>
+      <td>
+        <div class="action-table">
+          <a class="button is-primary" [routerLink]="['/dragon/detail', dragon.id]">
+            <span class="icon is-small">
+              <i class="fa fa-eye" aria-hidden="true"></i>
+            </span>
+          </a>
+          <a class="button is-primary" [routerLink]="['/dragon/form', dragon.id]">
+            <span class="icon is-small">
+              <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            </span>
+          </a>
+          <a class="button is-primary" href="#" (click)="removeDragon(dragon.id, $event)" #actionDelete>
+            <span class="icon is-small">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </span>
+          </a>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

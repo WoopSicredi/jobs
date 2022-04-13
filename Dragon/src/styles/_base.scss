@@ -26,3 +26,13 @@ input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px white inset !important;
   box-shadow: 0 0 0 30px white inset !important;
 }
+a {
+  text-decoration: none;
+  color: var(--color-text);
+}
+h1.title {
+  font-size: 1.2rem;
+  color: var(--color-turkish-stone);
+  margin-top: 0.5rem;
+  margin-bottom: 1.2rem;
+}

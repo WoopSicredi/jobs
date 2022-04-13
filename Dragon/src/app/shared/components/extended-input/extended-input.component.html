@@ -1,5 +1,5 @@
-<div class="form-group" [ngClass]="{'has-error':isError}">
+<div class="form-group" [ngClass]="{'has-error': shouldShowErrors()}">
   <label for="" *ngIf="labelText.length > 0">{{labelText}}</label>
   <ng-content select="input"></ng-content>
-  <ng-content select="input-errors"></ng-content>
+  <ng-content select="show-errors"></ng-content>
 </div>
