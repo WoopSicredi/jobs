@@ -1,0 +1,28 @@
+::ng-deep .form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  &.has-error {
+    input {
+      border-color: var(--color-heartbeat) !important;
+    }
+  }
+  label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  input {
+    font-size: 14px;
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #dedede;
+    border-radius: 3px;
+    background-color: white !important;
+    z-index: 1;
+    &:focus {
+      outline: none;
+    }
+  }
+}

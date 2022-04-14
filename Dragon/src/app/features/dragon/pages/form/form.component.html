@@ -1,0 +1,18 @@
+<h1 class="title">{{this.title}}</h1>
+
+<form [formGroup]="dragonForm" (ngSubmit)="onSubmit()" autocomplete="off">
+  <extended-input [labelText]="'Nome'" [field]="f.name">
+    <input type="text" class="form-control" formControlName="name" placeholder="Digite o nome do dragão"
+      autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
+    <show-errors [field]="f.name"></show-errors>
+  </extended-input>
+  <extended-input [labelText]="'Tipo'" [field]="f.password">
+    <input type="text" class="form-control" formControlName="type" placeholder="Digite o tipo de dragão"
+      autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
+    <show-errors [field]="f.type"></show-errors>
+  </extended-input>
+  <div class="form-group d-flex flex-row flex-between">
+    <button type="submit" class="btn btn-action">Salvar</button>
+    <button type="button" class="btn btn-cancel" [routerLink]="['/dragon']">Cancelar</button>
+  </div>
+</form>

@@ -1,0 +1,82 @@
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  color: var(--color-text);
+}
+input {
+  margin-bottom: 5px;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+  box-shadow: 0 0 0 30px white inset !important;
+}
+a {
+  text-decoration: none;
+  color: var(--color-text);
+}
+h1.title {
+  font-size: 1.2rem;
+  color: var(--color-turkish-stone);
+  margin-top: 0.5rem;
+  margin-bottom: 1.2rem;
+}
+
+.d-flex {
+  display: flex !important;
+}
+.flex-column {
+  flex-direction: column !important;
+}
+.flex-row {
+  flex-direction: row !important;
+}
+.flex-wrap {
+  flex-wrap: wrap !important;
+}
+.flex-center {
+  justify-content: center !important;
+}
+.flex-between {
+  justify-content: space-between !important;
+}
+.flex-around {
+  justify-content: space-around !important;
+}
+.flex-start {
+  align-items: flex-start !important;
+}
+.flex-end {
+  align-items: flex-end !important;
+}
+.flex-center-vertical {
+  align-items: center !important;
+}
+.flex-center-horizontal {
+  justify-content: center !important;
+}
+.flex-grow {
+  flex-grow: 1 !important;
+}
+.mr-3 {
+  margin-right: 1rem !important;
+}
+.mb-5 {
+  margin-bottom: 2rem !important;
+}
+
