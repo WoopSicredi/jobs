@@ -1,4 +1,10 @@
-<h1 class="title">Dragões</h1>
+<div class="d-flex flex-row flex-between mb-5">
+  <h1 class="title">Dragões</h1>
+  <button type=" button" class="btn btn-action" [routerLink]="['/dragon/form']">
+    <i class="fa fa-plus"></i> Cadastrar</button>
+</div>
+
+
 
 <table class="styled-table">
   <thead>
@@ -16,17 +22,17 @@
       <td>{{ dragon.type }}</td>
       <td>
         <div class="action-table">
-          <a class="button is-primary" [routerLink]="['/dragon/detail', dragon.id]">
+          <a href="" class="button is-primary" [routerLink]="['/dragon/detail', dragon.id]">
             <span class="icon is-small">
               <i class="fa fa-eye" aria-hidden="true"></i>
             </span>
           </a>
-          <a class="button is-primary" [routerLink]="['/dragon/form', dragon.id]">
+          <a href="" class="button is-primary" [routerLink]="['/dragon/form', dragon.id]">
             <span class="icon is-small">
               <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
             </span>
           </a>
-          <a class="button is-primary" href="#" (click)="removeDragon(dragon.id, $event)" #actionDelete>
+          <a href="" class="button is-primary" href="#" (click)="removeDragon(dragon.id, $event)" #actionDelete>
             <span class="icon is-small">
               <i class="fa fa-trash-o" aria-hidden="true"></i>
             </span>

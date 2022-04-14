@@ -26,6 +26,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "deployUrl": "/",
             "outputPath": "dist/Dragon",
             "index": "src/index.html",
             "main": "src/main.ts",

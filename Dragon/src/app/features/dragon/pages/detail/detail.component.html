@@ -1,1 +1,13 @@
-<p>detail works!</p>
+<h1 class="title">Detalhes</h1>
+
+<ul *ngIf="dragon" class="mb-5">
+  <li><b>ID:</b> {{ dragon.id }}</li>
+  <li><b>Nome:</b> {{ dragon.name }}</li>
+  <li><b>Tipo:</b> {{ dragon.type }}</li>
+  <li><b>Data de Criação:</b> {{ dragon.createdAt| date: 'dd/MM/yyyy' }}</li>
+</ul>
+
+<div class="d-flex flex-row" *ngIf="dragon">
+  <button type="submit" class="btn btn-action mr-3" [routerLink]="['/dragon/form', dragon.id]">Editar</button>
+  <button type=" button" class="btn btn-cancel" [routerLink]="['/dragon']">Cancelar</button>
+</div>

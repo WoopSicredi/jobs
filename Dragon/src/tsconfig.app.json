@@ -2,8 +2,7 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/app",
-    "types": [],
-    "enableIvy": false
+    "types": []
   },
   "files": ["main.ts", "polyfills.ts"],
   "exclude": ["test.ts", "**/*.spec.ts"]

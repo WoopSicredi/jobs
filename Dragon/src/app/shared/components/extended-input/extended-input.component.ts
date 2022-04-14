@@ -1,14 +1,14 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { FormControl } from "@angular/forms";
+import { Component, Input } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: "extended-input",
-  templateUrl: "./extended-input.component.html",
-  styleUrls: ["./extended-input.component.scss"],
+  selector: 'extended-input',
+  templateUrl: './extended-input.component.html',
+  styleUrls: ['./extended-input.component.scss'],
 })
 export class ExtendedInputComponent {
   @Input()
-  labelText: string = "";
+  labelText = '';
   @Input()
   field: FormControl;
   @Input()

@@ -1,8 +1,8 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { AuthGuard } from "./core/guards/auth.guard";
-import { AccountLayoutComponent } from "./core/layouts/account-layout/account-layout.component";
-import { SystemLayoutComponent } from "./core/layouts/system-layout/system-layout.component";
+import { AuthGuard } from "./shared/guards/auth.guard";
+import { AccountLayoutComponent } from "./shared/layouts/account-layout/account-layout.component";
+import { SystemLayoutComponent } from "./shared/layouts/system-layout/system-layout.component";
 
 const homeModule = () =>
   import("./features/home/home.module").then((x) => x.HomeModule);

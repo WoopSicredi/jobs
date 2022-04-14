@@ -1,7 +1,7 @@
-export class Dragon {
+export interface Dragon {
   id: number;
   name: string;
   type: string;
-  histories: History[];
-  createdAt: string;
+  histories?: History[];
+  createdAt?: string;
 }

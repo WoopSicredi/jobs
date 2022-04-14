@@ -1,14 +1,14 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Dragon } from "src/app/shared/models/Dragon";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Dragon } from 'src/app/shared/models/Dragon';
 
-@Injectable({ providedIn: "root" })
+@Injectable({ providedIn: 'root' })
 export class DragonService {
   constructor(private httpClient: HttpClient) {}
 
   getDragons() {
     return this.httpClient.get(
-      "http://5c4b2a47aa8ee500142b4887.mockapi.io/api/v1/dragon"
+      'http://5c4b2a47aa8ee500142b4887.mockapi.io/api/v1/dragon'
     );
   }
 
@@ -26,7 +26,7 @@ export class DragonService {
 
   createDragon(dragon: Dragon) {
     return this.httpClient.post(
-      "http://5c4b2a47aa8ee500142b4887.mockapi.io/api/v1/dragon",
+      'http://5c4b2a47aa8ee500142b4887.mockapi.io/api/v1/dragon',
       dragon
     );
   }
