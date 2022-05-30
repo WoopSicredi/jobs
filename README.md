@@ -2,11 +2,11 @@
 
 O projeto foi feito em kotlin usando a arquitetura MVVM (Model View ViewModel). Fiz dessa maneira por ter mais familiaridade e ser um dos padrões de arquitetura mais utilizados e também recomendado pelo Google.
 
-Há algumas bibliotecas que tomei a liberdade de utilizar para facilidar o processo de desenvolvimento como a biblioteca de carregamento de imagens [Coil](https://coil-kt.github.io/coil/) que facilitaram a implementação de placeholders nas ImageViews, a biblioteca de injeção de dependencias [Koin](https://insert-koin.io/), assim como algumas outras mais difundidade na comunidade como ViewModels, Retrofit2, AndroidX e Material Design.
+Há algumas bibliotecas que tomei a liberdade de utilizar para facilitar o processo de desenvolvimento como a biblioteca de carregamento de imagens [Coil](https://coil-kt.github.io/coil/) que facilitaram a implementação de placeholders nas ImageViews, a biblioteca de injeção de dependencias [Koin](https://insert-koin.io/), assim como algumas outras mais difundidas na comunidade como ViewModels, Retrofit2, AndroidX e Material Design.
 
 Uma coisa que gostaria de ter implementado porém não consegui em razão do tempo e outras atividades que me ocuparam foram os testes unitários e de instrumentação.
 
-Abaixo segue algumas capturas de tela da aplicação desenvolvida.
+Abaixo seguem algumas capturas de tela da aplicação desenvolvida.
 
 ![image](https://user-images.githubusercontent.com/83781823/171043693-3ba6e098-6de7-43bb-afa0-0afe9757eefa.png)
 
