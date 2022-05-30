@@ -1,8 +1,13 @@
 package br.com.micaelpimentel.sicredevent.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.ShareActionProvider
 import br.com.micaelpimentel.sicredevent.R
 import br.com.micaelpimentel.sicredevent.api.model.Checkin
 import br.com.micaelpimentel.sicredevent.api.model.Event
@@ -22,12 +27,36 @@ class EventDetailActivity : AppCompatActivity() {
         ActivityEventDetailBinding.inflate(layoutInflater)
     }
 
+    private lateinit var event: Event
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         setupObservers()
         tryGetEvent()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.event_details_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.menu_item_share -> {
+                val sendIntent: Intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_SUBJECT, event.title)
+                    putExtra(Intent.EXTRA_TEXT, event.description)
+                    type = "text/plain"
+                }
+                val shareIntent = Intent.createChooser(sendIntent, null)
+                startActivity(shareIntent)
+            }
+
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun setupObservers() {
@@ -48,6 +77,7 @@ class EventDetailActivity : AppCompatActivity() {
 
     private fun setupEventDetailsObservers() {
         eventsViewModel.eventDetailsResponse.observe(this) {
+            this.event = it
             setupViews(it)
         }
 

@@ -14,8 +14,7 @@
         android:theme="@style/Theme.SicredEvent">
         <activity
             android:name=".ui.EventDetailActivity"
-            android:exported="true"
-            android:theme="@style/NoActionBar" />
+            android:exported="true" />
         <activity
             android:name=".ui.MainActivity"
             android:exported="true">
