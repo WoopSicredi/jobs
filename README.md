@@ -1,57 +1,19 @@
-# Transformação Digital
+# Teste para Desenvolvedor(a) Android - Sicredi
 
-Estamos buscando pessoas inspiradas por tecnologia e inovação, capazes e engajadas para construir juntos uma plataforma digital cooperativa para o futuro.
+O projeto foi feito em kotlin usando a arquitetura MVVM (Model View ViewModel). Fiz dessa maneira por ter mais familiaridade e ser um dos padrões de arquitetura mais utilizados e também recomendado pelo Google.
 
-## Sobre Nós
+Há algumas bibliotecas que tomei a liberdade de utilizar para facilitar o processo de desenvolvimento como a biblioteca de carregamento de imagens [Coil](https://coil-kt.github.io/coil/) que facilitaram a implementação de placeholders nas ImageViews, a biblioteca de injeção de dependencias [Koin](https://insert-koin.io/), assim como algumas outras mais difundidas na comunidade como ViewModels, Retrofit2, AndroidX e Material Design.
 
-Somos uma das maiores instituições financeiras cooperativas do país e uma das melhores empresas para trabalhar no Brasil. Isso mostra que, aqui, os números não são o mais importante. Somos uma organização cooperativa feita de pessoas e para pessoas.​
+Uma coisa que gostaria de ter implementado porém não consegui em razão do tempo e outras atividades que me ocuparam foram os testes unitários e de instrumentação.
 
-Aqui, todos tem voz e participam das decisões. Mas não é só isso que nos faz diferentes das instituições financeiras comuns. Acreditamos no relacionamento para gerar crescimento, no cuidado com o bem-estar das pessoas no presente e no seu desenvolvimento para o futuro. Sabemos que, juntos, todos ganhamos.
+Abaixo seguem algumas capturas de tela da aplicação desenvolvida.
 
-Faça parte dessa história. Aqui, seu trabalho é reconhecido e faz a diferença para a vida de milhares de Associados.
+![image](https://user-images.githubusercontent.com/83781823/171043693-3ba6e098-6de7-43bb-afa0-0afe9757eefa.png)
 
-## Conheça os nossos pilares
+![image](https://user-images.githubusercontent.com/83781823/171043712-f9b1f0a2-c9f9-43c7-8881-b486fba943cf.png)
 
-#### DESIGN
+![image](https://user-images.githubusercontent.com/83781823/171043783-1357ba60-903d-4032-bb66-f2c8b344a38a.png)
 
-Não basta parecer simples. Tem que ser simples. Encantar nossos usuários a cada interação.
+![image](https://user-images.githubusercontent.com/83781823/171043796-6cbf5637-2cbf-4ee8-a1d6-182530557f56.png)
 
-#### ENGAJAMENTO
-
-Construímos experiências surpreendentes e relevantes para a vida das pessoas. Garantir a satisfação dos usuários é o que nos move.
-
-#### AGILIDADE
-
-Criamos rápido. Lançamos rápido. Aprendemos e resolvemos rápido. Melhoramos sempre.
-
-## Atitudes que valorizamos!
-
-#### SIMPLICIDADE
-
-Focamos no que realmente importa.
-
-#### FOCO NO USUÁRIO
-
-O usuário é sempre o centro de tudo.
-
-#### EMPREENDEDORISMO
-
-Somos visionários e sonhadores. 
-Acreditamos e realizamos.
-
-#### INOVAÇÃO
-
-Somos curiosos e queremos criar novas tendências.
-
-#### COLABORAÇÃO
-
-Somos uma cooperativa.
-Fazemos juntos para fazer a diferença.
-
-#### APRENDIZAGEM
-
-Não sabemos tudo.
-Mas tudo o que sabemos é compartilhado.
-
-## Vagas
-https://sicredi.gupy.io
+![image](https://user-images.githubusercontent.com/83781823/171043841-912438e6-0a1b-49fe-a858-88e2a1162eb6.png)

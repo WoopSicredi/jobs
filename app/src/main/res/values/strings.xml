@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Sicred Event</string>
+    <string name="unsuccessful_load_event_details">Não foi possível carregar os detalhes do evento</string>
+    <string name="successful_checkin_message">Checkin realizado com sucesso</string>
+    <string name="unsuccessful_checkin_message">Ocorreu um erro ao efetuar o checkin no evento</string>
+    <string name="checkin_label">checkin</string>
+    <string name="erro_load_events">Erro ao carregar eventos</string>
+    <string name="name">Nome</string>
+    <string name="email">Email</string>
+    <string name="confirm_checkin">Confirmar Checkin</string>
+    <string name="share_label">Compartilhar</string>
+</resources>
